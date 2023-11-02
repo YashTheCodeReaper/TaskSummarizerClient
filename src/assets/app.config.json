@@ -1,0 +1,7 @@
+{
+  "baseApiUrl": "https://localhost:3000",
+  "apiVersionUrl": "/tetherfi/jiraautomator/api/v1",
+  "apiRouters": {
+    "registerUser": "/auth/createUser"
+  }
+}

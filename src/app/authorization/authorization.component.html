@@ -1,0 +1,35 @@
+<section class="authorization-wrapper">
+  <!-- <div class="aw_header-right">
+    <h4>Already have an account? <a href="#">Sign in</a></h4>
+  </div> -->
+  <div class="aw-left">
+    <div class="logo-box">
+      <i class="fi fi-brands-jira"></i>
+      <h4>Task Summarizer</h4>
+    </div>
+    <div class="stages-container">
+      <div class="stage-flex {{stage.status}}-stage" *ngFor="let stage of stages">
+        <i *ngIf="stage.status != 'active'" class="fi fi-sr-check-circle"></i>
+        <img *ngIf="stage.status == 'active'" src="assets/images/loading-1.svg" alt="loading_icon">
+        <div class="stage-content-flex">
+          <h4>{{stage.name}}</h4>
+          <h5>{{stage.description}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="aw-right">
+    <div class="stage-forms-container">
+      <div class="overlay top-overlay"></div>
+      <div class="overlay bottom-overlay"></div>
+      <div class="stage-forms-left">
+        <div class="form-container"></div>
+        <!-- <div class="form-container"></div> -->
+      </div>
+      <div class="stage-forms-right">
+        <div class="form-container"></div>
+        <!-- <div class="form-container"></div> -->
+      </div>
+    </div>
+  </div>
+</section>
