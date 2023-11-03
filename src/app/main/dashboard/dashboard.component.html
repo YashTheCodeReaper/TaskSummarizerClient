@@ -1,3 +1,142 @@
 <section class="dashboard_section">
-
+  <div class="ds-top">
+    <div class="board-info">
+      <div class="branched-board">
+        <div class="branch-box"></div>
+        <p>Yashwanth's board</p>
+      </div>
+      <i style="color: #f48c7d;" class="fi fi-br-circle"></i>
+      <h3>Compilers Clan</h3>
+      <div class="team-members-short-flex">
+        <div style="margin-right: -0.5rem;" class="mini-image-circle">
+          <img src="https://i.pravatar.cc/150?img=20">
+        </div>
+        <div style="margin-right: -0.5rem;" class="mini-image-circle">
+          <img src="https://i.pravatar.cc/150?img=30">
+        </div>
+        <div style="margin-right: -0.5rem;" class="mini-image-circle">
+          <img src="https://i.pravatar.cc/150?img=40">
+        </div>
+        <div class="mini-image-circle number-circle">
+          <p>+9</p>
+        </div>
+      </div>
+      <div class="invite-user-button" role="button">
+        <i class="fi fi-rr-plus-small"></i>
+      </div>
+    </div>
+    <div class="app-utilities">
+      <div class="task-search-container">
+        <i class="fi fi-rr-search"></i>
+        <input type="text" placeholder="Search tasks here">
+      </div>
+      <div class="medium-button" role="button">
+        <i class="fi fi-rr-bell"></i>
+        <div class="bell"></div>
+      </div>
+      <div class="medium-button" role="button">
+        <i class="fi fi-rr-file-download"></i>
+      </div>
+      <div class="link-sharer">
+        <h5>Share</h5>
+        <h5 class="link-option" role="button">
+          <span>Link</span>
+          <i class="fi fi-rr-angle-down"></i>
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div class="ds-top-middle">
+    <div class="dstm-left">
+      <div class="format-switcher">
+        <h5 class="link-option" role="button">
+          <span>Card</span>
+        </h5>
+        <h5 role="button">
+          <span>Table</span>
+        </h5>
+        <h5 role="button">
+          <span>Blocks</span>
+        </h5>
+      </div>
+      <div class="duration-switcher">
+        <h5 role="button">
+          <span>Last week</span>
+          <i class="fi fi-rr-angle-down"></i>
+        </h5>
+      </div>
+    </div>
+    <div class="dstm-right">
+      <div class="last-edited-by">
+        <h5><i class="fi fi-rr-edit"></i><span>20 minutes ago</span></h5>
+        <div class="editor-flex">
+          <img src="https://i.pravatar.cc/150?img=25" alt="">
+          <h5>Yashwanth</h5>
+        </div>
+      </div>
+      <div class="month-year-flex">
+        <i class="fi fi-rr-angle-small-left"></i>
+        <h3>Nov, <span>2023</span></h3>
+        <i class="fi fi-rr-angle-small-right"></i>
+      </div>
+    </div>
+  </div>
+  <div class="ds-middle">
+    <div class="time-column">
+      <div class="offset-box"></div>
+      <div class="time-block-flex">
+        <p style="margin-top: 0;">10:00</p>
+        <p>10:15</p>
+        <p class="active-time">10:30</p>
+        <p>10:45</p>
+        <p>11:15</p>
+        <p>11:30</p>
+        <p>11:45</p>
+        <p>12:00</p>
+        <p>12:15</p>
+        <p>12:30</p>
+      </div>
+    </div>
+    <div class="sheet-enclosure">
+      <div class="day-blocks">
+        <div class="day">
+          <h2>01</h2>
+          <span>/Mon</span>
+        </div>
+        <div class="day">
+          <h2>02</h2>
+          <span>/Tue</span>
+        </div>
+        <div class="day">
+          <h2>03</h2>
+          <span>/Wed</span>
+        </div>
+        <div class="day">
+          <h2>04</h2>
+          <span>/Thu</span>
+        </div>
+        <div class="day">
+          <h2>05</h2>
+          <span>/Fri</span>
+        </div>
+      </div>
+      <div class="task-sheet">
+        <div class="task-column">
+          <div class="task-timeline-block" *ngFor="let item of [0,1,2,3,4,5,6,7,8]"></div>
+        </div>
+        <div class="task-column">
+          <div class="task-timeline-block" *ngFor="let item of [0,1,2,3,4,5,6,7,8]"></div>
+        </div>
+        <div class="task-column">
+          <div class="task-timeline-block" *ngFor="let item of [0,1,2,3,4,5,6,7,8]"></div>
+        </div>
+        <div class="task-column">
+          <div class="task-timeline-block" *ngFor="let item of [0,1,2,3,4,5,6,7,8]"></div>
+        </div>
+        <div class="task-column">
+          <div class="task-timeline-block" *ngFor="let item of [0,1,2,3,4,5,6,7,8]"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

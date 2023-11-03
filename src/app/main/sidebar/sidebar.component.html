@@ -1,4 +1,6 @@
 <section class="sidebar_section">
+
+  <!-- Sidebar top template -->
   <div class="ss_top">
     <div class="sst_profile-search">
       <div class="profile-flex">
@@ -21,11 +23,15 @@
     </div>
     <div class="sst_app-search">
       <i class="fi fi-rr-search"></i>
-      <input type="text" placeholder="Search anything here...">
+      <input type="text" placeholder="Search boards here...">
     </div>
   </div>
+
+  <!-- Sidebar middle template -->
   <div class="ss_middle">
     <p class="ss_side-text">Overview</p>
+
+    <!-- Sidebar pills -->
     <div class="sidebar-pill">
       <div class="pill-left">
         <i class="fi fi-rr-apps"></i>
@@ -33,11 +39,31 @@
       </div>
       <i class="fi active-dot fi-ss-dot-circle"></i>
     </div>
-    <div class="board-info-flex">
+
+    <!-- Dashboard team info -->
+    <div class="team-info-flex">
       <div class="team-dropdown">
         <i class="fi fi-rr-folder-open"></i>
         <p>Compilers Clan</p>
         <i class="fi dropdown-icon fi-br-angle-up"></i>
+      </div>
+      <div class="boards-info-flex">
+        <div class="board-flex">
+          <i style="color: #f48c7d;" class="fi fi-br-circle"></i>
+          <p>Yashwanth's board</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal boards info -->
+    <div class="boards-info-flex" style="padding-bottom: 1rem;">
+      <div class="board-flex">
+        <i style="color: #24c3a9;" class="fi fi-rr-triangle"></i>
+        <p>My personal board</p>
+      </div>
+      <div style="color: var(--theme-var-1);" class="board-flex">
+        <i class="fi fi-br-plus"></i>
+        <p>Create new board</p>
       </div>
     </div>
     <div class="sidebar-pill">
@@ -62,7 +88,7 @@
           <img src="https://i.pravatar.cc/150?img=40">
         </div>
         <div class="mini-image-circle number-circle">
-          <p>9</p>
+          <p>+9</p>
         </div>
       </div>
     </div>
@@ -81,8 +107,12 @@
       <span class="spsetting-warn-sinfo"><i class="fi fi-rr-info"></i></span>
     </div>
   </div>
+
+  <!-- Sidebar bottom template -->
   <div class="ss_bottom">
     <p class="ss_side-text">Onboarding</p>
+
+    <!-- Onboarding flex -->
     <div class="bottom-options-flex">
       <div class="ob-icons-flex">
         <span class="active-ob">
@@ -101,12 +131,20 @@
       <div class="theme-switcher">
         <div class="active-roller"></div>
         <div class="icon-flex">
-          <i class="fi fi-sr-sun"></i>
+          <i class="fi fi-rr-brightness"></i>
         </div>
         <div class="icon-flex">
           <i class="fi fi-sr-moon"></i>
         </div>
       </div>
+    </div>
+
+    <div class="join-team-flex">
+      <div class="join-button" role="button">
+        <i class="fi fi-rr-link-alt"></i>
+      </div>
+      <h5>Join a team</h5>
+      <p>or <span>Invite others</span></p>
     </div>
   </div>
 </section>
