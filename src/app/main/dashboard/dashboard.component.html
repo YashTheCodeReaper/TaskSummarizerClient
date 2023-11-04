@@ -50,7 +50,7 @@
     <div class="dstm-left">
       <div class="format-switcher">
         <h5 class="link-option" role="button">
-          <span>Card</span>
+          <span>Timeline</span>
         </h5>
         <h5 role="button">
           <span>Table</span>
@@ -82,59 +82,109 @@
     </div>
   </div>
   <div class="ds-middle">
-    <div class="time-column">
-      <div class="offset-box"></div>
-      <div class="time-block-flex">
-        <p style="margin-top: 0;">10:00</p>
-        <p>10:15</p>
-        <p class="active-time">10:30</p>
-        <p>10:45</p>
-        <p>11:15</p>
-        <p>11:30</p>
-        <p>11:45</p>
-        <p>12:00</p>
-        <p>12:15</p>
-        <p>12:30</p>
-      </div>
-    </div>
     <div class="sheet-enclosure">
-      <div class="day-blocks">
-        <div class="day">
-          <h2>01</h2>
-          <span>/Mon</span>
+      <div class="day-flex">
+        <div class="day-box">
+          <h5>Mo<span>01</span></h5>
         </div>
-        <div class="day">
-          <h2>02</h2>
-          <span>/Tue</span>
+        <div class="day-box active-day">
+          <h5>Tu<span>02</span></h5>
         </div>
-        <div class="day">
-          <h2>03</h2>
-          <span>/Wed</span>
+        <div class="day-box">
+          <h5>We<span>03</span></h5>
         </div>
-        <div class="day">
-          <h2>04</h2>
-          <span>/Thu</span>
+        <div class="day-box">
+          <h5>Th<span>04</span></h5>
         </div>
-        <div class="day">
-          <h2>05</h2>
-          <span>/Fri</span>
+        <div class="day-box">
+          <h5>Fr<span>05</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>Sa<span>06</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>Su<span>07</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>Mo<span>01</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>Tu<span>02</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>We<span>03</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>Th<span>04</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>Fr<span>05</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>Sa<span>06</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>Su<span>07</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>Th<span>04</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>Fr<span>05</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>Sa<span>06</span></h5>
+        </div>
+        <div class="day-box">
+          <h5>Su<span>07</span></h5>
         </div>
       </div>
-      <div class="task-sheet">
-        <div class="task-column">
-          <div class="task-timeline-block" *ngFor="let item of [0,1,2,3,4,5,6,7,8]"></div>
+      <div class="sheet-enclosure-1">
+        <div class="time-flex">
+          <div class="time-box">
+            <p>10:00 AM</p>
+          </div>
+          <div class="time-box">
+            <p>11:00 AM</p>
+          </div>
+          <div class="time-box">
+            <p>12:00 AM</p>
+          </div>
+          <div class="time-box">
+            <p>13:00 AM</p>
+          </div>
+          <div class="time-box">
+            <p>14:00 AM</p>
+          </div>
+          <div class="time-box">
+            <p>15:00 AM</p>
+          </div>
+          <div class="time-box">
+            <p>16:00 AM</p>
+          </div>
+          <div class="time-box">
+            <p>17:00 AM</p>
+          </div>
+          <div class="time-box">
+            <p>18:00 AM</p>
+          </div>
+          <div class="time-box">
+            <p>19:00 AM</p>
+          </div>
         </div>
-        <div class="task-column">
-          <div class="task-timeline-block" *ngFor="let item of [0,1,2,3,4,5,6,7,8]"></div>
-        </div>
-        <div class="task-column">
-          <div class="task-timeline-block" *ngFor="let item of [0,1,2,3,4,5,6,7,8]"></div>
-        </div>
-        <div class="task-column">
-          <div class="task-timeline-block" *ngFor="let item of [0,1,2,3,4,5,6,7,8]"></div>
-        </div>
-        <div class="task-column">
-          <div class="task-timeline-block" *ngFor="let item of [0,1,2,3,4,5,6,7,8]"></div>
+        <div class="sheet-enclosure-2">
+          <div class="task-enclosure" *ngFor="let item of [0,1,2,3,4,5,6,7,8]">
+            <div class="task-bg-block"></div>
+            <div class="task-bg-block"></div>
+            <div class="task-bg-block"></div>
+            <div class="task-bg-block"></div>
+            <div class="task-bg-block"></div>
+            <div class="task-bg-block"></div>
+            <div class="task-bg-block"></div>
+            <div class="task-bg-block"></div>
+            <div class="task-bg-block"></div>
+            <div class="task-bg-block"></div>
+          </div>
         </div>
       </div>
     </div>
