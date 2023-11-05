@@ -788,10 +788,11 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-top: 4rem;
 
-    .weekly-insights {
+    .weekly-insights,
+    .activity-log {
       height: 35rem;
       width: 50rem;
       display: flex;
@@ -828,6 +829,27 @@
         padding: 2rem;
         display: grid;
         grid-template-columns: 1fr 1.5fr;
+        position: relative;
+
+        .time-switcher {
+          position: absolute;
+          top: 2rem;
+          right: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+
+          i {
+            font-size: 1.4rem;
+          }
+
+          p {
+            opacity: 0.75;
+            font-size: 1.2rem;
+            font-weight: 400;
+          }
+        }
 
         .wi-analytic-label {
           width: 100%;
@@ -967,6 +989,98 @@
                 border-radius: 5rem;
               }
             }
+          }
+        }
+      }
+    }
+
+    .activity-log {
+      width: calc(100% - 54rem);
+
+      .title-flex h5 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: var(--theme-var-1);
+        opacity: 1;
+      }
+
+      .activity-container {
+        width: 100%;
+        height: 100%;
+        border-radius: 1.5rem;
+        background: var(--bg-2);
+        padding: 2rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 2rem;
+
+        .activity-flex {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 1rem;
+          position: relative;
+
+          i {
+            color: var(--theme-var-1);
+            font-size: 3rem;
+            margin-top: 1rem;
+          }
+
+          .task-category-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+
+            img {
+              height: 2rem;
+            }
+
+            p {
+              font-size: 1.6rem;
+              font-weight: 400;
+              color: var(--theme-var-1);
+            }
+          }
+
+          .status,
+          .time-log {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.2rem 1rem;
+            border-radius: 0.5rem;
+            background: var(--theme-var-1-dimmed);
+            color: var(--theme-var-1);
+            font-size: 1.4rem;
+            font-weight: 500;
+          }
+
+          .time-log {
+            background: var(--danger-color-1-dimmed);
+            color: var(--danger-color-1);
+            position: absolute;
+            top: 5rem;
+            left: 4rem;
+          }
+
+          h5 {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 90%;
+            font-size: 1.6rem;
+            font-weight: 400;
           }
         }
       }
