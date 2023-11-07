@@ -13,12 +13,14 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./authorization.component.scss'],
 })
 export class AuthorizationComponent implements OnInit {
-  newUserFormGroup!: FormGroup;
+  loginFormGroup!: FormGroup;
+  isSignIn: boolean = false;
   stages: {
     name: string;
     description: string;
-    status: 'active' | 'completed' | 'inactive';
+    flatIcon: string;
   }[] = [];
+  currentStage: number = 1;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,36 +30,57 @@ export class AuthorizationComponent implements OnInit {
       {
         name: 'Create Credentials',
         description: 'Create your credentials to proceed',
-        status: 'active',
+        flatIcon: 'fi-rr-shield-check',
       },
       {
         name: 'JIRA Setup',
-        description: 'Configure your JIRA essential credentials',
-        status: 'inactive',
+        description: 'Please verify your JIRA credential',
+        flatIcon: 'fi-brands-jira',
       },
       {
         name: 'KEKA Setup',
-        description: 'Configure your KEKA essential credentials',
-        status: 'inactive',
+        description: 'Please verify your KEKA credential',
+        flatIcon: 'fi-rr-book-user',
       },
       {
-        name: 'MS Teams Setup',
-        description: 'Configure your KEKA essential credentials',
-        status: 'inactive',
+        name: 'ZOHO Setup',
+        description: 'Please verify your ZOHO credential',
+        flatIcon: 'fi-rr-calendar',
       },
       {
         name: 'Get Set Go!',
         description: 'Proceed to the application',
-        status: 'inactive',
+        flatIcon: 'fi-sr-sledding',
       },
     ];
-    this.newUserFormGroup = this.formBuilder.group({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+
+    this.loginFormGroup = this.formBuilder.group({
+      email: new FormControl('', Validators.required),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
     });
   }
 
-  ngOnInit(): void {
-    // throw new Error('Method not implemented.');
+  ngOnInit(): void {}
+
+  onFieldFocus(fieldIndex: number): void {
+    try {
+      document
+        .querySelector(`.input-group-aw-${fieldIndex}`)
+        ?.classList.toggle('input-group-focus');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  validateField(formGroup: any, fieldName: string) {
+    return (
+      (formGroup.controls[fieldName].touched &&
+        formGroup.controls[fieldName].errors) ||
+      (!formGroup.controls[fieldName].pristine &&
+        formGroup.controls[fieldName].invalid)
+    );
   }
 }
