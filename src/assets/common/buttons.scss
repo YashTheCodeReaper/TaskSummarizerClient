@@ -1,32 +1,31 @@
 .primary-button {
   border: none;
   outline: none;
-  background: var(--main-theme);
+  background: var(--theme-var-1);
   font-family: inherit;
   color: var(--light-text-1);
-  font-size: 1.4rem;
-  font-weight: 600;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem;
   gap: 1rem;
   opacity: 0.9;
   transition: all 200ms ease;
   cursor: pointer;
+  align-self: flex-end;
+  padding: 0.5rem 1rem;
 
-  i {
-    font-size: 1rem;
+  .pb-text {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  .pb-icon {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
   }
 
   &:hover {
     opacity: 1;
   }
-}
-
-.grey-button {
-  background: #d8dadd;
-  color: var(--dark-text-1);
-  opacity: 0.7;
 }
