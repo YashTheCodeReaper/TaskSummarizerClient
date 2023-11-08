@@ -1,0 +1,259 @@
+.share_component {
+  width: 50rem;
+  padding: 1.5rem 2rem;
+  height: auto;
+  background: var(--bg-2);
+  border-radius: 1.5rem;
+  position: absolute;
+  top: 10rem;
+  right: 3rem;
+  border: 1px solid var(--border-1);
+  box-shadow: -10px 10px 10px rgba($color: #000000, $alpha: 0.25);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+
+  .link-type-switcher {
+    display: flex;
+    height: 4rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .type-flex {
+      height: 100%;
+      width: 10rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-bottom: 1px solid transparent;
+      padding-left: 0.5rem;
+      cursor: pointer;
+
+      p {
+        font-size: 1.4rem;
+        font-weight: 400;
+        opacity: 0.5;
+      }
+    }
+
+    .active-lt {
+      border-bottom: 1px solid var(--light-text-1);
+
+      p {
+        opacity: 1;
+      }
+    }
+  }
+
+  h2 {
+    font-size: 2.8rem;
+    font-weight: 400;
+    margin-top: 1rem;
+  }
+
+  &>p {
+    font-size: 1.4rem;
+    font-weight: 400;
+    opacity: 0.6;
+    margin-top: -1rem;
+  }
+
+  .invited-search-flex {
+    margin: 0.5rem 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .invite-box {
+      width: 75%;
+      padding: 0.5rem;
+      height: 4rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-1);
+      background: var(--bg-1);
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      // flex-wrap: wrap;
+      overflow-x: scroll;
+      overflow-y: hidden;
+
+      input {
+        border: none;
+        outline: none;
+        background: transparent;
+        padding: 0.5rem 1rem;
+        font-family: inherit;
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: inherit;
+        max-width: 10rem;
+
+        &::placeholder {
+          font-family: inherit;
+          font-size: 1.2rem;
+          font-weight: 400;
+          color: inherit;
+          opacity: 0.3;
+        }
+      }
+
+      .member-to-invite {
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        background: var(--bg-3);
+        cursor: pointer;
+
+        img {
+          width: 1.5rem;
+          height: 1.5rem;
+          border-radius: 5rem;
+        }
+
+        p {
+          font-size: 1.2rem;
+          font-weight: 400;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 6rem;
+        }
+
+        i {
+          font-size: 1.2rem;
+        }
+      }
+
+      &::-webkit-scrollbar {
+        width: 2px;
+        height: 2px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 50px;
+        background: var(--theme-var-1);
+      }
+    }
+
+    button {
+      width: 25%;
+      height: 4rem;
+      border: 1px solid var(--bg-2);
+    }
+  }
+
+  h5 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+
+  .team-members-flex {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    max-height: 30rem;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    .member-flex {
+      width: 100%;
+      min-height: 6.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 0.5rem;
+
+      .member-info-flex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+
+        img {
+          height: 5rem;
+          width: 5rem;
+          border-radius: 50%;
+        }
+
+        .member-title-flex {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+
+          h5 {
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-weight: 400;
+
+            .role {
+              display: inline-block;
+              padding: 0.1rem 1rem;
+              border-radius: 0.25rem;
+              background: var(--theme-var-1-dimmed);
+              color: var(--theme-var-1);
+              font-size: 1.2rem;
+            }
+
+            .name {
+              display: -webkit-box;
+              -webkit-line-clamp: 1;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 15rem;
+            }
+          }
+
+          .mailid {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.7;
+          }
+        }
+      }
+
+      &>p {
+        font-size: 1.4rem;
+        font-weight: 400;
+        opacity: 0.75;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 2px;
+      height: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 50px;
+      background: var(--theme-var-1);
+    }
+  }
+
+  hr {
+    width: 100%;
+    opacity: 0.1;
+    margin: 1rem 0;
+  }
+}

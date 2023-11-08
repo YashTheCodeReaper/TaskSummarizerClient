@@ -10,6 +10,7 @@ import { MainComponent } from './main/main.component';
 import { DashboardComponent } from './main/dashboard/dashboard.component';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ShareComponent } from './main/dashboard/share/share.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AuthorizationComponent,
     MainComponent,
     DashboardComponent,
-    SidebarComponent
+    SidebarComponent,
+    ShareComponent
   ],
   imports: [
     BrowserModule,
