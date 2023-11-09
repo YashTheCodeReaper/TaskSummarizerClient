@@ -21,9 +21,6 @@
           <p>+9</p>
         </div>
       </div>
-      <div class="invite-user-button" role="button">
-        <i class="fi fi-rr-plus-small"></i>
-      </div>
     </div>
     <div class="app-utilities">
       <div class="task-search-container">
@@ -39,7 +36,8 @@
       </div>
       <div class="link-sharer">
         <h5>Share</h5>
-        <h5 class="link-option" role="button">
+        <h5 class="link-option" role="button"
+          (click)="this.appControlService.showAppShare = !this.appControlService.showAppShare">
           <span>Link</span>
           <i class="fi fi-rr-angle-down"></i>
         </h5>
@@ -527,5 +525,5 @@
     </div>
   </div>
 
-  <app-share></app-share>
+  <app-share *ngIf="appControlService.showAppShare"></app-share>
 </section>

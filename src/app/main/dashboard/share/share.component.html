@@ -1,72 +1,104 @@
-<section class="share_component">
+<section class="share_component" appOutsideClick (outsideClick)="this.appControlService.showAppShare = false;" [clickExceptions]="['link-option']">
   <div class="link-type-switcher">
-    <div class="type-flex active-lt">
-      <p>Invite users</p>
-    </div>
-    <div class="type-flex">
+    <div [ngClass]="{'active-lt': !inviteMembers}" class="type-flex" role="button"
+      (click)="this.inviteMembers = false;">
       <p>Share link</p>
+    </div>
+    <div [ngClass]="{'active-lt': inviteMembers}" class="type-flex" role="button" (click)="this.inviteMembers = true;">
+      <p>Invite users</p>
     </div>
   </div>
   <h2>Compilers Clan</h2>
-  <p>Invite members that you need to be involved in your team!</p>
-  <div class="invited-search-flex">
-    <div class="invite-box">
-      <div class="member-to-invite">
-        <img src="https://i.pravatar.cc/50?img=30">
-        <p>Kavana K</p>
-        <i class="fi fi-rr-cross-small"></i>
+  <ng-container *ngIf="inviteMembers">
+    <p>Invite members that you need to be involved in your team!</p>
+    <div class="invited-search-flex">
+      <div class="invite-box">
+        <div class="member-to-invite">
+          <img src="https://i.pravatar.cc/50?img=30">
+          <p>Kavana K</p>
+          <i class="fi fi-rr-cross-small"></i>
+        </div>
+        <input type="text" placeholder="Search here">
       </div>
-      <input type="text" placeholder="Search here">
+      <button class="primary-button">
+        <p class="pb-text">Invite</p>
+      </button>
     </div>
-    <button class="primary-button">
-      <p class="pb-text">Invite</p>
+    <h5>Already on this team</h5>
+    <div class="team-members-flex">
+      <div class="member-flex">
+        <div class="member-info-flex">
+          <img src="https://i.pravatar.cc/50?img=31">
+          <div class="member-title-flex">
+            <h5><span class="name">Suraj Kumar</span><span class="role">Manager</span></h5>
+            <p class="mailid">suraj.kumar&#x40;tetherfi.com</p>
+          </div>
+        </div>
+        <p>TL</p>
+      </div>
+      <div class="member-flex">
+        <div class="member-info-flex">
+          <img src="https://i.pravatar.cc/50?img=33">
+          <div class="member-title-flex">
+            <h5><span class="name">Yashwanthkumar Arivazhagan</span><span class="role">Member</span></h5>
+            <p class="mailid">yashwanthkumar.arivazhagan&#x40;tetherfi.com</p>
+          </div>
+        </div>
+        <p>JSE</p>
+      </div>
+      <div class="member-flex">
+        <div class="member-info-flex">
+          <img src="https://i.pravatar.cc/50?img=34">
+          <div class="member-title-flex">
+            <h5><span class="name">Poornachandra M</span><span class="role">Member</span></h5>
+            <p class="mailid">poornachandra.m&#x40;tetherfi.com</p>
+          </div>
+        </div>
+        <p>SE</p>
+      </div>
+      <div class="member-flex">
+        <div class="member-info-flex">
+          <img src="https://i.pravatar.cc/50?img=35">
+          <div class="member-title-flex">
+            <h5><span class="name">Bharish Alva</span><span class="role">Member</span></h5>
+            <p class="mailid">bharish.alva&#x40;tetherfi.com</p>
+          </div>
+        </div>
+        <p>JSE</p>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!inviteMembers">
+    <p>Create a sharable link to get people join your team</p>
+    <h5 style="cursor: pointer;"><i class="fi fi-sr-lock"></i>Anyone with the link and password</h5>
+    <div class="password-input-flex">
+      <div class="pwl">
+        <input maxlength="1" type="password">
+        <input maxlength="1" type="password">
+        <input maxlength="1" type="password">
+      </div>
+      <i class="fi fi-rr-minus"></i>
+      <div class="pwr">
+        <input maxlength="1" type="password">
+        <input maxlength="1" type="password">
+        <input maxlength="1" type="password">
+      </div>
+    </div>
+    <div class="checkbox-group">
+      <div class="custom-checkbox" role="checkbox">
+        <div class="checkbox-ball"></div>
+      </div>
+      <p>Expire in 24 hours</p>
+    </div>
+    <ng-container *ngIf="isLinkGenerated">
+      <h5>Here's your team invite link</h5>
+      <div class="link-flex">
+        <input disabled type="text" value="??????????????????????????????????????">
+        <i class="fi fi-rr-copy-alt"></i>
+      </div>
+    </ng-container>
+    <button style="margin: 0.5rem 0;" class="primary-button">
+      <div class="pb-text">Generate link</div>
     </button>
-  </div>
-  <h5>Already on this team</h5>
-  <div class="team-members-flex">
-    <div class="member-flex">
-      <div class="member-info-flex">
-        <img src="https://i.pravatar.cc/50?img=31">
-        <div class="member-title-flex">
-          <h5><span class="name">Suraj Kumar</span><span class="role">Manager</span></h5>
-          <p class="mailid">suraj.kumar&#x40;tetherfi.com</p>
-        </div>
-      </div>
-      <p>TL</p>
-    </div>
-    <div class="member-flex">
-      <div class="member-info-flex">
-        <img src="https://i.pravatar.cc/50?img=33">
-        <div class="member-title-flex">
-          <h5><span class="name">Yashwanthkumar Arivazhagan</span><span class="role">Member</span></h5>
-          <p class="mailid">yashwanthkumar.arivazhagan&#x40;tetherfi.com</p>
-        </div>
-      </div>
-      <p>JSE</p>
-    </div>
-    <div class="member-flex">
-      <div class="member-info-flex">
-        <img src="https://i.pravatar.cc/50?img=34">
-        <div class="member-title-flex">
-          <h5><span class="name">Poornachandra M</span><span class="role">Member</span></h5>
-          <p class="mailid">poornachandra.m&#x40;tetherfi.com</p>
-        </div>
-      </div>
-      <p>SE</p>
-    </div>
-    <div class="member-flex">
-      <div class="member-info-flex">
-        <img src="https://i.pravatar.cc/50?img=35">
-        <div class="member-title-flex">
-          <h5><span class="name">Bharish Alva</span><span class="role">Member</span></h5>
-          <p class="mailid">bharish.alva&#x40;tetherfi.com</p>
-        </div>
-      </div>
-      <p>JSE</p>
-    </div>
-  </div>
-  <hr>
-  <button class="primary-button">
-    <p class="pb-text">Done</p>
-  </button>
+  </ng-container>
 </section>

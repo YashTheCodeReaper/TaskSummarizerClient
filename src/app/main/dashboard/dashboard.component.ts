@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppControlService } from 'src/app/services/app-control.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,16 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+
+  constructor(public appControlService: AppControlService){}
+
   ngOnInit(): void {
-    const timeFlexEl: any = document.querySelector('.time-block-flex');
-    const taskSheetEl: any = document.querySelector('.task-sheet');
-
-    timeFlexEl.addEventListener('scroll', function () {
-      taskSheetEl.scrollTop = timeFlexEl.scrollTop;
-    });
-
-    taskSheetEl.addEventListener('scroll', function () {
-      timeFlexEl.scrollTop = taskSheetEl.scrollTop;
-    });
   }
 }

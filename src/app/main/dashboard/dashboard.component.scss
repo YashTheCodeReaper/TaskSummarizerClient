@@ -64,24 +64,6 @@
         scale: 1.3;
         margin-left: 2rem;
       }
-
-      .invite-user-button {
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 50%;
-        border: 1px dashed var(--theme-var-1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-left: 2rem;
-        background: rgba(103, 98, 254, 0.1);
-        cursor: pointer;
-
-        i {
-          color: #6763fe;
-          font-size: 2rem;
-        }
-      }
     }
 
     .app-utilities {

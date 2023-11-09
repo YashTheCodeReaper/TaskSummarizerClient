@@ -11,6 +11,7 @@ import { DashboardComponent } from './main/dashboard/dashboard.component';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShareComponent } from './main/dashboard/share/share.component';
+import { OutsideClickDirective } from './directives/outside-click.directive';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ShareComponent } from './main/dashboard/share/share.component';
     MainComponent,
     DashboardComponent,
     SidebarComponent,
-    ShareComponent
+    ShareComponent,
+    OutsideClickDirective
   ],
   imports: [
     BrowserModule,
