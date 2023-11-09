@@ -1,0 +1,31 @@
+<section class="join-team_component">
+  <div class="icon-circle">
+    <i *ngIf="!showPassword" class="fi fi-br-link-alt"></i>
+    <i *ngIf="showPassword" class="fi fi-sr-lock"></i>
+  </div>
+  <ng-container *ngIf="!showPassword">
+    <h4>Enter the invitation link or ID</h4>
+    <p>Please get the invitation link from the team manager</p>
+    <input type="text" placeholder="https://sampleteam.com/invite?id=12345">
+  </ng-container>
+  <ng-container *ngIf="showPassword">
+    <h4>Verify credentials</h4>
+    <p>This team is password protected! Please verify</p>
+    <div class="password-input-flex">
+      <div class="pwl">
+        <input maxlength="1" type="password">
+        <input maxlength="1" type="password">
+        <input maxlength="1" type="password">
+      </div>
+      <i class="fi fi-rr-minus"></i>
+      <div class="pwr">
+        <input maxlength="1" type="password">
+        <input maxlength="1" type="password">
+        <input maxlength="1" type="password">
+      </div>
+    </div>
+  </ng-container>
+  <button class="primary-button">
+    <div class="pb-text">Join!</div>
+  </button>
+</section>

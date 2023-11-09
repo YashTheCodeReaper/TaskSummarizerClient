@@ -12,6 +12,7 @@ import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShareComponent } from './main/dashboard/share/share.component';
 import { OutsideClickDirective } from './directives/outside-click.directive';
+import { JoinTeamComponent } from './main/sidebar/join-team/join-team.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { OutsideClickDirective } from './directives/outside-click.directive';
     DashboardComponent,
     SidebarComponent,
     ShareComponent,
-    OutsideClickDirective
+    OutsideClickDirective,
+    JoinTeamComponent
   ],
   imports: [
     BrowserModule,

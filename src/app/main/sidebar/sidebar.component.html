@@ -144,7 +144,8 @@
         <i class="fi fi-rr-link-alt"></i>
       </div>
       <h5>Join a team</h5>
-      <p>or <span>Invite others</span></p>
     </div>
   </div>
 </section>
+
+<app-join-team *ngIf="appControlService.showJoinTeam"></app-join-team>

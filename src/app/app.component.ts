@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from './services/data.service';
 import { catchError, forkJoin, retry, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { AppControlService } from './services/app-control.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 export class AppComponent implements OnInit {
   configUrl: string = 'assets/app.config.json';
 
-  constructor(private dataService: DataService, private http: HttpClient) {}
+  constructor(
+    private dataService: DataService,
+    private http: HttpClient,
+    public appControlService: AppControlService
+  ) {}
 
   loadConfig = forkJoin([
     this.http.get(this.configUrl).pipe(retry(3), catchError(this.handleError)),
