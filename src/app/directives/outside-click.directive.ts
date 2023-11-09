@@ -18,18 +18,19 @@ export class OutsideClickDirective {
 
   @HostListener('document:click', ['$event'])
   onClick(event: Event): void {
-    let targetElement = event.target as HTMLElement | any;
+    const targetElement = event.target as HTMLElement | any;
     let skipEmit = false;
 
     if (this.clickExceptions.length) {
+      let targetElCopy: any = event.target;
       this.clickExceptions.forEach((className: string) => {
         if (className && !skipEmit) {
-          while (targetElement) {
-            if (targetElement.classList.contains(className)) {
+          while (targetElCopy) {
+            if (targetElCopy.classList.contains(className)) {
               skipEmit = true;
               break;
             }
-            targetElement = targetElement.parentElement;
+            targetElCopy = targetElCopy.parentElement;
           }
         }
       });
