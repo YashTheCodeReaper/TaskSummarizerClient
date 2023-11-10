@@ -1,0 +1,110 @@
+.input-group {
+  width: 100%;
+  height: 5rem;
+  border-radius: 1rem;
+  background: var(--bg-1);
+  position: relative;
+  transition: all 300ms ease;
+
+  label {
+    position: absolute;
+    top: 50%;
+    left: 2rem;
+    transform: translateY(-50%);
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 1.3rem;
+    opacity: 0.8;
+    transition: all 300ms ease;
+    pointer-events: none;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 1.6rem;
+    padding: 0 2rem;
+    padding-top: 1rem;
+    padding-right: 4rem;
+  }
+
+  .warn-icon {
+    color: var(--danger-color-1);
+    opacity: 0.75;
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    right: 2rem;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    margin-top: 0.3rem;
+  }
+}
+
+.input-group-focus {
+  height: 7rem;
+
+  label {
+    font-size: 1.1rem;
+    top: 1.75rem;
+  }
+}
+
+.input-group-focus-forced {
+  height: 7rem;
+
+  label {
+    font-size: 1.1rem;
+    top: 1.75rem;
+  }
+}
+
+.error-message {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--danger-color-1-dimmed);
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  align-self: flex-start;
+}
+
+.checkbox-group {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+
+  .custom-checkbox {
+    width: 5rem;
+    height: 2.5rem;
+    border-radius: 5rem;
+    background: var(--theme-var-1);
+    cursor: pointer;
+    position: relative;
+
+    .checkbox-ball {
+      width: 2.15rem;
+      height: 2.15rem;
+      border-radius: 5rem;
+      background: #fff;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0.15rem;
+    }
+  }
+
+  p {
+    font-size: 1.4rem;
+    font-weight: 400;
+  }
+}

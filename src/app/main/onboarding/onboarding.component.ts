@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AnimationOptions } from 'ngx-lottie';
 import { AppControlService } from 'src/app/services/app-control.service';
 
@@ -33,6 +34,8 @@ export class OnboardingComponent {
   introObData: { heading: string; description: string }[] = [];
   @ViewChild('iobsw') iobswEl!: ElementRef;
   currIndex: number = 0;
+  showProfileForm: boolean = false;
+  obProfileFormGroup!: FormGroup;
 
   constructor(public appControlService: AppControlService) {
     this.introObData = [
@@ -57,12 +60,20 @@ export class OnboardingComponent {
           'Get excited to explore other features too! Alright...Lets setup your profile!',
       },
     ];
+
+    this.obProfileFormGroup = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      designation: new FormControl('', [Validators.required]),
+      role: new FormControl('', [Validators.required]),
+    });
   }
 
   onNavigate() {
     try {
-      if (this.currIndex + 1 == this.introObData.length)
+      if (this.currIndex + 1 == this.introObData.length) {
         this.appControlService.showIntroOnboarding = false;
+        this.showProfileForm = true;
+      }
       if (this.currIndex < this.introObData.length) {
         this.currIndex++;
       }
@@ -72,5 +83,24 @@ export class OnboardingComponent {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  onFieldFocus(fieldIndex: number): void {
+    try {
+      document
+        .querySelector(`.input-group-obp-${fieldIndex}`)
+        ?.classList.toggle('input-group-focus');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  validateField(formGroup: any, fieldName: string) {
+    return (
+      (formGroup.controls[fieldName].touched &&
+        formGroup.controls[fieldName].errors) ||
+      (!formGroup.controls[fieldName].pristine &&
+        formGroup.controls[fieldName].invalid)
+    );
   }
 }

@@ -14,7 +14,7 @@ import { ApiService } from '../services/api.service';
 })
 export class AuthorizationComponent implements OnInit {
   loginFormGroup!: FormGroup;
-  isSignIn: boolean = false;
+  isSignIn: boolean = true;
   stages: {
     name: string;
     description: string;
