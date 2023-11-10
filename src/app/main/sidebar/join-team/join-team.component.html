@@ -1,4 +1,5 @@
-<section class="join-team_component">
+<section class="join-team_component" appOutsideClick (outsideClick)="this.appControlService.showJoinTeam = false;"
+  [clickExceptions]="['join-team-flex']">
   <div class="icon-circle">
     <i *ngIf="!showPassword" class="fi fi-br-link-alt"></i>
     <i *ngIf="showPassword" class="fi fi-sr-lock"></i>

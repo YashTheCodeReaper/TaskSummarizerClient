@@ -1,0 +1,26 @@
+<section class="onboarding_component">
+  <div class="intro-obc-slider-wrapper" *ngIf="appControlService.showIntroOnboarding">
+    <div class="iobcsw-enclosure" #iobsw>
+      <div class="ob-flex-container" *ngFor="let item of introObData; let i = index">
+        <div class="top-grid">
+          <ng-lottie [height]="'200px'" [options]="lottieConfig[i]"></ng-lottie>
+        </div>
+        <div class="bottom-grid">
+          <h4>{{item.heading}}</h4>
+          <p>{{item.description}}</p>
+        </div>
+      </div>
+    </div>
+    <div style="--iobdi: {{360/4 * (currIndex)}}deg" class="button-container" role="button" (click)="onNavigate()">
+      <div class="bc-bg">
+        <div class="bc-bg-1">
+          <i class="fi fi-rr-arrow-small-right"></i>
+        </div>
+      </div>
+    </div>
+    <div class="paginator">
+      <div *ngFor="let item of introObData; let i = index" class="page-index"
+        [ngClass]="{'active-index': i==currIndex}"></div>
+    </div>
+  </div>
+</section>

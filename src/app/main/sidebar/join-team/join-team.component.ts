@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppControlService } from 'src/app/services/app-control.service';
 
 @Component({
   selector: 'app-join-team',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class JoinTeamComponent {
   showPassword: boolean = false;
+
+  constructor(public appControlService: AppControlService){}
 }

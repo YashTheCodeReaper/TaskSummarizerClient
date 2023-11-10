@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class AppControlService {
   showAppShare: boolean = false;
   showJoinTeam: boolean = false;
+  showOnboarding: boolean = true;
+  showIntroOnboarding: boolean = true;
 
   constructor() { }
 }

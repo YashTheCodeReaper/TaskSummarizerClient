@@ -13,6 +13,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShareComponent } from './main/dashboard/share/share.component';
 import { OutsideClickDirective } from './directives/outside-click.directive';
 import { JoinTeamComponent } from './main/sidebar/join-team/join-team.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OnboardingComponent } from './main/onboarding/onboarding.component';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [
@@ -23,7 +31,8 @@ import { JoinTeamComponent } from './main/sidebar/join-team/join-team.component'
     SidebarComponent,
     ShareComponent,
     OutsideClickDirective,
-    JoinTeamComponent
+    JoinTeamComponent,
+    OnboardingComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +40,11 @@ import { JoinTeamComponent } from './main/sidebar/join-team/join-team.component'
     CommonModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
