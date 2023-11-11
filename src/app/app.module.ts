@@ -15,12 +15,9 @@ import { OutsideClickDirective } from './directives/outside-click.directive';
 import { JoinTeamComponent } from './main/sidebar/join-team/join-team.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OnboardingComponent } from './main/onboarding/onboarding.component';
-import { LottieModule } from 'ngx-lottie';
-import player from 'lottie-web';
-
-export function playerFactory() {
-  return player;
-}
+import { IntroComponent } from './main/onboarding/intro/intro.component';
+import { ObProfileComponent } from './main/onboarding/ob-profile/ob-profile.component';
+import { NewBoardComponent } from './main/sidebar/new-board/new-board.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +30,9 @@ export function playerFactory() {
     OutsideClickDirective,
     JoinTeamComponent,
     OnboardingComponent,
+    IntroComponent,
+    ObProfileComponent,
+    NewBoardComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,8 +41,7 @@ export function playerFactory() {
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
-    LottieModule.forRoot({ player: playerFactory }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

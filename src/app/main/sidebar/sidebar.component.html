@@ -63,7 +63,7 @@
       </div>
       <div style="color: var(--theme-var-1);" class="board-flex">
         <i class="fi fi-br-plus"></i>
-        <p>Create new board</p>
+        <p style="font-weight: 500;">Create new board</p>
       </div>
     </div>
     <div class="sidebar-pill">
@@ -149,3 +149,4 @@
 </section>
 
 <app-join-team *ngIf="appControlService.showJoinTeam"></app-join-team>
+<app-new-board *ngIf="appControlService.showNewBoard"></app-new-board>

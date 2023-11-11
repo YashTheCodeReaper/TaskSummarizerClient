@@ -1,0 +1,105 @@
+.intro-obc-slider-wrapper {
+  width: 40rem;
+  height: 60rem;
+  background: var(--theme-var-1);
+  color: var(--light-text-1);
+  border-radius: 1.5rem;
+  border: 1px solid var(--border-1);
+  box-shadow: -10px 10px 10px rgba($color: #000000, $alpha: 0.25);
+  transition: all 300ms ease;
+  animation: slideUp 200ms ease-out forwards;
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 200ms ease-out forwards;
+
+  .iobcsw-enclosure {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    transition: all 300ms ease-out;
+
+    .ob-flex-container {
+      min-width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 2fr 1fr;
+      gap: 2rem;
+
+      .top-grid,
+      .bottom-grid {
+        width: 100%;
+        height: 100%;
+        display: flex;
+      }
+
+      .top-grid {
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        img {
+          max-height: 65%;
+        }
+      }
+
+      .bottom-grid {
+        align-items: flex-start;
+        justify-content: center;
+
+        h4 {
+          font-size: 2.2rem;
+          font-weight: 400;
+          max-width: 60%;
+          text-align: center;
+          margin-top: -4rem;
+        }
+      }
+    }
+  }
+
+  .paginator {
+    height: 1rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: absolute;
+    bottom: 12rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .page-index {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 5rem;
+      background: var(--light-text-1);
+      opacity: 0.6;
+      transition: all 300ms ease-out;
+    }
+
+    .active-index {
+      width: 2rem;
+      opacity: 1;
+    }
+  }
+
+  .primary-button {
+    position: absolute;
+    bottom: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 6rem);
+    height: 5rem;
+    background: var(--light-text-1);
+
+    .pb-text{
+      color: var(--theme-var-1) !important;
+      font-size: 1.6rem;
+    }
+  }
+}

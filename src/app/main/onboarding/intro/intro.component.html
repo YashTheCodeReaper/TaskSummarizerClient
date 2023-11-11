@@ -1,0 +1,19 @@
+<div class="intro-obc-slider-wrapper">
+  <div class="iobcsw-enclosure" #iobsw>
+    <div class="ob-flex-container" *ngFor="let item of introObData; let i = index">
+      <div class="top-grid">
+        <img src="assets/images/main/onboarding/iobd-{{i+1}}.svg" alt="">
+      </div>
+      <div class="bottom-grid">
+        <h4>{{item.heading}}</h4>
+      </div>
+    </div>
+  </div>
+  <button class="primary-button" role="button" (click)="onNavigate()">
+    <div class="pb-text">Next</div>
+  </button>
+  <div class="paginator">
+    <div *ngFor="let item of introObData; let i = index" class="page-index"
+      [ngClass]="{'active-index': i==currIndex}"></div>
+  </div>
+</div>

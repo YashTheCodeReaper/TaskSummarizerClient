@@ -7,7 +7,7 @@ export class AppControlService {
   showAppShare: boolean = false;
   showJoinTeam: boolean = false;
   showOnboarding: boolean = false;
-  showIntroOnboarding: boolean = true;
+  showNewBoard: boolean = false;
 
   constructor() { }
 }

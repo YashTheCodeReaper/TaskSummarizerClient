@@ -1,0 +1,157 @@
+<section class="new-board_component">
+  <div class="icon-circle">
+    <i class="fi fi-ss-dice-d6"></i>
+  </div>
+  <div class="stages-flex">
+    <ng-container *ngFor="let stage of stages; let i = index">
+      <div class="stage-icon-holder" [ngClass]="{'active-stage': currentStage >= i}">
+        <i class="fi {{stage.icon}}"></i>
+        <div class="completed" [ngClass]="{'active-completed': currentStage >= i+1}">
+          <i class="fi fi-br-check"></i>
+        </div>
+      </div>
+      <div class="connector" [ngClass]="{'active-connector': currentStage >= i+1}" *ngIf="i < stages.length-1"></div>
+    </ng-container>
+  </div>
+  <div class="cb-enclosure">
+    <div class="cb-enclosure-1">
+      <div class="cb-enclosure-2" #cbe2>
+        <div class="cb-enclosure-box" *ngFor="let stage of stages">
+          <h4>{{stage.name}}</h4>
+          <p>{{stage.description}}</p>
+
+          <ng-container *ngIf="currentStage == 0">
+            <form [formGroup]="createBoardFormGroup">
+              <div class="input-group input-group-cb1-0"
+                [ngClass]="{'input-group-focus-forced': createBoardFormGroup.controls['name'].value?.length}">
+                <label for="name">Set a name</label>
+                <input formControlName="name" type="text" (focus)="onFieldFocus(0)" (blur)="onFieldFocus(0)">
+                <i *ngIf="validateField(createBoardFormGroup, 'name')" class="warn-icon fi fi-sr-info"></i>
+              </div>
+              <span class="error-message" *ngIf="validateField(createBoardFormGroup, 'name')">Please choose a name to
+                proceed!</span>
+              <span class="error-message info-message">
+                Set a name for your board which will be visible to the users who want to view your board.
+              </span>
+              <div class="input-group input-group-cb1-1" style="margin-top: 2rem;"
+                [ngClass]="{'input-group-focus-forced': createBoardFormGroup.controls['description'].value?.length}">
+                <label for="description">Enter a description</label>
+                <input formControlName="description" type="text" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
+                <i *ngIf="validateField(createBoardFormGroup, 'description')" class="warn-icon fi fi-sr-info"></i>
+              </div>
+              <span class="error-message" *ngIf="validateField(createBoardFormGroup, 'description')">Say something about
+                this board</span>
+              <span class="error-message info-message">
+                Give a short description on what the board is about. Private board description won't be revealed.
+              </span>
+            </form>
+          </ng-container>
+
+          <ng-container *ngIf="currentStage == 1">
+            <div class="trackables-flex">
+              <div class="trackable" *ngFor="let trackable of trackables; let i = index"
+                [ngClass]="{'actively-tracked': trackable.status == 'active'}" (click)="onTrackableCheck(i)">
+                <i *ngIf="trackable.status == 'active'" class="active-check fi fi-sr-check-circle"></i>
+                <div class="image-container">
+                  <img src="{{trackable.image}}" alt="">
+                </div>
+                <div class="trackable-info-flex">
+                  <h4>{{trackable.name}}</h4>
+                  <p>{{trackable.description}}</p>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="currentStage == 2">
+            <div class="checkbox-group" style="margin-top: 1rem;">
+              <div class="custom-checkbox" role="checkbox" [ngClass]="{'inactive-checkbox': !this.isPrivateBoard}"
+                (click)="this.isPrivateBoard = !this.isPrivateBoard">
+                <div class="checkbox-ball"></div>
+              </div>
+              <p>Make the board private</p>
+            </div>
+            <span class="error-message info-message">
+              Private boards cannot be added to a team. Only you can access/read the board. Not even super-user can
+              access it.
+            </span>
+            <div class="checkbox-group" style="margin-top: 1rem;">
+              <div class="custom-checkbox" role="checkbox" [ngClass]="{'inactive-checkbox': !this.enableTimeTracking}"
+                (click)="this.enableTimeTracking = !this.enableTimeTracking">
+                <div class="checkbox-ball"></div>
+              </div>
+              <p>Enable task time tracking</p>
+            </div>
+            <span class="error-message info-message">
+              Upon enabling it, you and the inspector can track timeline for all of your tasks.
+            </span>
+            <div class="checkbox-group" style="margin-top: 1rem;">
+              <div class="custom-checkbox" role="checkbox" [ngClass]="{'inactive-checkbox': !this.enableExport}"
+                (click)="this.enableExport = !this.enableExport">
+                <div class="checkbox-ball"></div>
+              </div>
+              <p>Enable task sheet exporting</p>
+            </div>
+            <span class="error-message info-message">
+              Enabling it will give access to you and the inspector to export the task data as csv.
+            </span>
+          </ng-container>
+
+          <ng-container *ngIf="currentStage == 3">
+            <div class="board-summary-flex">
+              <h4>{{createBoardFormGroup.value?.name}}</h4>
+              <p>{{createBoardFormGroup.value?.description}}</p>
+              <h5 style="margin-top: 1rem;">Trackables<i (mouseenter)="this.showTrackableInfo = true;"
+                  (mouseleave)="this.showTrackableInfo = false" class="fi fi-sr-interrogation"></i>
+                <span *ngIf="showTrackableInfo" class="trackable-detail">
+                  These are the things which will be tracked in the board. Both you and the inspector will only be able
+                  to monitor the task as below.
+                </span>
+              </h5>
+              <div class="trackables-flex" style="margin-top: -0.5rem;">
+                <div class="trackable" *ngFor="let trackable of getActiveTrackables()">
+                  <img src="{{trackable.image}}">
+                  <p>{{trackable.name}}</p>
+                </div>
+              </div>
+              <h5>
+                Time tracking {{enableTimeTracking ? 'enabled' : 'disabled'}}
+                <i (mouseenter)="this.showTimeTrackingInfo = true;"
+                  (mouseleave)="this.showTimeTrackingInfo = false" class="fi fi-sr-interrogation"></i>
+                <span *ngIf="showTimeTrackingInfo" class="trackable-detail">
+                  {{enableTimeTracking ? 'In your board, you and the inspector will have the ability to track time along with the tasks.' : 'In your board, you and the inspector will not have the ability to track time along with the tasks.'}}
+                </span>
+              </h5>
+              <h5>This board will be {{isPrivateBoard ? 'private' : 'public'}}
+                <i (mouseenter)="this.showPrivateBoardInfo = true;"
+                  (mouseleave)="this.showPrivateBoardInfo = false" class="fi fi-sr-interrogation"></i>
+                <span *ngIf="showPrivateBoardInfo" class="trackable-detail">
+                  {{isPrivateBoard ? 'This board is made private. Only you can access this board. Not even super user can access it.' : 'This board is made public. Anyone (you/manager/super-user) can access your board'}}
+                </span>
+              </h5>
+              <h5>Task exporting {{enableExport ? 'enabled' : 'disabled'}}
+                <i (mouseenter)="this.showExportInfo = true;"
+                  (mouseleave)="this.showExportInfo = false" class="fi fi-sr-interrogation"></i>
+                <span *ngIf="showExportInfo" class="trackable-detail">
+                  {{enableExport ? 'You and the inspector will be able to export your task data into a csv. User can export from the application.' : 'You and the inspector will not be able to export your task data into a csv. User cannot export from the application.'}}
+                </span>
+              </h5>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="button-flex">
+    <button [disabled]="!currentStage" class="primary-button danger-button"
+      [ngClass]="{'blocked-button': currentStage == 0 }" (click)="onProceed('bwd')">
+      <i class="pb-icon fi fi-rr-arrow-left"></i>
+      <div class="pb-text">Back</div>
+    </button>
+    <button class="primary-button" [ngClass]="{'blocked-button': !getButtonStatus() }" (click)="onProceed('fwd')">
+      <div class="pb-text">{{currentStage == 3 ? 'Create board' : 'Next'}}</div>
+      <i class="pb-icon fi fi-rr-arrow-right"></i>
+    </button>
+  </div>
+</section>
