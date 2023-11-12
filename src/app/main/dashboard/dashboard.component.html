@@ -31,13 +31,13 @@
         <i class="fi fi-rr-bell"></i>
         <div class="bell"></div>
       </div>
-      <div class="medium-button" role="button">
+      <div class="medium-button export-task-button" role="button"
+        (click)="this.appControlService.showTaskExporter = true;">
         <i class="fi fi-rr-file-download"></i>
       </div>
       <div class="link-sharer">
         <h5>Share</h5>
-        <h5 class="link-option" role="button"
-          (click)="this.appControlService.showAppShare = !this.appControlService.showAppShare">
+        <h5 class="link-option" role="button" (click)="this.appControlService.showAppShare = true;">
           <span>Link</span>
           <i class="fi fi-rr-angle-down"></i>
         </h5>
@@ -67,14 +67,16 @@
     <div class="dstm-right">
       <div class="last-edited-by">
         <h5><i class="fi fi-rr-edit"></i><span>20 minutes ago</span></h5>
-        <div class="editor-flex">
+        <div class="editor-flex" role="button" (click)="this.appControlService.showMemberSwitch = true;">
           <img src="https://i.pravatar.cc/150?img=25" alt="">
           <h5>Yashwanth</h5>
         </div>
       </div>
       <div class="month-year-flex">
         <i class="fi fi-rr-angle-small-left"></i>
-        <h3>Nov, <span>2023</span></h3>
+        <h3>{{selectedMonth.toLocaleString('en-US', { month: 'long' }).substring(0,3)}},
+          <span>{{selectedMonth.getFullYear()}}</span>
+        </h3>
         <i class="fi fi-rr-angle-small-right"></i>
       </div>
     </div>
@@ -82,59 +84,9 @@
   <div class="ds-middle">
     <div class="sheet-enclosure">
       <div class="day-flex">
-        <div class="day-box">
-          <h5>Mo<span>01</span></h5>
-        </div>
-        <div class="day-box active-day">
-          <h5>Tu<span>02</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>We<span>03</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Th<span>04</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Fr<span>05</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Sa<span>06</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Su<span>07</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Mo<span>01</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Tu<span>02</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>We<span>03</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Th<span>04</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Fr<span>05</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Sa<span>06</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Su<span>07</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Th<span>04</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Fr<span>05</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Sa<span>06</span></h5>
-        </div>
-        <div class="day-box">
-          <h5>Su<span>07</span></h5>
+        <div class="day-box" *ngFor="let date of formattedDates"
+          [ngClass]="{'active-day': date.includes(selectedDate+10)}">
+          <h5>{{date.substring(0,2)}}<span>{{date.substring(2,4)}}</span></h5>
         </div>
       </div>
       <div class="sheet-enclosure-1">
@@ -526,4 +478,6 @@
   </div>
 
   <app-share *ngIf="appControlService.showAppShare"></app-share>
+  <app-member-switch *ngIf="appControlService.showMemberSwitch"></app-member-switch>
+  <app-export-task *ngIf="appControlService.showTaskExporter"></app-export-task>
 </section>

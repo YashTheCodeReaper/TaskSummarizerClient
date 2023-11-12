@@ -114,6 +114,7 @@
         align-items: center;
         justify-content: center;
         position: relative;
+        cursor: pointer;
 
         .bell {
           width: 1rem;
@@ -256,6 +257,7 @@
           align-items: center;
           justify-content: center;
           gap: 0.5rem;
+          cursor: pointer;
 
           img {
             width: 3rem;

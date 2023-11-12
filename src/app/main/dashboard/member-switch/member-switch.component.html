@@ -1,0 +1,7 @@
+<section class="member-switch_component" appOutsideClick
+  (outsideClick)="this.appControlService.showMemberSwitch = false;" [clickExceptions]="['editor-flex']">
+  <div class="member-flex" *ngFor="let member of membersArray; let i = index;">
+    <img src="https://i.pravatar.cc/150?img={{26+i}}" alt="">
+    <h5>{{member.name}}</h5>
+  </div>
+</section>

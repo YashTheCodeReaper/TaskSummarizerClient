@@ -110,10 +110,10 @@
     }
   }
 
-  .inactive-checkbox{
+  .inactive-checkbox {
     background: var(--bg-1);
 
-    .checkbox-ball{
+    .checkbox-ball {
       right: 2.65rem;
       opacity: 0.5;
     }
@@ -133,4 +133,20 @@
   pointer-events: none;
   opacity: 0.1;
   cursor: not-allowed;
+}
+
+.bi-group {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.mat-datepicker-toggle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.5rem;
+  color: white;
+  opacity: 0.6;
 }

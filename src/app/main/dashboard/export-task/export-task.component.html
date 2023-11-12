@@ -1,0 +1,76 @@
+<section class="export-task_component" appOutsideClick
+(outsideClick)="this.appControlService.showTaskExporter = false;" [clickExceptions]="['export-task-button']">
+  <h3>Export tasks</h3>
+  <p>Export all your activities as a pdf file/excel file/csv file as report. The report column constrains will be based
+    on the board settings.</p>
+  <form [formGroup]="taskExportFormGroup">
+    <div class="input-group input-group-te-0"
+      [ngClass]="{'input-group-focus-forced': taskExportFormGroup.controls['name'].value}">
+      <label for="name">Export file name</label>
+      <input formControlName="name" type="text" (focus)="onFieldFocus(0)" (blur)="onFieldFocus(0)" maxlength="10">
+    </div>
+    <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(taskExportFormGroup, 'name')">Please
+      choose a start
+      date!</span>
+    <div class="bi-group">
+      <div>
+        <div class="input-group input-group-te-1"
+          [ngClass]="{'input-group-focus-forced': taskExportFormGroup.controls['startDate'].value}">
+          <label for="startDate">Start date</label>
+          <input formControlName="startDate" matInput [matDatepicker]="picker1" (focus)="onFieldFocus(1)"
+            (blur)="onFieldFocus(1)" maxlength="10">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </div>
+        <span class="error-message" *ngIf="validateField(taskExportFormGroup, 'startDate')">Please choose a start
+          date!</span>
+      </div>
+      <div>
+        <div class="input-group input-group-te-2"
+          [ngClass]="{'input-group-focus-forced': taskExportFormGroup.controls['endDate'].value}">
+          <label for="endDate">End date</label>
+          <input formControlName="endDate" matInput [matDatepicker]="picker2" (focus)="onFieldFocus(2)"
+            (blur)="onFieldFocus(2)" maxlength="10" [max]="maxDate">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </div>
+        <span class="error-message" *ngIf="validateField(taskExportFormGroup, 'endDate')">Please choose a end
+          date!</span>
+      </div>
+    </div>
+    <h5>Export data as</h5>
+    <div class="export-file-type-flex">
+      <div class="export-flex" (click)="this.chosenExportType = 'csv'"
+        [ngClass]="{'active-choice': chosenExportType == 'csv'}">
+        <img src="assets/images/common/csv.svg">
+        <p>.csv</p>
+      </div>
+      <div class="export-flex" (click)="this.chosenExportType = 'pdf'"
+        [ngClass]="{'active-choice': chosenExportType == 'pdf'}">
+        <img src="assets/images/common/pdf.svg">
+        <p>.pdf</p>
+      </div>
+      <div class="export-flex" (click)="this.chosenExportType = 'xlsx'"
+        [ngClass]="{'active-choice': chosenExportType == 'xlsx'}">
+        <img src="assets/images/common/excel.svg">
+        <p>.xlsx</p>
+      </div>
+    </div>
+  </form>
+  <button class="primary-button" [ngClass]="{'blocked-button': taskExportFormGroup.invalid}">
+    <div class="pb-text">Export</div>
+  </button>
+  <h5>Previous exports</h5>
+  <div class="export-history-flex">
+    <div class="export-history-box" [ngClass]="{'success-history': eHistory.status == 'success'}"
+      *ngFor="let eHistory of exportHistory">
+      <i class="status fi fi-ss-bullet"></i>
+      <img src="assets/images/common/{{eHistory.type}}.svg" alt="">
+      <div class="export-info">
+        <h4><span>Exported as </span>{{eHistory.name}}</h4>
+        <p>{{eHistory.date}} ({{eHistory.size}})</p>
+      </div>
+      <i *ngIf="eHistory.status == 'success'" class="download fi fi-sr-cloud-download-alt"></i>
+    </div>
+  </div>
+</section>

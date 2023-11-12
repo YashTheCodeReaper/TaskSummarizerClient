@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MainComponent } from './main/main.component';
 import { DashboardComponent } from './main/dashboard/dashboard.component';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
@@ -18,6 +18,10 @@ import { OnboardingComponent } from './main/onboarding/onboarding.component';
 import { IntroComponent } from './main/onboarding/intro/intro.component';
 import { ObProfileComponent } from './main/onboarding/ob-profile/ob-profile.component';
 import { NewBoardComponent } from './main/sidebar/new-board/new-board.component';
+import { MemberSwitchComponent } from './main/dashboard/member-switch/member-switch.component';
+import { ExportTaskComponent } from './main/dashboard/export-task/export-task.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,8 @@ import { NewBoardComponent } from './main/sidebar/new-board/new-board.component'
     IntroComponent,
     ObProfileComponent,
     NewBoardComponent,
+    MemberSwitchComponent,
+    ExportTaskComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,9 +47,11 @@ import { NewBoardComponent } from './main/sidebar/new-board/new-board.component'
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
