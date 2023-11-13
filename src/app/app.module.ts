@@ -26,6 +26,7 @@ import { NotificationsComponent } from './main/dashboard/notifications/notificat
 import { AddTaskComponent } from './main/dashboard/add-task/add-task.component';
 import { NotilandComponent } from './shared/notiland/notiland.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { TaskbarComponent } from './main/dashboard/taskbar/taskbar.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     NotificationsComponent,
     AddTaskComponent,
     NotilandComponent,
+    TaskbarComponent,
   ],
   imports: [
     BrowserModule,

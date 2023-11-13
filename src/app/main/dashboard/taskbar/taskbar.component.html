@@ -1,0 +1,25 @@
+<div class="task-enclosure">
+  <div style="--tskenwid: {{width}}" class="taskbar-bg" [ngStyle]="{'left': offset}">
+  </div>
+  <div style="--tskenwid: {{width}}" class="task-bar" [ngStyle]="{'left': offset}">
+    <div class="tbl-flex">
+      <div class="task-type">
+        <img src="assets/images/common/{{taskType}}.svg" alt="">
+      </div>
+      <div class="task-info">
+        <h5>{{taskTitle}}</h5>
+        <p>10:00 - 12:00 <span *ngIf="taskType == 'jira'" class="priority"
+            [ngStyle]="{background: priorityBg}">{{priority}}</span>
+          <span *ngIf="taskType == 'msteams'" class="members-flex">
+          <img src="https://i.pravatar.cc/150?img=30">
+          <img src="https://i.pravatar.cc/150?img=31">
+          <img src="https://i.pravatar.cc/150?img=33">
+          <img src="https://i.pravatar.cc/150?img=34">
+          </span>
+          </p>
+      </div>
+    </div>
+    <i class="fi fi-bs-menu-dots-vertical"></i>
+  </div>
+  <div class="task-bg-block" *ngFor="let item of [].constructor(10)"></div>
+</div>

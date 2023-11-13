@@ -124,103 +124,21 @@
           </div>
         </div>
         <div class="sheet-enclosure-2">
-          <div class="task-enclosure">
-            <div class="task-bar">
-              <div class="color-flag" style="background: #ffe27c;"></div>
-              <div class="tb-top">
-                <div class="task-info-flex">
-                  <img src="assets/images/common/bug.svg" alt="">
-                  <p>VIVR : When file upload path in proxy is incorrect or empty while customer is on chat with agent,
-                    and if path is corrected, multi-media attachments are showing in the chat even if customer did not
-                    click Send</p>
-                </div>
-              </div>
-              <div class="tb-middle">
-                <div class="time-taken">
-                  <i class="fi fi-sr-clock-five"></i>
-                  <p>2h 01m</p>
-                </div>
-                <span class="status">Fixed</span>
-                <p class="priority low">
-                  <i class="fi fi-br-angle-down"></i>
-                  <span>Low</span>
-                </p>
-              </div>
-              <div class="tb-bottom">
-                <div class="task-category">
-                  <img src="assets/images/common/jira.svg" alt="">
-                  <h5>Jira</h5>
-                </div>
-              </div>
-              <i class="newtab fi fi-rr-arrow-up-right-from-square"></i>
-            </div>
-            <div class="task-bg-block" *ngFor="let item of [].constructor(10)"></div>
-          </div>
-          <div class="task-enclosure">
-            <div style="left: 20%; width: 30%;" class="task-bar todo-bar">
-              <div class="color-flag" style="background: #ff7edb;"></div>
-              <div class="tb-top">
-                <div class="task-info-flex">
-                  <img src="assets/images/common/todo.svg" alt="">
-                  <p>Visual IVR AV Call Layout Redesigning - Planning and Sub-tasks</p>
-                </div>
-              </div>
-              <div class="tb-middle">
-                <div class="time-taken">
-                  <i class="fi fi-sr-clock-five"></i>
-                  <p>3h 01m</p>
-                </div>
-                <p class="priority critical">
-                  <i class="fi fi-sr-minus-circle"></i>
-                  <span>Critical</span>
-                </p>
-              </div>
-              <div class="tb-bottom">
-                <div class="task-progress">
-                  <div class="progress-bar">
-                    <div class="progress-bar-active"></div>
-                  </div>
-                  <h5>3/5</h5>
-                </div>
-              </div>
-              <i class="newtab fi fi-rr-arrow-up-right-from-square"></i>
-            </div>
-            <div class="task-bg-block" *ngFor="let item of [].constructor(10)"></div>
-          </div>
-          <div class="task-enclosure">
-            <div style="left: 50%;" class="task-bar teams-bar">
-              <div class="color-flag" style="background: #7da9ff;"></div>
-              <div class="tb-top">
-                <div class="task-info-flex">
-                  <img src="assets/images/common/call.svg" alt="">
-                  <p>Visual IVR issue discussion with poornachandra</p>
-                </div>
-              </div>
-              <div class="tb-middle">
-                <div class="time-taken">
-                  <i class="fi fi-sr-clock-five"></i>
-                  <p>2h 01m</p>
-                </div>
-                <div class="members-flex">
-                  <img src="https://i.pravatar.cc/150?img=20" alt="">
-                  <img src="https://i.pravatar.cc/150?img=30" alt="">
-                  <img src="https://i.pravatar.cc/150?img=40" alt="">
-                  <img src="https://i.pravatar.cc/150?img=50" alt="">
-                </div>
-                <p class="priority critical">
-                  <i class="fi fi-sr-minus-circle"></i>
-                  <span>Critical</span>
-                </p>
-              </div>
-              <div class="tb-bottom">
-                <div class="task-category">
-                  <img src="assets/images/common/msteams.svg" alt="">
-                  <h5>Teams</h5>
-                </div>
-              </div>
-            </div>
-            <div class="task-bg-block" *ngFor="let item of [].constructor(10)"></div>
-          </div>
+          <app-taskbar [offset]="'0%'" [taskType]="'jira'" [width]="20"
+            [taskTitle]="'Visual IVR Annotation Component Enhancement'" [taskStartTime]="'10:00'"
+            [taskEndTime]="'12:00'" [priority]="'high'" [priorityBg]="'var(--danger-color)'"></app-taskbar>
+          <app-taskbar [offset]="'20%'" [taskType]="'msteams'" [width]="34" [taskTitle]="'UI Discussion With Designers'"
+            [taskStartTime]="'12:00'" [taskEndTime]="'14:00'" [priority]="'medium'"
+            [priorityBg]="'var(--danger-color-1)'"></app-taskbar>
+          <app-taskbar [offset]="'0%'" [taskType]="'jira'" [width]="20"
+            [taskTitle]="'Visual IVR Annotation Component Enhancement'" [taskStartTime]="'10:00'"
+            [taskEndTime]="'12:00'" [priority]="'high'" [priorityBg]="'var(--danger-color)'"></app-taskbar>
+          <app-taskbar [offset]="'20%'" [taskType]="'msteams'" [width]="34" [taskTitle]="'UI Discussion With Designers'"
+            [taskStartTime]="'12:00'" [taskEndTime]="'14:00'" [priority]="'medium'"
+            [priorityBg]="'var(--danger-color-1)'"></app-taskbar>
+          <app-taskbar [offset]="'20%'" [taskType]="'msteams'" [width]="34" [taskTitle]="'UI Discussion With Designers'"
+            [taskStartTime]="'12:00'" [taskEndTime]="'14:00'" [priority]="'medium'"
+            [priorityBg]="'var(--danger-color-1)'"></app-taskbar>
         </div>
       </div>
     </div>
