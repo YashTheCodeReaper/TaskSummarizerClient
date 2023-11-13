@@ -27,7 +27,8 @@
         <i class="fi fi-rr-search"></i>
         <input type="text" placeholder="Search tasks here">
       </div>
-      <div class="medium-button" role="button">
+      <div class="medium-button notifications-button" (click)="this.appControlService.showNotifications = true;"
+        role="button">
         <i class="fi fi-rr-bell"></i>
         <div class="bell"></div>
       </div>
@@ -59,7 +60,7 @@
       </div>
       <div class="duration-switcher">
         <h5 role="button">
-          <span>Last week</span>
+          <span>This month</span>
           <i class="fi fi-rr-angle-down"></i>
         </h5>
       </div>
@@ -480,4 +481,6 @@
   <app-share *ngIf="appControlService.showAppShare"></app-share>
   <app-member-switch *ngIf="appControlService.showMemberSwitch"></app-member-switch>
   <app-export-task *ngIf="appControlService.showTaskExporter"></app-export-task>
+  <app-notifications *ngIf="appControlService.showNotifications"></app-notifications>
+  <app-add-task *ngIf="appControlService.showAddTask"></app-add-task>
 </section>

@@ -22,6 +22,8 @@ import { MemberSwitchComponent } from './main/dashboard/member-switch/member-swi
 import { ExportTaskComponent } from './main/dashboard/export-task/export-task.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { NotificationsComponent } from './main/dashboard/notifications/notifications.component';
+import { AddTaskComponent } from './main/dashboard/add-task/add-task.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     NewBoardComponent,
     MemberSwitchComponent,
     ExportTaskComponent,
+    NotificationsComponent,
+    AddTaskComponent,
   ],
   imports: [
     BrowserModule,

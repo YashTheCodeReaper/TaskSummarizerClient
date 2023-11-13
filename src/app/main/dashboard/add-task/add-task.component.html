@@ -1,0 +1,193 @@
+<section class="add-task_component">
+  <div class="adt-top">
+    <div class="breadcrumb-flex">
+      <div class="curr-user-flex">
+        <img src="https://i.pravatar.cc/50?img=34" alt="">
+        <h5>Yashwanthkumar A</h5>
+      </div>
+      <i class="fi fi-rr-angle-right"></i>
+      <h5>
+        <i class="fi fi-sr-dice-d6"></i>
+        <span>Yashwanth's board</span>
+      </h5>
+      <i class="fi fi-rr-angle-right"></i>
+      <h5>
+        <i class="fi fi-sr-layer-plus"></i>
+        <span>Add a task</span>
+      </h5>
+    </div>
+    <i class="fi fi-rr-cross"></i>
+  </div>
+  <div class="adt-top-middle">
+    <div class="task-category-box active-category" role="button" (click)="onTasktypeSwitch('todolist')"
+      [ngClass]="{'active-category': taskType == 'todolist'}">
+      <img src="assets/images/common/todo.svg">
+      <p>Todo List</p>
+    </div>
+    <div class="task-category-box" role="button" (click)="onTasktypeSwitch('jira')"
+      [ngClass]="{'active-category': taskType == 'jira'}">
+      <img src="assets/images/common/jira.svg">
+      <p>Atlassian JIRA</p>
+    </div>
+    <div class="task-category-box" role="button" (click)="onTasktypeSwitch('msteams')"
+      [ngClass]="{'active-category': taskType == 'msteams'}">
+      <img src="assets/images/common/msteams.svg">
+      <p>Microsoft Teams</p>
+    </div>
+    <div class="task-category-box blocked-button" role="button">
+      <img src="assets/images/common/gitlab.svg">
+      <p>Gitlab</p>
+    </div>
+  </div>
+  <div class="adt-middle">
+    <div class="adtm adtm-left">
+      <div class="jira-advisor" *ngIf="taskType == 'jira'">
+        <div class="title-flex">
+          <img src="assets/images/common/jira.svg">
+          <h3>JIRA Task Auto-fill</h3>
+        </div>
+        <p>This form will be auto-filled by just pasting the JIRA issue url / JIRA issue id in the below box. Please
+          ensure the issue details before adding task.</p>
+        <div class="input-flex">
+          <input type="text" placeholder="Paste your JIRA issue URL/ID here">
+          <button class="primary-button">
+            <div class="pb-text">Fetch</div>
+          </button>
+        </div>
+      </div>
+      <form [formGroup]="taskFormGroup">
+        <div class="input-group input-group-at-0"
+          [ngClass]="{'input-group-focus-forced': taskFormGroup.controls['name'].value?.length}">
+          <label for="name">Give your task a name</label>
+          <input formControlName="name" type="text" (focus)="onFieldFocus(0)" (blur)="onFieldFocus(0)">
+          <i *ngIf="validateField(taskFormGroup, 'name')" class="warn-icon fi fi-sr-info"></i>
+        </div>
+        <span class="error-message" *ngIf="validateField(taskFormGroup, 'name')">Please give a name to proceed!</span>
+        <span class="error-message info-message">Your new task requires a name. It should give a one line sentence of
+          your work.</span>
+        <div class="input-group input-group-at-1"
+          [ngClass]="{'input-group-focus-forced': taskFormGroup.controls['description'].value?.length}">
+          <label for="description">Explain your task</label>
+          <input formControlName="description" type="text" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
+          <i *ngIf="validateField(taskFormGroup, 'description')" class="warn-icon fi fi-sr-info"></i>
+        </div>
+        <span class="error-message" *ngIf="validateField(taskFormGroup, 'description')">Please give a description to
+          proceed!</span>
+        <span class="error-message info-message">Please say a sentence or two about your task. It should in a way to
+          give a overall view of your work.</span>
+      </form>
+      <ng-container *ngIf="taskType == 'todolist'">
+        <h5>
+          Subtasks
+        </h5>
+        <div class="subtasks-flex">
+          <div class="subtask-flex" *ngFor="let subTask of subTasks; let i = index;"
+            [ngClass]="{'completed-task': subTask.status == 'completed'}">
+            <div class="stf-left">
+              <i class="status fi"
+                [ngClass]="{'fi-sr-rec': subTask.status == 'completed', 'fi-br-rec': subTask.status == 'inactive'}"></i>
+              <p>{{subTask.name}}</p>
+            </div>
+            <div class="stf-right">
+              <i (click)="onTaskCompleted(i)" class="check fi"
+                [ngClass]="{'fi-rr-checkbox': subTask.status == 'inactive'}"></i>
+            </div>
+          </div>
+        </div>
+        <div class="add-subtask-flex" role="button" (click)="this.newSubTask = true;" *ngIf="!newSubTask">
+          <i class="fi fi-rr-plus"></i>
+          <p>Add a sub-task</p>
+        </div>
+        <div class="new-subtask-flex" *ngIf="newSubTask">
+          <input [(ngModel)]="newTaskText" type="text" placeholder="Enter the name of the sub-task">
+          <button class="primary-button" role="button" (click)="onAddTask()">
+            <div class="pb-text">Add</div>
+          </button>
+        </div>
+      </ng-container>
+    </div>
+    <div class="adtm adtm-right">
+      <div class="adtm-component-flex">
+        <h5>Linked members</h5>
+        <div class="members-flex">
+          <img src="https://i.pravatar.cc/50?img=35">
+          <img src="https://i.pravatar.cc/50?img=36">
+          <img src="https://i.pravatar.cc/50?img=37">
+          <img src="https://i.pravatar.cc/50?img=38">
+          <img src="https://i.pravatar.cc/50?img=39">
+          <i class="fi fi-rr-add"></i>
+        </div>
+      </div>
+      <form [formGroup]="taskFormGroup">
+        <div class="adtm-component-flex">
+          <h5>{{taskType == 'msteams' ? 'Call Date' : 'Start Date'}}</h5>
+          <div class="date-flex">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <input formControlName="startDate" maxlength="10" matInput [matDatepicker]="picker1">
+          </div>
+        </div>
+        <div class="adtm-component-flex">
+          <h5>{{taskType == 'msteams' ? 'Call ' : ''}}Start Time</h5>
+          <div class="date-flex">
+            <input style="width: 100%;" formControlName="startTime" type="time">
+          </div>
+        </div>
+        <div class="adtm-component-flex" *ngIf="taskType == 'msteams'">
+          <h5>Call Duration</h5>
+          <div class="date-flex">
+            <input style="width: 100%;" formControlName="duration" placeholder="In minutes" type="text">
+          </div>
+        </div>
+        <div class="adtm-component-flex" *ngIf="taskType != 'msteams'">
+          <h5>Due Date</h5>
+          <div class="date-flex">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <input [min]="taskFormGroup.value.startDate" maxlength="10" formControlName="dueDate" placeholder="None"
+              matInput [matDatepicker]="picker2">
+          </div>
+        </div>
+        <div class="adtm-component-flex">
+          <h5>Priority</h5>
+          <div class="selected-priority-flex" (click)="this.showPriorityFlex = true;">
+            <i [ngStyle]="{'color': selectedPriority.color}" class="fi {{selectedPriority.icon}}"></i>
+            <p>{{selectedPriority.name}}</p>
+          </div>
+          <div class="priorities-flex" *ngIf="showPriorityFlex" appOutsideClick
+            (outsideClick)="this.showPriorityFlex = false;" [clickExceptions]="['selected-priority-flex']">
+            <div class="priority-flex" *ngFor="let priority of priorities; let i = index" role="button"
+              (click)="onSelectPriority(i)">
+              <i [ngStyle]="{'color': priority.color}" class="fi {{priority.icon}}"></i>
+              <p>{{priority.name}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="adtm-component-flex" *ngIf="taskType != 'msteams'">
+          <h5>Category</h5>
+          <div class="selected-categories-flex">
+            <div class="sc-box" *ngFor="let category of selectedCategories">
+              <i [ngStyle]="{'color': category.color}" class="fi {{category.icon}}"></i>
+              <p>{{category.name}}</p>
+              <i style="margin-left: 0.5rem;" class="fi fi-br-cross-small"></i>
+            </div>
+            <input type="text" placeholder="Search.." (focus)="this.showCategoryFlex = true;">
+          </div>
+          <div class="categories-flex" *ngIf="showCategoryFlex" appOutsideClick
+            (outsideClick)="this.showCategoryFlex = false;" [clickExceptions]="['selected-categories-flex']">
+            <div class="category-flex" *ngFor="let category of categories; let i = index" role="button"
+              (click)="onSelectCategory(i)">
+              <i [ngStyle]="{'color': category.color}" class="fi {{category.icon}}"></i>
+              <p>{{category.name}}</p>
+            </div>
+          </div>
+        </div>
+      </form>
+      <button class="primary-button abs-button" [ngClass]="{'blocked-button': taskFormGroup.invalid}">
+        <div class="pb-text">
+          Add task
+        </div>
+      </button>
+    </div>
+  </div>
+</section>

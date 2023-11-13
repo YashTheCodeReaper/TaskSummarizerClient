@@ -1,5 +1,5 @@
 <section class="export-task_component" appOutsideClick
-(outsideClick)="this.appControlService.showTaskExporter = false;" [clickExceptions]="['export-task-button']">
+(outsideClick)="!picker1.opened && !picker2.opened && this.appControlService.showTaskExporter = false;" [clickExceptions]="['export-task-button']">
   <h3>Export tasks</h3>
   <p>Export all your activities as a pdf file/excel file/csv file as report. The report column constrains will be based
     on the board settings.</p>

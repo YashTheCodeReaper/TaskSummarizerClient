@@ -10,6 +10,8 @@ export class AppControlService {
   showNewBoard: boolean = false;
   showMemberSwitch: boolean = false;
   showTaskExporter: boolean = false;
+  showNotifications: boolean = false;
+  showAddTask: boolean = true;
 
   constructor() { }
 }
