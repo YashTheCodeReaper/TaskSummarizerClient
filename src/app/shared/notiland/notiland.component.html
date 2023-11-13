@@ -1,0 +1,28 @@
+<ng-container>
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" [ngStyle]="{'opacity': hideUI ? 0 : 1}">
+    <defs>
+      <filter id="liquid">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="liquid" />
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="drops" [ngStyle]="{'opacity': hideUI ? 0 : 1}">
+    <div class="drop1"></div>
+    <div class="drop2"></div>
+  </div>
+
+  <div class="notiland-notch-box" [ngStyle]="{'opacity': hideUI ? 0 : 1}">
+    <div (mouseover)="this.isNotchClicked = true" class="notch" [ngClass]="{'expanded-notch': isNotchClicked, 'notch-hover': isNotchMiniExpanded}">
+      <i class="fi fi-sr-triangle-warning"></i>
+      <div class="content-main">
+        <p>{{data.warnMessage}}</p>
+      </div>
+      <div class="action-buttons">
+        <p (click)="onAccept()">OK</p>
+        <p (click)="onDecline()">CANCEL</p>
+      </div>
+    </div>
+  </div>
+  </ng-container>

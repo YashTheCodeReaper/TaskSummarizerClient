@@ -1,0 +1,188 @@
+.drops {
+  filter: url(#liquid);
+  position: fixed;
+  top: -7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  opacity: 1;
+
+  .drop1 {
+    width: 42rem;
+    height: 6rem;
+    background: var(--theme-var-1);
+  }
+
+  .drop2 {
+    width: 2.5rem;
+    height: 2.5rem;
+    position: absolute;
+    top: 0rem;
+    left: 50%;
+    border-radius: 50px;
+    background: var(--theme-var-1);
+    transform: translate(-50%, -50%);
+    animation: drop2Animator 500ms ease;
+    z-index: 0;
+  }
+}
+
+.notiland-notch-box {
+  position: fixed;
+  top: -10rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: notchContainerAnimation 600ms cubic-bezier(.666, 0, .4, 1.2);
+  animation-fill-mode: forwards;
+  transition: all 0.33s cubic-bezier(.666, 0, .4, 1.2);
+  user-select: none;
+  z-index: 2;
+
+  .notch {
+    position: relative;
+    background: var(--theme-var-1);
+    width: 3rem;
+    min-width: 3rem;
+    height: 3rem;
+    border-radius: 5rem;
+    transition: all 0.33s cubic-bezier(.666, 0, .4, 1.2);
+    overflow: hidden;
+
+    i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.4rem;
+      color: var(--light-text-1);
+      transition: all 0.33s cubic-bezier(.666, 0, .4, 1.2);
+      margin-top: 0.3rem;
+    }
+
+    .content-main {
+      width: 0rem;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      margin-left: 3.5rem;
+      margin-right: 1rem;
+      transition: all 0.33s cubic-bezier(.666, 0, .4, 1.2);
+
+      p {
+        font-size: 1.4rem;
+        color: var(--light-text-1);
+        width: 100%;
+        font-weight: 400;
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        width: max-content;
+        transition: all 0.33s cubic-bezier(.666, 0, .4, 1.2);
+        transform: translate(0%, -50%);
+        animation: none;
+      }
+    }
+
+    .action-buttons {
+      height: 0rem;
+      position: absolute;
+      bottom: 1rem;
+      left: 6rem;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 2rem;
+      transition: all 0.33s cubic-bezier(.666, 0, .4, 1.2);
+
+      p {
+        font-size: 1.2rem;
+        color: var(--light-text-1);
+        font-weight: 1000;
+        text-transform: uppercase;
+        transform: translateY(5rem);
+        transition: all 0.33s cubic-bezier(.666, 0, .4, 1.2);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .notch-hover {
+    width: 100%;
+
+    i {
+      left: 8%;
+    }
+
+    .content-main {
+      width: 20rem;
+
+      p {
+        animation: textAnimation 30s linear infinite;
+      }
+    }
+  }
+
+  .expanded-notch {
+    width: 100%;
+    min-width: 40rem;
+    height: 6rem;
+
+    i {
+      left: 8%;
+      font-size: 2.4rem;
+    }
+
+    .content-main {
+      width: 30rem;
+      margin-left: 6rem;
+      margin-top: -1rem;
+
+      p {
+        font-size: 1.4rem;
+        animation: textAnimation 30s linear infinite;
+      }
+    }
+
+    .action-buttons {
+      height: 2rem;
+
+      p {
+        transform: translateY(0rem);
+      }
+    }
+  }
+}
+
+@keyframes textAnimation {
+  0% {
+    transform: translate(0%, -50%);
+  }
+
+  100% {
+    transform: translate(-100%, -50%);
+  }
+}
+
+@keyframes notchContainerAnimation {
+  0% {
+    top: -5rem;
+  }
+
+  100% {
+    top: 1.5rem;
+  }
+}
+
+@keyframes drop2Animator {
+  0% {
+    top: 0rem;
+  }
+
+  100% {
+    top: 9rem;
+  }
+}

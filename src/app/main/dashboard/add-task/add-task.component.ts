@@ -9,6 +9,7 @@ import {
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
+import { AppControlService } from 'src/app/services/app-control.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -38,8 +39,7 @@ export const MY_FORMATS = {
 export class AddTaskComponent {
   taskFormGroup!: FormGroup;
   taskType: string = 'jira';
-  subTasks: { name: string; status: 'completed' | 'inactive' }[] =
-    [];
+  subTasks: { name: string; status: 'completed' | 'inactive' }[] = [];
   members: { user_id: string }[] = [];
   newSubTask: boolean = false;
   newTaskText: string = '';
@@ -51,7 +51,7 @@ export class AddTaskComponent {
   showPriorityFlex: boolean = false;
   showCategoryFlex: boolean = false;
 
-  constructor() {
+  constructor(private appControlService: AppControlService) {
     this.subTasks = [];
     this.priorities = [
       {
@@ -195,6 +195,19 @@ export class AddTaskComponent {
       this.startDate = new Date();
       this.initTaskFormGroup();
       this.taskType = type;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  onCloseAddTask(): void {
+    try {
+      this.appControlService.confirmDialog(
+        'Are you sure want to cancel adding task?',
+        (result: any) => {
+          if (result) this.appControlService.showAddTask = false;
+        }
+      );
     } catch (error) {
       console.error(error);
     }

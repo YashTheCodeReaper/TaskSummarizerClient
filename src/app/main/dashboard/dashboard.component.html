@@ -240,8 +240,9 @@
         <div class="color-bubble" style="background: #f48c7d;"></div>
         <div class="color-bubble" style="background: #ff7edb;"></div>
       </div>
-      <div class="util-button" style="background: transparent;">
-        <h5 role="button">
+      <div class="util-button" role="button" (click)="this.appControlService.showAddTask = true;"
+        style="background: transparent;">
+        <h5>
           <i style="font-size: 1.6rem;" class="fi fi-rr-note"></i>
           <span>Add a task</span>
         </h5>

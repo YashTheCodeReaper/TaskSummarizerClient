@@ -24,6 +24,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NotificationsComponent } from './main/dashboard/notifications/notifications.component';
 import { AddTaskComponent } from './main/dashboard/add-task/add-task.component';
+import { NotilandComponent } from './shared/notiland/notiland.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { AddTaskComponent } from './main/dashboard/add-task/add-task.component';
     ExportTaskComponent,
     NotificationsComponent,
     AddTaskComponent,
+    NotilandComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import { AddTaskComponent } from './main/dashboard/add-task/add-task.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
