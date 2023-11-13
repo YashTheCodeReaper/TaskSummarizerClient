@@ -1,24 +1,30 @@
 <section class="new-board_component">
-  <div class="icon-circle">
-    <i class="fi fi-ss-dice-d6"></i>
-  </div>
-  <div class="stages-flex">
-    <ng-container *ngFor="let stage of stages; let i = index">
-      <div class="stage-icon-holder" [ngClass]="{'active-stage': currentStage >= i}">
-        <i class="fi {{stage.icon}}"></i>
-        <div class="completed" [ngClass]="{'active-completed': currentStage >= i+1}">
-          <i class="fi fi-br-check"></i>
-        </div>
+  <div class="nb-top">
+    <div class="breadcrumb-flex">
+      <div class="curr-user-flex">
+        <img src="https://i.pravatar.cc/50?img=34" alt="">
+        <h5>Yashwanthkumar A</h5>
       </div>
-      <div class="connector" [ngClass]="{'active-connector': currentStage >= i+1}" *ngIf="i < stages.length-1"></div>
-    </ng-container>
+      <i class="fi fi-rr-angle-right"></i>
+      <h5>
+        <i class="fi fi-sr-layer-plus"></i>
+        <span>Create a board</span>
+      </h5>
+    </div>
+    <i class="fi fi-rr-cross" (click)="onCloseAddTask()"></i>
+  </div>
+  <div class="nb-top-middle">
+    <div class="stage-box active-stage" *ngFor="let stage of stages; let i = index"
+      [ngClass]="{'active-stage': currentStage >= i, 'completed-stage': currentStage >= i+1}">
+      <i class="fi {{stage.icon}}"></i>
+      <p>{{stage.name}}</p>
+    </div>
   </div>
   <div class="cb-enclosure">
     <div class="cb-enclosure-1">
       <div class="cb-enclosure-2" #cbe2>
         <div class="cb-enclosure-box" *ngFor="let stage of stages">
-          <h4>{{stage.name}}</h4>
-          <p>{{stage.description}}</p>
+          <h3>{{stage.description}}</h3>
 
           <ng-container *ngIf="currentStage == 0">
             <form [formGroup]="createBoardFormGroup">
@@ -101,7 +107,7 @@
             <div class="board-summary-flex">
               <h4>{{createBoardFormGroup.value?.name}}</h4>
               <p>{{createBoardFormGroup.value?.description}}</p>
-              <h5 style="margin-top: 1rem;">Trackables<i (mouseenter)="this.showTrackableInfo = true;"
+              <h5>Trackables<i (mouseenter)="this.showTrackableInfo = true;"
                   (mouseleave)="this.showTrackableInfo = false" class="fi fi-sr-interrogation"></i>
                 <span *ngIf="showTrackableInfo" class="trackable-detail">
                   These are the things which will be tracked in the board. Both you and the inspector will only be able
@@ -116,24 +122,29 @@
               </div>
               <h5>
                 Time tracking {{enableTimeTracking ? 'enabled' : 'disabled'}}
-                <i (mouseenter)="this.showTimeTrackingInfo = true;"
-                  (mouseleave)="this.showTimeTrackingInfo = false" class="fi fi-sr-interrogation"></i>
+                <i (mouseenter)="this.showTimeTrackingInfo = true;" (mouseleave)="this.showTimeTrackingInfo = false"
+                  class="fi fi-sr-interrogation"></i>
                 <span *ngIf="showTimeTrackingInfo" class="trackable-detail">
-                  {{enableTimeTracking ? 'In your board, you and the inspector will have the ability to track time along with the tasks.' : 'In your board, you and the inspector will not have the ability to track time along with the tasks.'}}
+                  {{enableTimeTracking ? 'In your board, you and the inspector will have the ability to track time along
+                  with the tasks.' : 'In your board, you and the inspector will not have the ability to track time along
+                  with the tasks.'}}
                 </span>
               </h5>
               <h5>This board will be {{isPrivateBoard ? 'private' : 'public'}}
-                <i (mouseenter)="this.showPrivateBoardInfo = true;"
-                  (mouseleave)="this.showPrivateBoardInfo = false" class="fi fi-sr-interrogation"></i>
+                <i (mouseenter)="this.showPrivateBoardInfo = true;" (mouseleave)="this.showPrivateBoardInfo = false"
+                  class="fi fi-sr-interrogation"></i>
                 <span *ngIf="showPrivateBoardInfo" class="trackable-detail">
-                  {{isPrivateBoard ? 'This board is made private. Only you can access this board. Not even super user can access it.' : 'This board is made public. Anyone (you/manager/super-user) can access your board'}}
+                  {{isPrivateBoard ? 'This board is made private. Only you can access this board. Not even super user
+                  can access it.' : 'This board is made public. Anyone (you/manager/super-user) can access your board'}}
                 </span>
               </h5>
               <h5>Task exporting {{enableExport ? 'enabled' : 'disabled'}}
-                <i (mouseenter)="this.showExportInfo = true;"
-                  (mouseleave)="this.showExportInfo = false" class="fi fi-sr-interrogation"></i>
+                <i (mouseenter)="this.showExportInfo = true;" (mouseleave)="this.showExportInfo = false"
+                  class="fi fi-sr-interrogation"></i>
                 <span *ngIf="showExportInfo" class="trackable-detail">
-                  {{enableExport ? 'You and the inspector will be able to export your task data into a csv. User can export from the application.' : 'You and the inspector will not be able to export your task data into a csv. User cannot export from the application.'}}
+                  {{enableExport ? 'You and the inspector will be able to export your task data into a csv. User can
+                  export from the application.' : 'You and the inspector will not be able to export your task data into
+                  a csv. User cannot export from the application.'}}
                 </span>
               </h5>
             </div>

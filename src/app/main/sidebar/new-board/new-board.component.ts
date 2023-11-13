@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AppControlService } from 'src/app/services/app-control.service';
 
 @Component({
   selector: 'app-new-board',
@@ -27,11 +28,11 @@ export class NewBoardComponent {
   showExportInfo: boolean = false;
   showPrivateBoardInfo: boolean = false;
 
-  constructor() {
+  constructor(private appControlService: AppControlService) {
     this.stages = [
       {
         icon: 'fi-sr-layer-plus',
-        name: 'Create a board',
+        name: 'Create board',
         description: 'Give it a name and description',
       },
       {
@@ -41,12 +42,12 @@ export class NewBoardComponent {
       },
       {
         icon: 'fi-sr-binoculars',
-        name: 'Add security layer',
+        name: 'Add security',
         description: 'Who can access and what can be tracked',
       },
       {
         icon: 'fi-sr-check-circle',
-        name: 'Summarize board details',
+        name: 'Summarize details',
         description: 'All ready! Good to go...',
       },
     ];
@@ -144,9 +145,24 @@ export class NewBoardComponent {
 
   getActiveTrackables(): any {
     try {
-      return this.trackables.filter(((trackable) => trackable.status == 'active'))
+      return this.trackables.filter(
+        (trackable) => trackable.status == 'active'
+      );
     } catch (error) {
-      console.error(error)
+      console.error(error);
+    }
+  }
+
+  onCloseAddTask(): void {
+    try {
+      this.appControlService.confirmDialog(
+        'Are you sure want to cancel creating board?',
+        (result: any) => {
+          if (result) this.appControlService.showNewBoard = false;
+        }
+      );
+    } catch (error) {
+      console.error(error);
     }
   }
 }

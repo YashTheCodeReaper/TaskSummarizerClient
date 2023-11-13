@@ -86,7 +86,7 @@
     <div class="sheet-enclosure">
       <div class="day-flex">
         <div class="day-box" *ngFor="let date of formattedDates"
-          [ngClass]="{'active-day': date.includes(selectedDate+10)}">
+          [ngClass]="{'active-day': date.includes(selectedDate)}">
           <h5>{{date.substring(0,2)}}<span>{{date.substring(2,4)}}</span></h5>
         </div>
       </div>
