@@ -15,10 +15,11 @@
     </div>
   </div>
   <div class="aw-right">
-    <div class="awr-overlay awro-top"></div>
+    <!-- <div class="awr-overlay awro-top"></div>
     <div class="awr-overlay awro-bottom"></div>
     <div class="form-flex ff-right">
       <form [formGroup]="registerFormGroup" [ngStyle]="{'opacity':  currentStage == 1 ? '1' : '0.3'}">
+        <i class="icon-bg fi fi-sr-id-badge"></i>
         <div class="icon-circle">
           <i class="fi fi-sr-id-badge"></i>
         </div>
@@ -40,6 +41,9 @@
         <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(registerFormGroup, 'password')">
           Please choose a password
         </span>
+        <p class="form-link-text">
+          Already have an account? <span role="link">Login</span>
+        </p>
         <button class="primary-button">
           <div class="pb-text">Next</div>
         </button>
@@ -47,33 +51,43 @@
       <form [ngStyle]="{'opacity':  currentStage == 2 ? '1' : '0.3'}"></form>
     </div>
     <div class="form-flex ff-left">
-      <form [formGroup]="registerFormGroup" [ngStyle]="{'opacity':  currentStage == 3 ? '1' : '0.3'}">
-        <div class="icon-circle">
-          <i class="fi fi-brands-jira"></i>
-        </div>
-        <h4>JIRA Credentials</h4>
-        <p>Please provide your jira credentials to proceed</p>
-        <div class="input-group input-group-auth-2"
+      <form [ngStyle]="{'opacity':  currentStage == 3 ? '1' : '0.3'}">
+      </form>
+      <form [ngStyle]="{'opacity':  currentStage == 4 ? '1' : '0.3'}"></form>
+    </div> -->
+    <div class="awr-enclosure">
+      <h2>Get started!</h2>
+      <p>Please provide your credentials to proceed</p>
+      <form [formGroup]="registerFormGroup">
+        <div class="input-group input-group-auth-0"
           [ngClass]="{'input-group-focus-forced': registerFormGroup.controls['email'].value}">
-          <label for="email">Enter your JIRA email</label>
-          <input formControlName="email" type="text" (focus)="onFieldFocus(2)" (blur)="onFieldFocus(2)">
+          <label for="email">Enter your email</label>
+          <input formControlName="email" type="text" (focus)="onFieldFocus(0)" (blur)="onFieldFocus(0)">
         </div>
         <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(registerFormGroup, 'email')">
-          Please enter your JIRA mail id to proceed
+          Please enter your mail id to proceed
         </span>
         <div class="input-group input-group-auth-1"
           [ngClass]="{'input-group-focus-forced': registerFormGroup.controls['password'].value}">
-          <label for="password">Enter API key</label>
+          <label for="password">Choose a password</label>
           <input formControlName="password" type="text" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
         </div>
         <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(registerFormGroup, 'password')">
-          Please enter API key
+          Please choose a password
         </span>
-        <button class="primary-button">
-          <div class="pb-text">Next</div>
-        </button>
+        <div class="checkbox-group">
+          <div class="custom-checkbox" role="checkbox" [ngClass]="{'inactive-checkbox': !true}">
+            <div class="checkbox-ball"></div>
+          </div>
+          <p>Stay signed in?</p>
+        </div>
       </form>
-      <form [ngStyle]="{'opacity':  currentStage == 4 ? '1' : '0.3'}"></form>
+      <p class="form-link-text">
+        Already have an account? <span role="link">Login</span>
+      </p>
+      <button class="primary-button">
+        <div class="pb-text">Next</div>
+      </button>
     </div>
   </div>
 </section>
