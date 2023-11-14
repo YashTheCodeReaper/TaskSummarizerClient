@@ -419,7 +419,7 @@
           align-items: flex-start;
           justify-content: flex-start;
 
-          app-taskbar{
+          app-taskbar {
             width: 100%;
             min-height: 8rem;
           }
@@ -864,6 +864,24 @@
           background: var(--theme-var-1);
         }
       }
+    }
+  }
+
+  .no-board-wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    h3 {
+      font-size: 2rem;
+      font-weight: 400;
+      max-width: 60rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      margin-top: -5rem;
     }
   }
 

@@ -7,7 +7,7 @@
     <div class="input-group input-group-te-0"
       [ngClass]="{'input-group-focus-forced': taskExportFormGroup.controls['name'].value}">
       <label for="name">Export file name</label>
-      <input formControlName="name" type="text" (focus)="onFieldFocus(0)" (blur)="onFieldFocus(0)" maxlength="10">
+      <input formControlName="name" type="text" (focus)="onFieldFocus(0)" (blur)="onFieldFocus(0)">
     </div>
     <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(taskExportFormGroup, 'name')">Please
       choose a start

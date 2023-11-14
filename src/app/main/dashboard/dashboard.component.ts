@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { AnimationOptions } from 'ngx-lottie';
 import { AppControlService } from 'src/app/services/app-control.service';
 
 @Component({
@@ -8,13 +9,18 @@ import { AppControlService } from 'src/app/services/app-control.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  // Month picker and date slider
   selectedMonth: Date = new Date(
     new Date().getFullYear(),
     new Date().getMonth()
   );
   formattedDates: string[] | any = [];
   selectedDate: number = new Date().getDate();
+  isBoardAvailable: boolean = true;
+  notFoundAnimation: AnimationOptions = {
+    path: 'assets/images/main/dashboard/db-empty-1.json',
+    loop: true,
+    autoplay: true,
+  };
 
   constructor(
     public appControlService: AppControlService,

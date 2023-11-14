@@ -38,7 +38,7 @@ export const MY_FORMATS = {
 })
 export class AddTaskComponent {
   taskFormGroup!: FormGroup;
-  taskType: string = 'jira';
+  taskType: string = 'todolist';
   subTasks: { name: string; status: 'completed' | 'inactive' }[] = [];
   members: { user_id: string }[] = [];
   newSubTask: boolean = false;
@@ -50,7 +50,7 @@ export class AddTaskComponent {
   selectedPriority: { name: string; icon: string; color: string };
   showPriorityFlex: boolean = false;
   showCategoryFlex: boolean = false;
-
+  
   constructor(private appControlService: AppControlService) {
     this.subTasks = [];
     this.priorities = [

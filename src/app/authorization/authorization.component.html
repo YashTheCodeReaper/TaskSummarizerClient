@@ -1,79 +1,79 @@
 <section class="authorization-wrapper">
   <div class="aw-left">
-    <div class="logo-box">
-      <i class="fi fi-brands-jira"></i>
-      <h4>Task Manager</h4>
+    <div class="awl-enclosure">
+      <h5>Task manager</h5>
+      <div class="awl-content-flex">
+        <h1>Manage your task and time in a new way.</h1>
+        <h4>Automatic task inspection made possible with powerful integrations like JIRA, GitLab, Microsoft Teams, KEKA
+          along with ZOHO Timesheet auto compliance feature.</h4>
+        <ng-lottie [height]="'300px'" [options]="authAnimation"></ng-lottie>
+      </div>
+      <div class="paginator">
+        <div *ngFor="let item of [].constructor(3); let i = index" class="page-index"
+          [ngClass]="{'active-index': i==0}"></div>
+      </div>
     </div>
-    <form *ngIf="isSignIn" [formGroup]="loginFormGroup">
-      <div class="title-flex">
-        <h1>Welcome back!</h1>
-        <h3>Please login to continue.</h3>
-      </div>
-      <ng-container>
-        <div class="input-group input-group-aw-0"
-          [ngClass]="{'input-group-focus-forced': loginFormGroup.controls['email'].value?.length}">
-          <label for="email">Enter your email</label>
-          <input formControlName="email" type="email" (focus)="onFieldFocus(0)" (blur)="onFieldFocus(0)">
-          <i *ngIf="validateField(loginFormGroup, 'email')" class="warn-icon fi fi-sr-info"></i>
-        </div>
-        <span class="error-message" *ngIf="validateField(loginFormGroup, 'email')">A valid email id is required to
-          login!</span>
-      </ng-container>
-      <ng-container>
-        <div class="input-group input-group-aw-1"
-          [ngClass]="{'input-group-focus-forced': loginFormGroup.controls['password'].value?.length}">
-          <label for="password">Enter your password</label>
-          <input formControlName="password" type="password" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
-          <i *ngIf="validateField(loginFormGroup, 'password')" class="warn-icon fi fi-sr-info"></i>
-        </div>
-        <span class="error-message" *ngIf="validateField(loginFormGroup, 'password')">Invalid password!</span>
-      </ng-container>
-      <ng-container>
-        <div style="margin-top: 1rem;" class="checkbox-group">
-          <div class="custom-checkbox" role="checkbox">
-            <div class="checkbox-ball"></div>
-          </div>
-          <p>Stay signed in?</p>
-        </div>
-      </ng-container>
-      <div class="button-flex">
-        <p>Don't have an account? <span>Create one!</span></p>
-        <button class="primary-button">
-          <p class="pb-text">Login</p>
-          <i class="pb-icon fi fi-rr-sign-in-alt"></i>
-        </button>
-      </div>
-    </form>
-    <ng-container *ngIf="!isSignIn">
-      <div class="signup-container">
-        <div class="account-stages-flex">
-          <div class="account-stage-box" *ngFor="let item of stages; let i = index;"
-            [ngClass]="{'completed-stage': currentStage > i+1, 'active-stage': currentStage === i+1}">
-            <div class="icon-holder">
-              <i class="fi {{item.flatIcon}}"></i>
-              <div class="checked">
-                <i class="fi fi-br-check"></i>
-              </div>
-            </div>
-            <div class="stage-detail-flex">
-              <p>Step: {{currentStage}}/5</p>
-              <h5>{{item.name}}</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-container>
   </div>
   <div class="aw-right">
-    <h1>
-      <span><span>Managing</span></span> tasks made easy.<br>
-      <span><span>Colaborate</span></span> with your team.<br>
-    </h1>
-    <img src="assets/images/main/auth/appov.png">
-    <div class="concentric-anim">
-      <div class="circle circle-1"></div>
-      <div class="circle circle-2"></div>
-      <div class="circle circle-3"></div>
+    <div class="awr-overlay awro-top"></div>
+    <div class="awr-overlay awro-bottom"></div>
+    <div class="form-flex ff-right">
+      <form [formGroup]="registerFormGroup" [ngStyle]="{'opacity':  currentStage == 1 ? '1' : '0.3'}">
+        <div class="icon-circle">
+          <i class="fi fi-sr-id-badge"></i>
+        </div>
+        <h4>Authorize</h4>
+        <p>Please enter your credentials to proceed</p>
+        <div class="input-group input-group-auth-0"
+          [ngClass]="{'input-group-focus-forced': registerFormGroup.controls['email'].value}">
+          <label for="email">Enter your email</label>
+          <input formControlName="email" type="text" (focus)="onFieldFocus(0)" (blur)="onFieldFocus(0)">
+        </div>
+        <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(registerFormGroup, 'email')">
+          Please enter your mail id to proceed
+        </span>
+        <div class="input-group input-group-auth-1"
+          [ngClass]="{'input-group-focus-forced': registerFormGroup.controls['password'].value}">
+          <label for="password">Choose a password</label>
+          <input formControlName="password" type="text" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
+        </div>
+        <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(registerFormGroup, 'password')">
+          Please choose a password
+        </span>
+        <button class="primary-button">
+          <div class="pb-text">Next</div>
+        </button>
+      </form>
+      <form [ngStyle]="{'opacity':  currentStage == 2 ? '1' : '0.3'}"></form>
+    </div>
+    <div class="form-flex ff-left">
+      <form [formGroup]="registerFormGroup" [ngStyle]="{'opacity':  currentStage == 3 ? '1' : '0.3'}">
+        <div class="icon-circle">
+          <i class="fi fi-brands-jira"></i>
+        </div>
+        <h4>JIRA Credentials</h4>
+        <p>Please provide your jira credentials to proceed</p>
+        <div class="input-group input-group-auth-2"
+          [ngClass]="{'input-group-focus-forced': registerFormGroup.controls['email'].value}">
+          <label for="email">Enter your JIRA email</label>
+          <input formControlName="email" type="text" (focus)="onFieldFocus(2)" (blur)="onFieldFocus(2)">
+        </div>
+        <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(registerFormGroup, 'email')">
+          Please enter your JIRA mail id to proceed
+        </span>
+        <div class="input-group input-group-auth-1"
+          [ngClass]="{'input-group-focus-forced': registerFormGroup.controls['password'].value}">
+          <label for="password">Enter API key</label>
+          <input formControlName="password" type="text" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
+        </div>
+        <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(registerFormGroup, 'password')">
+          Please enter API key
+        </span>
+        <button class="primary-button">
+          <div class="pb-text">Next</div>
+        </button>
+      </form>
+      <form [ngStyle]="{'opacity':  currentStage == 4 ? '1' : '0.3'}"></form>
     </div>
   </div>
 </section>

@@ -1,401 +1,413 @@
 <section class="dashboard_section">
-  <div class="ds-top">
-    <div class="board-info">
-      <div class="branched-board">
-        <div class="branch-box"></div>
-        <p>Yashwanth's board</p>
-      </div>
-      <i style="color: #f48c7d;" class="fi fi-br-circle"></i>
-      <h3>Compilers Clan</h3>
-      <div class="team-members-short-flex">
-        <div style="margin-right: -0.5rem;" class="mini-image-circle">
-          <img src="https://i.pravatar.cc/150?img=20">
+  <ng-container *ngIf="isBoardAvailable">
+    <div class="ds-top">
+      <div class="board-info">
+        <div class="branched-board">
+          <div class="branch-box"></div>
+          <p>Yashwanth's board</p>
         </div>
-        <div style="margin-right: -0.5rem;" class="mini-image-circle">
-          <img src="https://i.pravatar.cc/150?img=30">
-        </div>
-        <div style="margin-right: -0.5rem;" class="mini-image-circle">
-          <img src="https://i.pravatar.cc/150?img=40">
-        </div>
-        <div class="mini-image-circle number-circle">
-          <p>+9</p>
-        </div>
-      </div>
-    </div>
-    <div class="app-utilities">
-      <div class="task-search-container">
-        <i class="fi fi-rr-search"></i>
-        <input type="text" placeholder="Search tasks here">
-      </div>
-      <div class="medium-button notifications-button" (click)="this.appControlService.showNotifications = true;"
-        role="button">
-        <i class="fi fi-rr-bell"></i>
-        <div class="bell"></div>
-      </div>
-      <div class="medium-button export-task-button" role="button"
-        (click)="this.appControlService.showTaskExporter = true;">
-        <i class="fi fi-rr-file-download"></i>
-      </div>
-      <div class="link-sharer">
-        <h5>Share</h5>
-        <h5 class="link-option" role="button" (click)="this.appControlService.showAppShare = true;">
-          <span>Link</span>
-          <i class="fi fi-rr-angle-down"></i>
-        </h5>
-      </div>
-    </div>
-  </div>
-  <div class="ds-top-middle">
-    <div class="dstm-left">
-      <div class="format-switcher">
-        <h5 class="link-option" role="button">
-          <span>Timeline</span>
-        </h5>
-        <h5 role="button">
-          <span>Table</span>
-        </h5>
-        <h5 role="button">
-          <span>Blocks</span>
-        </h5>
-      </div>
-      <div class="duration-switcher">
-        <h5 role="button">
-          <span>This month</span>
-          <i class="fi fi-rr-angle-down"></i>
-        </h5>
-      </div>
-    </div>
-    <div class="dstm-right">
-      <div class="last-edited-by">
-        <h5><i class="fi fi-rr-edit"></i><span>20 minutes ago</span></h5>
-        <div class="editor-flex" role="button" (click)="this.appControlService.showMemberSwitch = true;">
-          <img src="https://i.pravatar.cc/150?img=25" alt="">
-          <h5>Yashwanth</h5>
+        <i style="color: #f48c7d;" class="fi fi-br-circle"></i>
+        <h3>Compilers Clan</h3>
+        <div class="team-members-short-flex">
+          <div style="margin-right: -0.5rem;" class="mini-image-circle">
+            <img src="https://i.pravatar.cc/150?img=20">
+          </div>
+          <div style="margin-right: -0.5rem;" class="mini-image-circle">
+            <img src="https://i.pravatar.cc/150?img=30">
+          </div>
+          <div style="margin-right: -0.5rem;" class="mini-image-circle">
+            <img src="https://i.pravatar.cc/150?img=40">
+          </div>
+          <div class="mini-image-circle number-circle">
+            <p>+9</p>
+          </div>
         </div>
       </div>
-      <div class="month-year-flex">
-        <i class="fi fi-rr-angle-small-left"></i>
-        <h3>{{selectedMonth.toLocaleString('en-US', { month: 'long' }).substring(0,3)}},
-          <span>{{selectedMonth.getFullYear()}}</span>
-        </h3>
-        <i class="fi fi-rr-angle-small-right"></i>
-      </div>
-    </div>
-  </div>
-  <div class="ds-middle">
-    <div class="sheet-enclosure">
-      <div class="day-flex">
-        <div class="day-box" *ngFor="let date of formattedDates"
-          [ngClass]="{'active-day': date.includes(selectedDate)}">
-          <h5>{{date.substring(0,2)}}<span>{{date.substring(2,4)}}</span></h5>
+      <div class="app-utilities">
+        <div class="task-search-container">
+          <i class="fi fi-rr-search"></i>
+          <input type="text" placeholder="Search tasks here">
         </div>
-      </div>
-      <div class="sheet-enclosure-1">
-        <div class="time-flex">
-          <div class="time-box">
-            <p>10:00 AM</p>
-          </div>
-          <div class="time-box">
-            <p>11:00 AM</p>
-          </div>
-          <div class="time-box">
-            <p>12:00 AM</p>
-          </div>
-          <div class="time-box">
-            <p>13:00 AM</p>
-          </div>
-          <div class="time-box">
-            <p>14:00 AM</p>
-          </div>
-          <div class="time-box">
-            <p>15:00 AM</p>
-          </div>
-          <div class="time-box">
-            <p>16:00 AM</p>
-          </div>
-          <div class="time-box">
-            <p>17:00 AM</p>
-          </div>
-          <div class="time-box">
-            <p>18:00 AM</p>
-          </div>
-          <div class="time-box">
-            <p>19:00 AM</p>
-          </div>
+        <div class="medium-button notifications-button" (click)="this.appControlService.showNotifications = true;"
+          role="button">
+          <i class="fi fi-rr-bell"></i>
+          <div class="bell"></div>
         </div>
-        <div class="sheet-enclosure-2">
-          <app-taskbar [offset]="'0%'" [taskType]="'jira'" [width]="20"
-            [taskTitle]="'Visual IVR Annotation Component Enhancement'" [taskStartTime]="'10:00'"
-            [taskEndTime]="'12:00'" [priority]="'high'" [priorityBg]="'var(--danger-color)'"></app-taskbar>
-          <app-taskbar [offset]="'20%'" [taskType]="'msteams'" [width]="34" [taskTitle]="'UI Discussion With Designers'"
-            [taskStartTime]="'12:00'" [taskEndTime]="'14:00'" [priority]="'medium'"
-            [priorityBg]="'var(--danger-color-1)'"></app-taskbar>
-          <app-taskbar [offset]="'0%'" [taskType]="'jira'" [width]="20"
-            [taskTitle]="'Visual IVR Annotation Component Enhancement'" [taskStartTime]="'10:00'"
-            [taskEndTime]="'12:00'" [priority]="'high'" [priorityBg]="'var(--danger-color)'"></app-taskbar>
-          <app-taskbar [offset]="'20%'" [taskType]="'msteams'" [width]="34" [taskTitle]="'UI Discussion With Designers'"
-            [taskStartTime]="'12:00'" [taskEndTime]="'14:00'" [priority]="'medium'"
-            [priorityBg]="'var(--danger-color-1)'"></app-taskbar>
-          <app-taskbar [offset]="'20%'" [taskType]="'msteams'" [width]="34" [taskTitle]="'UI Discussion With Designers'"
-            [taskStartTime]="'12:00'" [taskEndTime]="'14:00'" [priority]="'medium'"
-            [priorityBg]="'var(--danger-color-1)'"></app-taskbar>
+        <div class="medium-button export-task-button" role="button"
+          (click)="this.appControlService.showTaskExporter = true;">
+          <i class="fi fi-rr-file-download"></i>
+        </div>
+        <div class="link-sharer">
+          <h5>Share</h5>
+          <h5 class="link-option" role="button" (click)="this.appControlService.showAppShare = true;">
+            <span>Link</span>
+            <i class="fi fi-rr-angle-down"></i>
+          </h5>
         </div>
       </div>
     </div>
-  </div>
-  <div class="ds-bottom-middle">
-    <div class="dsbm-left">
-      <div class="util-button">
-        <h5 role="button">
-          <i class="fi fi-br-bars-filter"></i>
-          <span>Filter</span>
-        </h5>
-      </div>
-      <div class="color-flex">
-        <p>Color:</p>
-        <div class="color-bubble" style="background: #ffe27c;"></div>
-        <div class="color-bubble" style="background: #7da9ff;"></div>
-        <div class="color-bubble" style="background: #f48c7d;"></div>
-        <div class="color-bubble" style="background: #ff7edb;"></div>
-      </div>
-      <div class="util-button" role="button" (click)="this.appControlService.showAddTask = true;"
-        style="background: transparent;">
-        <h5>
-          <i style="font-size: 1.6rem;" class="fi fi-rr-note"></i>
-          <span>Add a task</span>
-        </h5>
-      </div>
-    </div>
-    <div class="dsbm-right">
-      <div class="util-button">
-        <h5 role="button">
-          <i class="fi fi-rr-trash"></i>
-          <span>Delted</span>
-          <span class="count">5</span>
-        </h5>
-      </div>
-    </div>
-  </div>
-  <div class="ds-bottom">
-    <div class="weekly-insights">
-      <div class="title-flex">
-        <h4>Weekly Insights</h4>
-        <h5>01 Nov - 07 Nov</h5>
-      </div>
-      <div class="wi-container">
-        <div class="time-switcher">
-          <i class="fi fi-rr-calendar-day"></i>
-          <p>Last week</p>
+    <div class="ds-top-middle">
+      <div class="dstm-left">
+        <div class="format-switcher">
+          <h5 class="link-option" role="button">
+            <span>Timeline</span>
+          </h5>
+          <h5 role="button">
+            <span>Table</span>
+          </h5>
+          <h5 role="button">
+            <span>Blocks</span>
+          </h5>
         </div>
-        <div class="wi-analytic-label">
-          <div class="duration-task-flex">
-            <div class="wia-dt">
-              <p>Time spent</p>
-              <h5>47h <span class="up"><i class="fi fi-sr-arrow-trend-up"></i>12%</span></h5>
+        <div class="duration-switcher">
+          <h5 role="button">
+            <span>This month</span>
+            <i class="fi fi-rr-angle-down"></i>
+          </h5>
+        </div>
+      </div>
+      <div class="dstm-right">
+        <div class="last-edited-by">
+          <h5><i class="fi fi-rr-edit"></i><span>20 minutes ago</span></h5>
+          <div class="editor-flex" role="button" (click)="this.appControlService.showMemberSwitch = true;">
+            <img src="https://i.pravatar.cc/150?img=25" alt="">
+            <h5>Yashwanth</h5>
+          </div>
+        </div>
+        <div class="month-year-flex">
+          <i class="fi fi-rr-angle-small-left"></i>
+          <h3>{{selectedMonth.toLocaleString('en-US', { month: 'long' }).substring(0,3)}},
+            <span>{{selectedMonth.getFullYear()}}</span>
+          </h3>
+          <i class="fi fi-rr-angle-small-right"></i>
+        </div>
+      </div>
+    </div>
+    <div class="ds-middle">
+      <div class="sheet-enclosure">
+        <div class="day-flex">
+          <div class="day-box" *ngFor="let date of formattedDates"
+            [ngClass]="{'active-day': date.includes(selectedDate)}">
+            <h5>{{date.substring(0,2)}}<span>{{date.substring(2,4)}}</span></h5>
+          </div>
+        </div>
+        <div class="sheet-enclosure-1">
+          <div class="time-flex">
+            <div class="time-box">
+              <p>10:00 AM</p>
             </div>
-            <div class="wia-dt">
-              <p>Tasks</p>
-              <h5>10 <span class="down"><i class="fi fi-sr-arrow-trend-down"></i>30%</span></h5>
+            <div class="time-box">
+              <p>11:00 AM</p>
+            </div>
+            <div class="time-box">
+              <p>12:00 AM</p>
+            </div>
+            <div class="time-box">
+              <p>13:00 AM</p>
+            </div>
+            <div class="time-box">
+              <p>14:00 AM</p>
+            </div>
+            <div class="time-box">
+              <p>15:00 AM</p>
+            </div>
+            <div class="time-box">
+              <p>16:00 AM</p>
+            </div>
+            <div class="time-box">
+              <p>17:00 AM</p>
+            </div>
+            <div class="time-box">
+              <p>18:00 AM</p>
+            </div>
+            <div class="time-box">
+              <p>19:00 AM</p>
             </div>
           </div>
-          <div class="task-category-flex">
-            <div class="wia-tc">
-              <i style="color: #7da9ff;" class="fi fi-ss-bullet"></i>
-              <h5>PRODQA</h5>
+          <div class="sheet-enclosure-2">
+            <app-taskbar [offset]="'0%'" [taskType]="'jira'" [width]="20"
+              [taskTitle]="'Visual IVR Annotation Component Enhancement'" [taskStartTime]="'10:00'"
+              [taskEndTime]="'12:00'" [priority]="'high'" [priorityBg]="'var(--danger-color)'"></app-taskbar>
+            <app-taskbar [offset]="'20%'" [taskType]="'msteams'" [width]="34"
+              [taskTitle]="'UI Discussion With Designers'" [taskStartTime]="'12:00'" [taskEndTime]="'14:00'"
+              [priority]="'medium'" [priorityBg]="'var(--danger-color-1)'"></app-taskbar>
+            <app-taskbar [offset]="'0%'" [taskType]="'jira'" [width]="20"
+              [taskTitle]="'Visual IVR Annotation Component Enhancement'" [taskStartTime]="'10:00'"
+              [taskEndTime]="'12:00'" [priority]="'high'" [priorityBg]="'var(--danger-color)'"></app-taskbar>
+            <app-taskbar [offset]="'20%'" [taskType]="'msteams'" [width]="34"
+              [taskTitle]="'UI Discussion With Designers'" [taskStartTime]="'12:00'" [taskEndTime]="'14:00'"
+              [priority]="'medium'" [priorityBg]="'var(--danger-color-1)'"></app-taskbar>
+            <app-taskbar [offset]="'20%'" [taskType]="'msteams'" [width]="34"
+              [taskTitle]="'UI Discussion With Designers'" [taskStartTime]="'12:00'" [taskEndTime]="'14:00'"
+              [priority]="'medium'" [priorityBg]="'var(--danger-color-1)'"></app-taskbar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-bottom-middle">
+      <div class="dsbm-left">
+        <div class="util-button">
+          <h5 role="button">
+            <i class="fi fi-br-bars-filter"></i>
+            <span>Filter</span>
+          </h5>
+        </div>
+        <div class="color-flex">
+          <p>Color:</p>
+          <div class="color-bubble" style="background: #ffe27c;"></div>
+          <div class="color-bubble" style="background: #7da9ff;"></div>
+          <div class="color-bubble" style="background: #f48c7d;"></div>
+          <div class="color-bubble" style="background: #ff7edb;"></div>
+        </div>
+        <div class="util-button" role="button" (click)="this.appControlService.showAddTask = true;"
+          style="background: transparent;">
+          <h5>
+            <i style="font-size: 1.6rem;" class="fi fi-rr-note"></i>
+            <span>Add a task</span>
+          </h5>
+        </div>
+      </div>
+      <div class="dsbm-right">
+        <div class="util-button">
+          <h5 role="button">
+            <i class="fi fi-rr-trash"></i>
+            <span>Delted</span>
+            <span class="count">5</span>
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div class="ds-bottom">
+      <div class="weekly-insights">
+        <div class="title-flex">
+          <h4>Weekly Insights</h4>
+          <h5>01 Nov - 07 Nov</h5>
+        </div>
+        <div class="wi-container">
+          <div class="time-switcher">
+            <i class="fi fi-rr-calendar-day"></i>
+            <p>Last week</p>
+          </div>
+          <div class="wi-analytic-label">
+            <div class="duration-task-flex">
+              <div class="wia-dt">
+                <p>Time spent</p>
+                <h5>47h <span class="up"><i class="fi fi-sr-arrow-trend-up"></i>12%</span></h5>
+              </div>
+              <div class="wia-dt">
+                <p>Tasks</p>
+                <h5>10 <span class="down"><i class="fi fi-sr-arrow-trend-down"></i>30%</span></h5>
+              </div>
+            </div>
+            <div class="task-category-flex">
+              <div class="wia-tc">
+                <i style="color: #7da9ff;" class="fi fi-ss-bullet"></i>
+                <h5>PRODQA</h5>
+                <p>4</p>
+              </div>
+              <div class="wia-tc">
+                <i style="color: #f48c7d;" class="fi fi-ss-bullet"></i>
+                <h5>ENGQA</h5>
+                <p>2</p>
+              </div>
+              <div class="wia-tc">
+                <i style="color: #ffe27c;" class="fi fi-ss-bullet"></i>
+                <h5>PQ</h5>
+                <p>3</p>
+              </div>
+              <div class="wia-tc">
+                <i style="color: #ff7edb;" class="fi fi-ss-bullet"></i>
+                <h5>PB</h5>
+                <p>1</p>
+              </div>
+            </div>
+          </div>
+          <div class="wi-analytic-chart">
+            <div class="wic wic-yaxis">
+              <p>10</p>
+              <p>8</p>
+              <p>6</p>
               <p>4</p>
-            </div>
-            <div class="wia-tc">
-              <i style="color: #f48c7d;" class="fi fi-ss-bullet"></i>
-              <h5>ENGQA</h5>
               <p>2</p>
+              <p>0</p>
+              <p>&nbsp;</p>
             </div>
-            <div class="wia-tc">
-              <i style="color: #ffe27c;" class="fi fi-ss-bullet"></i>
-              <h5>PQ</h5>
-              <p>3</p>
+            <div class="wic wic-bar">
+              <div class="wic-bar-overlay">
+              </div>
+              <p>Su</p>
             </div>
-            <div class="wia-tc">
+            <div class="wic wic-bar">
+              <div class="wic-bar-overlay">
+                <div class="wb-active" style="height: 10%; bottom: 0; background: #7da9ff;"></div>
+                <div class="wb-active" style="height: 40%; bottom: 10%; background: #f48c7d;"></div>
+                <div class="wb-active" style="height: 30%; bottom: 50%; background: #ff7edb;"></div>
+              </div>
+              <p>Mo</p>
+            </div>
+            <div class="wic wic-bar">
+              <div class="wic-bar-overlay">
+                <div class="wb-active" style="height: 20%; bottom: 0; background: #7da9ff;"></div>
+                <div class="wb-active" style="height: 30%; bottom: 20%; background: #f48c7d;"></div>
+                <div class="wb-active" style="height: 15%; bottom: 50%; background: #ff7edb;"></div>
+              </div>
+              <p>Tu</p>
+            </div>
+            <div class="wic wic-bar">
+              <div class="wic-bar-overlay">
+                <div class="wb-active" style="height: 55%; bottom: 0; background: #7da9ff;"></div>
+                <div class="wb-active" style="height: 15%; bottom: 55%; background: #f48c7d;"></div>
+                <div class="wb-active" style="height: 20%; bottom: 70%; background: #ff7edb;"></div>
+              </div>
+              <p>We</p>
+            </div>
+            <div class="wic wic-bar">
+              <div class="wic-bar-overlay">
+                <div class="wb-active" style="height: 10%; bottom: 0; background: #7da9ff;"></div>
+                <div class="wb-active" style="height: 40%; bottom: 10%; background: #f48c7d;"></div>
+                <div class="wb-active" style="height: 30%; bottom: 50%; background: #ff7edb;"></div>
+              </div>
+              <p>Th</p>
+            </div>
+            <div class="wic wic-bar">
+              <div class="wic-bar-overlay">
+                <div class="wb-active" style="height: 10%; bottom: 0; background: #7da9ff;"></div>
+                <div class="wb-active" style="height: 40%; bottom: 10%; background: #f48c7d;"></div>
+                <div class="wb-active" style="height: 30%; bottom: 50%; background: #ff7edb;"></div>
+              </div>
+              <p>Fr</p>
+            </div>
+            <div class="wic wic-bar">
+              <div class="wic-bar-overlay"></div>
+              <p>Sa</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="activity-log">
+        <div class="title-flex">
+          <h4>Yashwanth's Projects</h4>
+          <h5>4 Active Projects</h5>
+        </div>
+        <div class="projects-container">
+          <div class="project-comp">
+            <div class="project-name">
+              <i style="color: #7da9ff;" class="fi fi-ss-bullet"></i>
+              <p>PRODUCT QA</p>
+            </div>
+            <div class="total-issues">
+              <p>Total issues</p>
+              <h3>356</h3>
+            </div>
+            <div class="project-stats-flex">
+              <p>Active</p>
+              <div class="stat-bar-flex">
+                <div class="stat-bar-overlay">
+                  <div style="width: 35%;" class="stat-active"></div>
+                </div>
+                <p>35%</p>
+              </div>
+              <p>Completed</p>
+              <div class="stat-bar-flex">
+                <div class="stat-bar-overlay">
+                  <div style="width: 65%; left: unset; right: 0;" class="stat-active"></div>
+                </div>
+                <p>65%</p>
+              </div>
+            </div>
+          </div>
+          <div class="project-comp">
+            <div class="project-name">
+              <i style="color: #f48c7d;" class="fi fi-ss-bullet"></i>
+              <p>ENGINEERING QA</p>
+            </div>
+            <div class="total-issues">
+              <p>Total issues</p>
+              <h3>128</h3>
+            </div>
+            <div class="project-stats-flex">
+              <p>Active</p>
+              <div class="stat-bar-flex">
+                <div class="stat-bar-overlay">
+                  <div style="width: 18%;" class="stat-active"></div>
+                </div>
+                <p>18%</p>
+              </div>
+              <p>Completed</p>
+              <div class="stat-bar-flex">
+                <div class="stat-bar-overlay">
+                  <div style="width: 56%; left: unset; right: 0;" class="stat-active"></div>
+                </div>
+                <p>56%</p>
+              </div>
+            </div>
+          </div>
+          <div class="project-comp">
+            <div class="project-name">
               <i style="color: #ff7edb;" class="fi fi-ss-bullet"></i>
-              <h5>PB</h5>
-              <p>1</p>
+              <p>PRODUCT BACKLOGS</p>
             </div>
-          </div>
-        </div>
-        <div class="wi-analytic-chart">
-          <div class="wic wic-yaxis">
-            <p>10</p>
-            <p>8</p>
-            <p>6</p>
-            <p>4</p>
-            <p>2</p>
-            <p>0</p>
-            <p>&nbsp;</p>
-          </div>
-          <div class="wic wic-bar">
-            <div class="wic-bar-overlay">
+            <div class="total-issues">
+              <p>Total issues</p>
+              <h3>24</h3>
             </div>
-            <p>Su</p>
-          </div>
-          <div class="wic wic-bar">
-            <div class="wic-bar-overlay">
-              <div class="wb-active" style="height: 10%; bottom: 0; background: #7da9ff;"></div>
-              <div class="wb-active" style="height: 40%; bottom: 10%; background: #f48c7d;"></div>
-              <div class="wb-active" style="height: 30%; bottom: 50%; background: #ff7edb;"></div>
-            </div>
-            <p>Mo</p>
-          </div>
-          <div class="wic wic-bar">
-            <div class="wic-bar-overlay">
-              <div class="wb-active" style="height: 20%; bottom: 0; background: #7da9ff;"></div>
-              <div class="wb-active" style="height: 30%; bottom: 20%; background: #f48c7d;"></div>
-              <div class="wb-active" style="height: 15%; bottom: 50%; background: #ff7edb;"></div>
-            </div>
-            <p>Tu</p>
-          </div>
-          <div class="wic wic-bar">
-            <div class="wic-bar-overlay">
-              <div class="wb-active" style="height: 55%; bottom: 0; background: #7da9ff;"></div>
-              <div class="wb-active" style="height: 15%; bottom: 55%; background: #f48c7d;"></div>
-              <div class="wb-active" style="height: 20%; bottom: 70%; background: #ff7edb;"></div>
-            </div>
-            <p>We</p>
-          </div>
-          <div class="wic wic-bar">
-            <div class="wic-bar-overlay">
-              <div class="wb-active" style="height: 10%; bottom: 0; background: #7da9ff;"></div>
-              <div class="wb-active" style="height: 40%; bottom: 10%; background: #f48c7d;"></div>
-              <div class="wb-active" style="height: 30%; bottom: 50%; background: #ff7edb;"></div>
-            </div>
-            <p>Th</p>
-          </div>
-          <div class="wic wic-bar">
-            <div class="wic-bar-overlay">
-              <div class="wb-active" style="height: 10%; bottom: 0; background: #7da9ff;"></div>
-              <div class="wb-active" style="height: 40%; bottom: 10%; background: #f48c7d;"></div>
-              <div class="wb-active" style="height: 30%; bottom: 50%; background: #ff7edb;"></div>
-            </div>
-            <p>Fr</p>
-          </div>
-          <div class="wic wic-bar">
-            <div class="wic-bar-overlay"></div>
-            <p>Sa</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="activity-log">
-      <div class="title-flex">
-        <h4>Yashwanth's Projects</h4>
-        <h5>4 Active Projects</h5>
-      </div>
-      <div class="projects-container">
-        <div class="project-comp">
-          <div class="project-name">
-            <i style="color: #7da9ff;" class="fi fi-ss-bullet"></i>
-            <p>PRODUCT QA</p>
-          </div>
-          <div class="total-issues">
-            <p>Total issues</p>
-            <h3>356</h3>
-          </div>
-          <div class="project-stats-flex">
-            <p>Active</p>
-            <div class="stat-bar-flex">
-              <div class="stat-bar-overlay">
-                <div style="width: 35%;" class="stat-active"></div>
+            <div class="project-stats-flex">
+              <p>Active</p>
+              <div class="stat-bar-flex">
+                <div class="stat-bar-overlay">
+                  <div style="width: 90%;" class="stat-active"></div>
+                </div>
+                <p>90%</p>
               </div>
-              <p>35%</p>
-            </div>
-            <p>Completed</p>
-            <div class="stat-bar-flex">
-              <div class="stat-bar-overlay">
-                <div style="width: 65%; left: unset; right: 0;" class="stat-active"></div>
+              <p>Completed</p>
+              <div class="stat-bar-flex">
+                <div class="stat-bar-overlay">
+                  <div style="width: 10%; left: unset; right: 0;" class="stat-active"></div>
+                </div>
+                <p>10%</p>
               </div>
-              <p>65%</p>
-            </div>
-          </div>
-        </div>
-        <div class="project-comp">
-          <div class="project-name">
-            <i style="color: #f48c7d;" class="fi fi-ss-bullet"></i>
-            <p>ENGINEERING QA</p>
-          </div>
-          <div class="total-issues">
-            <p>Total issues</p>
-            <h3>128</h3>
-          </div>
-          <div class="project-stats-flex">
-            <p>Active</p>
-            <div class="stat-bar-flex">
-              <div class="stat-bar-overlay">
-                <div style="width: 18%;" class="stat-active"></div>
-              </div>
-              <p>18%</p>
-            </div>
-            <p>Completed</p>
-            <div class="stat-bar-flex">
-              <div class="stat-bar-overlay">
-                <div style="width: 56%; left: unset; right: 0;" class="stat-active"></div>
-              </div>
-              <p>56%</p>
             </div>
           </div>
-        </div>
-        <div class="project-comp">
-          <div class="project-name">
-            <i style="color: #ff7edb;" class="fi fi-ss-bullet"></i>
-            <p>PRODUCT BACKLOGS</p>
-          </div>
-          <div class="total-issues">
-            <p>Total issues</p>
-            <h3>24</h3>
-          </div>
-          <div class="project-stats-flex">
-            <p>Active</p>
-            <div class="stat-bar-flex">
-              <div class="stat-bar-overlay">
-                <div style="width: 90%;" class="stat-active"></div>
-              </div>
-              <p>90%</p>
+          <div class="project-comp">
+            <div class="project-name">
+              <i style="color: #ffe27c;" class="fi fi-ss-bullet"></i>
+              <p>PROJECT QA</p>
             </div>
-            <p>Completed</p>
-            <div class="stat-bar-flex">
-              <div class="stat-bar-overlay">
-                <div style="width: 10%; left: unset; right: 0;" class="stat-active"></div>
-              </div>
-              <p>10%</p>
+            <div class="total-issues">
+              <p>Total issues</p>
+              <h3>880</h3>
             </div>
-          </div>
-        </div>
-        <div class="project-comp">
-          <div class="project-name">
-            <i style="color: #ffe27c;" class="fi fi-ss-bullet"></i>
-            <p>PROJECT QA</p>
-          </div>
-          <div class="total-issues">
-            <p>Total issues</p>
-            <h3>880</h3>
-          </div>
-          <div class="project-stats-flex">
-            <p>Active</p>
-            <div class="stat-bar-flex">
-              <div class="stat-bar-overlay">
-                <div style="width: 46%;" class="stat-active"></div>
+            <div class="project-stats-flex">
+              <p>Active</p>
+              <div class="stat-bar-flex">
+                <div class="stat-bar-overlay">
+                  <div style="width: 46%;" class="stat-active"></div>
+                </div>
+                <p>46%</p>
               </div>
-              <p>46%</p>
-            </div>
-            <p>Completed</p>
-            <div class="stat-bar-flex">
-              <div class="stat-bar-overlay">
-                <div style="width: 54%; left: unset; right: 0;" class="stat-active"></div>
+              <p>Completed</p>
+              <div class="stat-bar-flex">
+                <div class="stat-bar-overlay">
+                  <div style="width: 54%; left: unset; right: 0;" class="stat-active"></div>
+                </div>
+                <p>54%</p>
               </div>
-              <p>54%</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isBoardAvailable">
+    <div class="no-board-wrapper">
+      <ng-lottie [height]="'250px'" [options]="notFoundAnimation"></ng-lottie>
+      <h3>Looks like its such a void in here. Please create a board to begin exploration.</h3>
+      <button style="align-self: center;" class="primary-button" (click)="this.appControlService.showNewBoard = true;">
+        <div class="pb-text">Create a new board</div>
+      </button>
+    </div>
+  </ng-container>
 
   <app-share *ngIf="appControlService.showAppShare"></app-share>
   <app-member-switch *ngIf="appControlService.showMemberSwitch"></app-member-switch>

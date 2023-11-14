@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ApiService } from '../services/api.service';
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-authorization',
@@ -13,48 +14,20 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./authorization.component.scss'],
 })
 export class AuthorizationComponent implements OnInit {
-  loginFormGroup!: FormGroup;
+  registerFormGroup!: FormGroup;
   isSignIn: boolean = true;
-  stages: {
-    name: string;
-    description: string;
-    flatIcon: string;
-  }[] = [];
   currentStage: number = 1;
+  authAnimation: AnimationOptions = {
+    path: 'assets/images/main/auth/auth1.json',
+    loop: true,
+    autoplay: true,
+  };
 
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService
   ) {
-    this.stages = [
-      {
-        name: 'Create Credentials',
-        description: 'Create your credentials to proceed',
-        flatIcon: 'fi-rr-shield-check',
-      },
-      {
-        name: 'JIRA Setup',
-        description: 'Please verify your JIRA credential',
-        flatIcon: 'fi-brands-jira',
-      },
-      {
-        name: 'KEKA Setup',
-        description: 'Please verify your KEKA credential',
-        flatIcon: 'fi-rr-book-user',
-      },
-      {
-        name: 'ZOHO Setup',
-        description: 'Please verify your ZOHO credential',
-        flatIcon: 'fi-rr-calendar',
-      },
-      {
-        name: 'Get Set Go!',
-        description: 'Proceed to the application',
-        flatIcon: 'fi-sr-sledding',
-      },
-    ];
-
-    this.loginFormGroup = this.formBuilder.group({
+    this.registerFormGroup = this.formBuilder.group({
       email: new FormControl('', Validators.required),
       password: new FormControl('', [
         Validators.required,
@@ -68,7 +41,7 @@ export class AuthorizationComponent implements OnInit {
   onFieldFocus(fieldIndex: number): void {
     try {
       document
-        .querySelector(`.input-group-aw-${fieldIndex}`)
+        .querySelector(`.input-group-auth-${fieldIndex}`)
         ?.classList.toggle('input-group-focus');
     } catch (error) {
       console.error(error);

@@ -27,6 +27,12 @@ import { AddTaskComponent } from './main/dashboard/add-task/add-task.component';
 import { NotilandComponent } from './shared/notiland/notiland.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TaskbarComponent } from './main/dashboard/taskbar/taskbar.component';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [
@@ -59,7 +65,8 @@ import { TaskbarComponent } from './main/dashboard/taskbar/taskbar.component';
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatDialogModule,
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
