@@ -29,6 +29,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TaskbarComponent } from './main/dashboard/taskbar/taskbar.component';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { SettingsComponent } from './main/settings/settings.component';
+import { ProfileSettingsComponent } from './main/settings/profile-settings/profile-settings.component';
+import { BoardSettingsComponent } from './main/settings/board-settings/board-settings.component';
 
 export function playerFactory() {
   return player;
@@ -54,6 +57,9 @@ export function playerFactory() {
     AddTaskComponent,
     NotilandComponent,
     TaskbarComponent,
+    SettingsComponent,
+    ProfileSettingsComponent,
+    BoardSettingsComponent,
   ],
   imports: [
     BrowserModule,

@@ -142,6 +142,7 @@
     justify-content: flex-start;
     overflow-x: hidden;
     overflow-y: scroll;
+    gap: 0.2rem;
     padding: 0 1rem;
 
     .sidebar-pill {
@@ -150,6 +151,19 @@
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -1.1rem;
+        height: 100%;
+        width: 0.3rem;
+        border-top-right-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+        background: transparent;
+      }
 
       span {
         display: inline-block;
@@ -185,9 +199,15 @@
         }
 
         p {
-          font-size: 1.4rem;
+          font-size: 1.5rem;
           font-weight: 300;
         }
+      }
+    }
+
+    .active-sidebar {
+      &::before {
+        background: var(--theme-var-1);
       }
     }
 
@@ -386,7 +406,7 @@
     }
 
     p {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       font-weight: 400;
     }
   }

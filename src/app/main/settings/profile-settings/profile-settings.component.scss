@@ -1,0 +1,84 @@
+.profile-settings_component {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2rem;
+  color: var(--light-text-1);
+
+  .psc-top-middle {
+    justify-content: flex-start;
+    gap: 2rem;
+
+    .profile-pic-circle {
+      width: 15rem;
+      height: 15rem;
+      border-radius: 50%;
+      background: var(--theme-var-1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      .change-icon {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 50%;
+        background: var(--theme-var-1);
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        box-shadow: 10px 10px 10px rgba($color: #000000, $alpha: 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        i {
+          font-size: 1.6rem;
+        }
+      }
+
+      img {
+        width: 100%;
+        border-radius: 50%;
+      }
+    }
+
+    .user-info-flex {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0.5rem;
+
+      h3 {
+        font-size: 2rem;
+        font-weight: 400;
+      }
+
+      h5 {
+        font-size: 1.6rem;
+        font-weight: 400;
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .psc-main-flex {
+    height: calc(100vh - 40rem);
+  }
+}
+
+.input-group-focus {
+  height: 6rem;
+}
+
+.input-group-focus-forced {
+  height: 6rem;
+}
+
+.error-message {
+  margin-top: -0.5rem;
+}
