@@ -1,0 +1,123 @@
+.bse-middle {
+  background: var(--bg-2);
+  padding: 0.5rem;
+  height: 5rem;
+  margin: 3rem 0;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  width: fit-content;
+
+  .board-flex {
+    background: var(--bg-1);
+    height: 100%;
+    padding: 0 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+
+    p {
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+  }
+
+  .active-board {
+    background: var(--theme-var-1-dimmed);
+  }
+}
+
+.checkbox-group {
+  margin-top: 2rem;
+}
+
+.bse-main-flex {
+  height: calc(100vh - 32.5rem);
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 55%;
+  transform: translateY(-50%);
+  right: 3rem;
+}
+
+.trackables-flex {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 1rem 0;
+}
+
+.trackables-flex {
+  gap: 1rem;
+
+  .trackable {
+    width: 100%;
+    height: 8rem;
+    border-radius: 1.5rem;
+    background: var(--bg-1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 1rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 200ms ease;
+    position: relative;
+
+    .active-check {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 2rem;
+      color: var(--light-text-1);
+      margin-top: 0.4rem;
+      font-size: 2rem;
+    }
+
+    .image-container {
+      width: 6rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        height: 40%;
+      }
+    }
+
+    .trackable-info-flex {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0.5rem;
+
+      h4 {
+        font-size: 1.6rem;
+      }
+
+      p {
+        font-size: 1.2rem;
+      }
+    }
+
+    &:hover {
+      border: 2px solid var(--theme-var-1);
+    }
+  }
+
+  .actively-tracked {
+    border: 2px solid var(--theme-var-1);
+    background: var(--theme-var-1-dimmed);
+  }
+}

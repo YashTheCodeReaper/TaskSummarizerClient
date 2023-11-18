@@ -6,13 +6,183 @@
       <input type="text" placeholder="Search settings here">
     </div>
   </div>
-  <div class="settings-main-flex" style="margin-top: 3rem;">
+  <div class="settings-middle bse-middle">
+    <div class="board-flex active-board" role="button">
+      <p>Yashwanth's board</p>
+    </div>
+  </div>
+  <div class="settings-main-flex bse-main-flex">
     <div class="setting-l1-enclosure">
       <div class="sl1e-left">
-        <h5>Personal info</h5>
-        <p>Changes will be applied to your name, designation and role.</p>
+        <h5>Board info</h5>
+        <p>Changes will be applied to name and description of the board.</p>
       </div>
       <div class="sl1e-right">
+        <form [formGroup]="boardInfoFormGroup">
+          <div class="input-group input-group-bos1-0"
+            [ngClass]="{'input-group-focus-forced': boardInfoFormGroup.controls['name'].value?.length}">
+            <label for="name">Your board name</label>
+            <input formControlName="name" type="text" (focus)="onFieldFocus(0)" (blur)="onFieldFocus(0)">
+            <i *ngIf="validateField(boardInfoFormGroup, 'name')" class="warn-icon fi fi-sr-info"></i>
+          </div>
+          <span class="error-message" *ngIf="validateField(boardInfoFormGroup, 'name')">You board should have a valid
+            name!</span>
+          <div class="input-group input-group-bos1-1"
+            [ngClass]="{'input-group-focus-forced': boardInfoFormGroup.controls['description'].value?.length}">
+            <label for="description">Your description</label>
+            <input formControlName="description" type="text" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
+            <i *ngIf="validateField(boardInfoFormGroup, 'description')" class="warn-icon fi fi-sr-info"></i>
+          </div>
+          <span class="error-message" *ngIf="validateField(boardInfoFormGroup, 'description')">You board should have a
+            valid
+            description!</span>
+        </form>
+      </div>
+    </div>
+    <div class="setting-l1-enclosure">
+      <div class="sl1e-left">
+        <h5>Board time constrains</h5>
+        <p>Changes will be applied to name and description of the board.</p>
+      </div>
+      <div class="sl1e-right">
+        <form [formGroup]="boardDefaultTimeConstrains">
+          <div class="bi-group">
+            <div>
+              <div class="input-group input-group-bos1-2"
+                [ngClass]="{'input-group-focus-forced': boardDefaultTimeConstrains.controls['defaultClockIn'].value?.length}">
+                <label for="name">Your default clock-in time</label>
+                <input formControlName="defaultClockIn" type="time" (focus)="onFieldFocus(2)" (blur)="onFieldFocus(2)">
+                <i *ngIf="validateField(boardDefaultTimeConstrains, 'defaultClockIn')"
+                  class="warn-icon fi fi-sr-info"></i>
+              </div>
+              <span class="error-message" *ngIf="validateField(boardDefaultTimeConstrains, 'defaultClockIn')">You board
+                should have
+                a valid
+                clock in time!</span>
+              <span class="error-message info-message">You should have a clock in
+                time by default. This will be used in case of any errors in fetching KEKA data.</span>
+            </div>
+            <div>
+              <div class="input-group input-group-bos1-3"
+                [ngClass]="{'input-group-focus-forced': boardDefaultTimeConstrains.controls['defaultClockOut'].value?.length}">
+                <label for="defaultClockOut">Your default clock-out time</label>
+                <input [min]="boardDefaultTimeConstrains.controls['defaultClockIn'].value"
+                  formControlName="defaultClockOut" type="time" (focus)="onFieldFocus(3)" (blur)="onFieldFocus(3)">
+                <i *ngIf="validateField(boardDefaultTimeConstrains, 'defaultClockOut')"
+                  class="warn-icon fi fi-sr-info"></i>
+              </div>
+              <span class="error-message" *ngIf="validateField(boardDefaultTimeConstrains, 'defaultClockOut')">You board
+                should have a
+                valid
+                defaultClockOut!</span>
+              <span class="error-message info-message">You should have a clock out
+                time by default. This will be used in case of any errors in fetching KEKA data.</span>
+            </div>
+          </div>
+          <div class="bi-group" *ngFor="let breakTime of currentBoardSetting.breaks; let i = index">
+            <div>
+              <div class="input-group input-group-bos1-{{i+4}}"
+                [ngClass]="{'input-group-focus-forced': boardDefaultTimeConstrains.controls['break-time-in-'+i].value?.length}">
+                <label for="name">Your default break-in time{{currentBoardSetting.breaks.length == 1 ? '' :
+                  i+1}}</label>
+                <input [formControlName]="'break-time-in-'+i" type="time" (focus)="onFieldFocus(i+4)"
+                  (blur)="onFieldFocus(i+4)">
+                <i *ngIf="validateField(boardDefaultTimeConstrains, 'break-time-in-'+i)"
+                  class="warn-icon fi fi-sr-info"></i>
+              </div>
+              <span class="error-message" *ngIf="validateField(boardDefaultTimeConstrains, 'break-time-in-'+i)">You
+                board
+                should have
+                a valid
+                break in time!</span>
+              <span class="error-message info-message">You should have a break in
+                time by default. This will be used in case of any errors in fetching KEKA data.</span>
+            </div>
+            <div>
+              <div class="input-group input-group-bos1-{{i+5}}"
+                [ngClass]="{'input-group-focus-forced': boardDefaultTimeConstrains.controls['break-time-out-'+i].value?.length}">
+                <label for="name">Your default break-out time{{currentBoardSetting.breaks.length == 1 ? '' :
+                  i+1}}</label>
+                <input [formControlName]="'break-time-out-'+i" type="time" (focus)="onFieldFocus(i+5)"
+                  (blur)="onFieldFocus(i+5)">
+                <i *ngIf="validateField(boardDefaultTimeConstrains, 'break-time-out-'+i)"
+                  class="warn-icon fi fi-sr-info"></i>
+              </div>
+              <span class="error-message" *ngIf="validateField(boardDefaultTimeConstrains, 'break-time-out-'+i)">You
+                board
+                should have
+                a valid
+                break out time!</span>
+              <span class="error-message info-message">You should have a break out
+                time by default. This will be used in case of any errors in fetching KEKA data.</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="setting-l1-enclosure">
+      <div class="sl1e-left">
+        <h5>Board accessibility constraints</h5>
+        <p>Changes will be applied to time tracking, export and visibility permissions.</p>
+      </div>
+      <div class="sl1e-right">
+        <div class="checkbox-group" style="margin-top: 0;">
+          <div class="custom-checkbox" role="checkbox"
+            [ngClass]="{'inactive-checkbox': !currentBoardSetting.isPrivateBoard}"
+            (click)="currentBoardSetting.isPrivateBoard = !currentBoardSetting.isPrivateBoard">
+            <div class="checkbox-ball"></div>
+          </div>
+          <p>Make the board private</p>
+        </div>
+        <span class="error-message info-message">
+          Private boards cannot be added to a team. Only you can access/read the board. Not even super-user can
+          access it.
+        </span>
+        <div class="checkbox-group">
+          <div class="custom-checkbox" role="checkbox"
+            [ngClass]="{'inactive-checkbox': !currentBoardSetting.enableTimeTracking}"
+            (click)="currentBoardSetting.enableTimeTracking = !currentBoardSetting.enableTimeTracking">
+            <div class="checkbox-ball"></div>
+          </div>
+          <p>Enable task time tracking</p>
+        </div>
+        <span class="error-message info-message">
+          Upon enabling it, you and the inspector can track timeline for all of your tasks.
+        </span>
+        <div class="checkbox-group">
+          <div class="custom-checkbox" role="checkbox"
+            [ngClass]="{'inactive-checkbox': !currentBoardSetting.enableExport}"
+            (click)="currentBoardSetting.enableExport = !currentBoardSetting.enableExport">
+            <div class="checkbox-ball"></div>
+          </div>
+          <p>Enable task sheet exporting</p>
+        </div>
+        <span class="error-message info-message">
+          Enabling it will give access to you and the inspector to export the task data as csv.
+        </span>
+      </div>
+    </div>
+    <div class="setting-l1-enclosure">
+      <div class="sl1e-left">
+        <h5>Board trackables</h5>
+        <p>Changes will be to your task tracking integrations.</p>
+      </div>
+      <div class="sl1e-right">
+        <div class="trackables-flex">
+          <div class="trackable" *ngFor="let trackable of trackables; let i = index"
+            [ngClass]="{'actively-tracked': trackable.status}"
+            (click)="onTrackableCheck(i)">
+            <i *ngIf="trackable.status"
+              class="active-check fi fi-sr-check-circle"></i>
+            <div class="image-container">
+              <img src="{{trackable.image}}" alt="">
+            </div>
+            <div class="trackable-info-flex">
+              <h4>{{trackable.name}}</h4>
+              <p>{{trackable.description}}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
