@@ -1,0 +1,150 @@
+.jse-middle {
+  background: var(--bg-2);
+  padding: 0.5rem;
+  height: 5rem;
+  margin: 3rem 0;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  width: fit-content;
+
+  .project-flex {
+    background: var(--bg-1);
+    height: 100%;
+    padding: 0 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+
+    p {
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+  }
+
+  .active-project {
+    background: var(--theme-var-1-dimmed);
+  }
+}
+
+.jse-main-flex {
+  height: calc(100vh - 57.5rem);
+}
+
+.boards-flex {
+  width: 100%;
+  height: 4rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  background: var(--bg-1);
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  position: relative;
+
+  .boards-dropdown {
+    position: absolute;
+    bottom: 5rem;
+    left: 0;
+    width: 100%;
+    background: var(--bg-3);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    max-height: 6rem;
+    overflow-y: scroll;
+    z-index: 9;
+    box-shadow: 5px 5px 10px rgba($color: #000000, $alpha: 0.1);
+
+    .option {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1rem;
+      background: transparent;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 300ms ease;
+      cursor: pointer;
+
+      p {
+        font-size: 1.4rem;
+        font-weight: 400;
+      }
+
+      &:hover {
+        background: var(--theme-var-1-dimmed);
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 2px;
+      height: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 50px;
+      background: var(--theme-var-1);
+    }
+
+    &::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+  }
+
+  .board-box {
+    padding: 0 1rem;
+    border-radius: 1rem;
+    min-height: 3rem;
+    background: var(--bg-3);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    cursor: pointer;
+
+    i {
+      font-size: 1.6rem;
+      color: var(--danger-color);
+    }
+
+    p {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+  }
+
+  input {
+    height: 100%;
+    max-width: 12rem;
+    background: transparent;
+    height: 100%;
+    outline: none;
+    border: none;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: inherit;
+    padding: 0 1rem;
+
+    &::placeholder {
+      font-family: inherit;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: inherit;
+      opacity: 0.5;
+    }
+  }
+}

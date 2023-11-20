@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   );
   formattedDates: string[] | any = [];
   selectedDate: number = new Date().getDate();
-  isBoardAvailable: boolean = true;
+  isBoardAvailable: boolean = false;
   notFoundAnimation: AnimationOptions = {
     path: 'assets/images/main/dashboard/db-empty-1.json',
     loop: true,

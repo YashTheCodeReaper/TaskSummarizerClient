@@ -146,6 +146,10 @@
         border-radius: 50px;
         background: var(--theme-var-1);
       }
+
+      &::-webkit-scrollbar-corner{
+        background: transparent;
+      }
     }
 
     .adtm-left {
@@ -325,6 +329,10 @@
         &::-webkit-scrollbar-thumb {
           border-radius: 50px;
           background: var(--theme-var-1);
+        }
+
+        &::-webkit-scrollbar-corner{
+          background: transparent;
         }
       }
 

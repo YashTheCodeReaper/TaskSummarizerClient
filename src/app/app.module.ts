@@ -32,6 +32,7 @@ import player from 'lottie-web';
 import { SettingsComponent } from './main/settings/settings.component';
 import { ProfileSettingsComponent } from './main/settings/profile-settings/profile-settings.component';
 import { BoardSettingsComponent } from './main/settings/board-settings/board-settings.component';
+import { JiraSettingsComponent } from './main/settings/jira-settings/jira-settings.component';
 
 export function playerFactory() {
   return player;
@@ -60,6 +61,7 @@ export function playerFactory() {
     SettingsComponent,
     ProfileSettingsComponent,
     BoardSettingsComponent,
+    JiraSettingsComponent,
   ],
   imports: [
     BrowserModule,

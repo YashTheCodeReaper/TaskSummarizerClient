@@ -13,7 +13,7 @@
     width: 100%;
     background: var(--bg-3);
     padding: 0.5rem;
-    border-radius:0.5rem;
+    border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -52,6 +52,10 @@
     &::-webkit-scrollbar-thumb {
       border-radius: 50px;
       background: var(--theme-var-1);
+    }
+
+    &::-webkit-scrollbar-corner {
+      background: transparent;
     }
   }
 

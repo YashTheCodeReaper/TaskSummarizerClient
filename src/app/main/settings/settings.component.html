@@ -2,38 +2,46 @@
   <div class="ses-left">
     <h5>Account</h5>
     <div class="settings-pill-flex">
-      <div class="setting-pill-flex active-setting-pill">
+      <div role="link" routerLink="/settings/profile" [routerLinkActiveOptions]="{exact: true}"
+        routerLinkActive="active-setting-pill" class="setting-pill-flex">
         <i class="fi fi-sr-user"></i>
         <p>Profile</p>
       </div>
-      <div class="setting-pill-flex">
+      <div role="link" routerLink="/settings/board" [routerLinkActiveOptions]="{exact: true}"
+        routerLinkActive="active-setting-pill" class="setting-pill-flex">
         <i class="fi fi-ss-dice-d6"></i>
         <p>Board</p>
       </div>
-      <div class="setting-pill-flex">
+      <div role="link" routerLink="/settings/about" [routerLinkActiveOptions]="{exact: true}"
+        routerLinkActive="active-setting-pill" class="setting-pill-flex">
         <i class="fi fi-sr-info"></i>
         <p>About</p>
       </div>
     </div>
     <h5 style="margin-top: 2rem;">Workspace</h5>
     <div class="settings-pill-flex">
-      <div class="setting-pill-flex">
+      <div role="link" routerLink="/settings/jira" [routerLinkActiveOptions]="{exact: true}"
+        routerLinkActive="active-setting-pill" class="setting-pill-flex">
         <i class="fi fi-brands-jira"></i>
         <p>Atlassian JIRA</p>
       </div>
-      <div class="setting-pill-flex">
+      <div role="link" routerLink="/settings/teams" [routerLinkActiveOptions]="{exact: true}"
+        routerLinkActive="active-setting-pill" class="setting-pill-flex">
         <i class="fi fi-brands-microsoft"></i>
         <p>Microsoft Teams</p>
       </div>
-      <div class="setting-pill-flex">
+      <div role="link" routerLink="/settings/timesheet" [routerLinkActiveOptions]="{exact: true}"
+        routerLinkActive="active-setting-pill" class="setting-pill-flex">
         <i class="fi fi-sr-calendar-clock"></i>
         <p>ZOHO Timesheet</p>
       </div>
-      <div class="setting-pill-flex">
+      <div role="link" routerLink="/settings/keka" [routerLinkActiveOptions]="{exact: true}"
+        routerLinkActive="active-setting-pill" class="setting-pill-flex">
         <i class="fi fi-sr-time-fast"></i>
         <p>KEKA</p>
       </div>
-      <div class="setting-pill-flex">
+      <div role="link" routerLink="/settings/gitlab" [routerLinkActiveOptions]="{exact: true}"
+        routerLinkActive="active-setting-pill" class="setting-pill-flex">
         <i class="fi fi-brands-gitlab"></i>
         <p>GitLab</p>
       </div>
@@ -45,11 +53,11 @@
     </div>
   </div>
   <div class="ses-right">
-    <!-- <app-profile-settings></app-profile-settings> -->
-    <app-board-settings></app-board-settings>
+    <router-outlet></router-outlet>
     <div class="confirmation-box">
       <div class="cb-container">
-        <h4>Please note that the changes will not applied actually. Your applied changes will be in queue. Please confirm whether to save the changes or not.</h4>
+        <h4>Please note that the changes will not applied actually. Your applied changes will be in queue. Please
+          confirm whether to save the changes or not.</h4>
         <button class="primary-button">
           <div class="pb-text">Save</div>
         </button>
