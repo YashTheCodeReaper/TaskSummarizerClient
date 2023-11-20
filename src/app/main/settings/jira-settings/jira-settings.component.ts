@@ -86,4 +86,59 @@ export class JiraSettingsComponent {
       console.error(error);
     }
   }
+
+  onAddBoard(boardObj: any): void {
+    try {
+      const isProjectConstraintsPresent =
+        this.jiraData.boardRestrictions.findIndex(
+          (boardRes: any) => boardRes?.project == this.currentProject
+        );
+
+      if (isProjectConstraintsPresent < 0) {
+        this.jiraData.boardRestrictions.push({
+          project: this.currentProject,
+          boards: [boardObj],
+        });
+      } else {
+        const projectIndex = this.jiraData.boardRestrictions.findIndex(
+          (boardRes: any) => boardRes.project == this.currentProject
+        );
+        const isBoardAlreadyAvailable = this.jiraData.boardRestrictions[
+          projectIndex
+        ].boards.findIndex(
+          (boardObj1: any) => boardObj1.boardName == boardObj.boardName
+        );
+
+        if (isBoardAlreadyAvailable < 0) {
+          this.jiraData.boardRestrictions[projectIndex].boards.push(boardObj);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  onRemoveBoard(boardObj: any): void {
+    const projectIndex = this.jiraData.boardRestrictions.findIndex(
+      (boardRes: any) => boardRes.project == this.currentProject
+    );
+    if (this.jiraData.boardRestrictions[projectIndex].boards.length > 1) {
+      const boardIndex = this.jiraData.boardRestrictions[
+        projectIndex
+      ].boards.findIndex(
+        (boardObj1: any) => boardObj1.boardName == boardObj.boardName
+      );
+
+      this.jiraData.boardRestrictions[projectIndex].boards.splice(
+        boardIndex,
+        1
+      );
+    } else {
+      this.jiraData.boardRestrictions.splice(projectIndex, 1);
+    }
+    try {
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

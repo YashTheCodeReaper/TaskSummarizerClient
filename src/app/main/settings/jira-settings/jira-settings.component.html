@@ -71,7 +71,7 @@
         <div class="boards-flex">
           <ng-container *ngFor="let board of jiraData?.boardRestrictions">
             <ng-container *ngIf="board?.project == currentProject && board?.project">
-              <div class="board-box" *ngFor="let b of board?.boards">
+              <div class="board-box" *ngFor="let b of board?.boards" (click)="onRemoveBoard(b)">
                 <p>{{b.boardName}}</p>
                 <i class="fi fi-br-cross-small"></i>
               </div>
@@ -80,7 +80,7 @@
           <input type="text" placeholder="Search boards" (focus)="this.showBoardsDisplayFlex = true;">
           <div class="boards-dropdown" *ngIf="showBoardsDisplayFlex" appOutsideClick
             (outsideClick)="this.showBoardsDisplayFlex = false;" [clickExceptions]="['boards-flex']">
-            <div class="option" *ngFor="let board of availableBoards">
+            <div class="option" *ngFor="let board of availableBoards" role="option" (click)="onAddBoard(board)">
               <p>{{board.boardName}}</p>
             </div>
           </div>

@@ -38,7 +38,7 @@
 
 .boards-flex {
   width: 100%;
-  height: 4rem;
+  min-height: 4.5rem;
   padding: 0.5rem;
   border-radius: 1rem;
   background: var(--bg-1);
@@ -52,7 +52,7 @@
 
   .boards-dropdown {
     position: absolute;
-    bottom: 5rem;
+    top: -7rem;
     left: 0;
     width: 100%;
     background: var(--bg-3);
@@ -62,7 +62,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    max-height: 6rem;
+    max-height: 7rem;
     overflow-y: scroll;
     z-index: 9;
     box-shadow: 5px 5px 10px rgba($color: #000000, $alpha: 0.1);
@@ -107,7 +107,7 @@
   .board-box {
     padding: 0 1rem;
     border-radius: 1rem;
-    min-height: 3rem;
+    min-height: 3.5rem;
     background: var(--bg-3);
     display: flex;
     align-items: center;
@@ -121,13 +121,13 @@
     }
 
     p {
-      font-size: 1.2rem;
-      font-weight: 500;
+      font-size: 1.4rem;
+      font-weight: 400;
     }
   }
 
   input {
-    height: 100%;
+    height: 3.5rem !important;
     max-width: 12rem;
     background: transparent;
     height: 100%;
