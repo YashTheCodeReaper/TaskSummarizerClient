@@ -186,3 +186,47 @@
     top: 12rem;
   }
 }
+
+.confirmation-box {
+  padding: 0 2rem;
+  border-radius: 1rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border-1);
+  box-shadow: -10px 10px 10px rgba($color: #000000, $alpha: 0.25);
+  color: var(--light-text-1);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30rem;
+  width: 50rem;
+  padding-bottom: 8rem;
+  position: relative;
+
+  h4 {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 7.5rem;
+    left: 50%;
+    font-size: 1.8rem;
+    font-weight: 400;
+    max-width: 90%;
+    transform: translateX(-50%);
+  }
+
+  .button-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 3rem;
+    right: 0;
+    width: 100%;
+    gap: 2rem;
+
+    button {
+      align-self: center;
+    }
+  }
+}

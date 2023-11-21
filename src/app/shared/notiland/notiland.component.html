@@ -1,4 +1,4 @@
-<ng-container>
+<ng-container *ngIf="data?.showNotiland">
   <svg xmlns="http://www.w3.org/2000/svg" version="1.1" [ngStyle]="{'opacity': hideUI ? 0 : 1}">
     <defs>
       <filter id="liquid">
@@ -14,7 +14,8 @@
   </div>
 
   <div class="notiland-notch-box" [ngStyle]="{'opacity': hideUI ? 0 : 1}">
-    <div (mouseover)="this.isNotchClicked = true" class="notch" [ngClass]="{'expanded-notch': isNotchClicked, 'notch-hover': isNotchMiniExpanded}">
+    <div (mouseover)="this.isNotchClicked = true" class="notch"
+      [ngClass]="{'expanded-notch': isNotchClicked, 'notch-hover': isNotchMiniExpanded}">
       <i class="fi fi-sr-triangle-warning"></i>
       <div class="content-main">
         <p>{{data.warnMessage}}</p>
@@ -25,4 +26,19 @@
       </div>
     </div>
   </div>
-  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="!data?.showNotiland">
+  <div class="confirmation-box">
+    <ng-lottie style="margin-top: -5rem;" [height]="'300px'" [options]="confirmAnimation"></ng-lottie>
+    <h4>{{data.warnMessage}}</h4>
+    <div class="button-flex">
+      <button class="primary-button danger-button" (click)="onDecline()">
+        <div class="pb-text">Cancel</div>
+      </button>
+      <button class="primary-button" (click)="onAccept()">
+        <div class="pb-text">Confirm</div>
+      </button>
+    </div>
+  </div>
+</ng-container>

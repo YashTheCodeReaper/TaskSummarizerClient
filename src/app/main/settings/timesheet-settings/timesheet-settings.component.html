@@ -1,0 +1,60 @@
+<div class="timesheet-settings_component">
+  <div class="settings-top">
+    <h1>ZOHO Timesheet Settings</h1>
+    <div class="settings-search-container">
+      <i class="fi fi-rr-search"></i>
+      <input type="text" placeholder="Search settings here">
+    </div>
+  </div>
+  <div class="settings-main-flex tise-main-flex" style="margin-top: 3rem;">
+    <div class="setting-l1-enclosure">
+      <div class="sl1e-left">
+        <h5>Atlassian JIRA mapping</h5>
+        <p>Map your JIRA tasks with your ZOHO project and task.</p>
+      </div>
+      <div class="sl1e-right">
+        <div style="width: 100%; position: relative;" class="zoho-project-flex-{{i}}"
+          *ngFor="let jira of availableJiraProjects; let i = index;">
+          <div class="input-group input-group-tjse-{{i*2}}"
+            [ngClass]="{'input-group-focus-forced': zohoData.jira[getJiraProjectIndexFromZohoData(jira.projectName)]?.zohoProject?.projectName}">
+            <label for="{{jira.projectName+'_zohoproject'}}">{{jira.projectName}} zoho project mapping</label>
+            <input
+              [(ngModel)]="zohoData.jira[getJiraProjectIndexFromZohoData(jira.projectName)].zohoProject.projectName"
+              type="text" name="{{jira.projectName+'_zohoproject'}}" (focus)="onFieldFocus('tjse', i*2)"
+              (blur)="onFieldFocus('tjse',i*2)">
+            <div class="dropdown" *ngIf="dropdownFocuser[i*2]" appOutsideClick
+              (outsideClick)="this.dropdownFocuser[i*2] = false;" [clickExceptions]="['zoho-project-flex-'+i]">
+              <div class="option" *ngFor="let project of availableZohoProjects" role="option"
+                (click)="onZohoProjectSelect(getJiraProjectIndexFromZohoData(jira.projectName), project.projectName, i*2)">
+                <p>{{project.projectName}}</p>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 0.5rem;"
+            *ngIf="zohoData.jira[getJiraProjectIndexFromZohoData(jira.projectName)]?.zohoProject?.projectName"
+            class="input-group input-group-tjse-{{i*2+1}}"
+            [ngClass]="{'input-group-focus-forced': zohoData.jira[getJiraProjectIndexFromZohoData(jira.projectName)]?.zohoProject?.taskName}">
+            <label for="{{jira.projectName+'_zohoprojecttask'}}">{{jira.projectName}} zoho project task
+              mapping</label>
+            <input [(ngModel)]="zohoData.jira[getJiraProjectIndexFromZohoData(jira.projectName)].zohoProject.taskName"
+              type="text" name="{{jira.projectName+'_zohoprojecttask'}}" (focus)="onFieldFocus('tjse', i*2+1)"
+              (blur)="onFieldFocus('tjse',i*2+1)">
+            <div class="dropdown" *ngIf="dropdownFocuser[i*2+1]" appOutsideClick
+              (outsideClick)="this.dropdownFocuser[i*2+1] = false;" [clickExceptions]="['zoho-project-flex-'+i]">
+              <div class="option"
+                *ngFor="let task of availableZohoProjects[getZohoProjectIndex(zohoData.jira[getJiraProjectIndexFromZohoData(jira.projectName)]?.zohoProject?.projectName)].tasks"
+                role="option"
+                (click)="onZohoProjectTaskSelect(getJiraProjectIndexFromZohoData(jira.projectName), task.taskName, i*2+1)">
+                <p>{{task.taskName}}</p>
+              </div>
+            </div>
+          </div>
+          <span style="margin-top: 0.5rem; margin-bottom: 0.5rem;" class="error-message info-message">Choose a zoho
+            project value so that
+            the default selected project
+            option for {{jira.projectName}} JIRA project will be applied</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

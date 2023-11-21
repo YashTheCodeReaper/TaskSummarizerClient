@@ -7,6 +7,8 @@ import { ProfileSettingsComponent } from './main/settings/profile-settings/profi
 import { BoardSettingsComponent } from './main/settings/board-settings/board-settings.component';
 import { JiraSettingsComponent } from './main/settings/jira-settings/jira-settings.component';
 import { AboutComponent } from './main/settings/about/about.component';
+import { AuthorizationComponent } from './authorization/authorization.component';
+import { TimesheetSettingsComponent } from './main/settings/timesheet-settings/timesheet-settings.component';
 
 const routes: Routes = [
   {
@@ -42,9 +44,17 @@ const routes: Routes = [
             path: 'jira',
             component: JiraSettingsComponent,
           },
+          {
+            path: 'timesheet',
+            component: TimesheetSettingsComponent,
+          },
         ],
       },
     ],
+  },
+  {
+    path: 'auth',
+    component: AuthorizationComponent,
   },
   {
     path: '**',

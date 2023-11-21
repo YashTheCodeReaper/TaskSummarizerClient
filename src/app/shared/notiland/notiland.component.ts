@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-notiland',
@@ -10,6 +11,11 @@ export class NotilandComponent {
   isNotchClicked: boolean = false;
   isNotchMiniExpanded: boolean = false;
   hideUI: boolean = true;
+  confirmAnimation: AnimationOptions = {
+    path: 'assets/images/common/confirmation.json',
+    loop: true,
+    autoplay: true,
+  };
 
   constructor(
     public dialogRef: MatDialogRef<NotilandModel>,
