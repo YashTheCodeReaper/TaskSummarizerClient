@@ -33,6 +33,7 @@ import { SettingsComponent } from './main/settings/settings.component';
 import { ProfileSettingsComponent } from './main/settings/profile-settings/profile-settings.component';
 import { BoardSettingsComponent } from './main/settings/board-settings/board-settings.component';
 import { JiraSettingsComponent } from './main/settings/jira-settings/jira-settings.component';
+import { AboutComponent } from './main/settings/about/about.component';
 
 export function playerFactory() {
   return player;
@@ -62,6 +63,7 @@ export function playerFactory() {
     ProfileSettingsComponent,
     BoardSettingsComponent,
     JiraSettingsComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

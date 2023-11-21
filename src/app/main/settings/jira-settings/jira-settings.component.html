@@ -28,9 +28,11 @@
             <input formControlName="apiToken" type="password" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
             <i *ngIf="validateField(jiraAccountFormGroup, 'apiToken')" class="warn-icon fi fi-sr-info"></i>
           </div>
-          <span class="error-message" *ngIf="validateField(jiraAccountFormGroup, 'apiToken')">You JIRA account should
+          <span style="margin-top: -0.5rem;" class="error-message"
+            *ngIf="validateField(jiraAccountFormGroup, 'apiToken')">You JIRA account should
             have a valid api token!</span>
-          <span class="error-message info-message">Please <strong style="cursor: pointer;">click here</strong> to learn
+          <span style="margin-top: -0.5rem;" class="error-message info-message">Please <strong
+              style="cursor: pointer;">click here</strong> to learn
             more about creating api token.</span>
         </form>
       </div>
@@ -85,6 +87,70 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="setting-l1-enclosure">
+      <div class="sl1e-left">
+        <h5>JIRA time tracking constraints</h5>
+        <p>Changes active time tracking based on task status changes.</p>
+      </div>
+      <div class="sl1e-right">
+        <ng-container>
+          <div class="checkbox-group" style="margin-top: 0;">
+            <p style="margin-left: 1rem;">Start active time tracking when the status changes from...</p>
+          </div>
+          <span class="error-message info-message">
+            Please select one/multiple statuses, where the time tracking for that particular task begins.
+          </span>
+          <div class="boards-flex start-statuses-flex">
+            <ng-container *ngFor="let tcon of jiraData?.trackConstraints">
+              <ng-container *ngIf="tcon?.project == currentProject && tcon?.project">
+                <div class="board-box" *ngFor="let status of tcon?.startStatuses"
+                  (click)="onRemoveStatus('startStatuses', status)">
+                  <p>{{status}}</p>
+                  <i class="fi fi-br-cross-small"></i>
+                </div>
+              </ng-container>
+            </ng-container>
+            <input type="text" placeholder="Search statuses" (focus)="this.showStartStatuses = true;">
+            <div style="max-height: 14rem; top: -14.5rem;" class="boards-dropdown" *ngIf="showStartStatuses"
+              appOutsideClick (outsideClick)="this.showStartStatuses = false;"
+              [clickExceptions]="['start-statuses-flex']">
+              <div class="option" *ngFor="let status of availableStatuses[getAvailableStatusActiveIndex()].statuses"
+                role="option" (click)="onAddStatus('startStatuses', status)">
+                <p>{{status}}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container>
+          <div class="checkbox-group" style="margin-top: 1rem;">
+            <p style="margin-left: 1rem;">Stop active time tracking when the status changes to...</p>
+          </div>
+          <span class="error-message info-message">
+            Please select one/multiple statuses, where the time tracking for that particular task ends.
+          </span>
+          <div class="boards-flex stop-statuses-flex">
+            <ng-container *ngFor="let tcon of jiraData?.trackConstraints">
+              <ng-container *ngIf="tcon?.project == currentProject && tcon?.project">
+                <div class="board-box" *ngFor="let status of tcon?.stopStatuses"
+                  (click)="onRemoveStatus('stopStatuses', status)">
+                  <p>{{status}}</p>
+                  <i class="fi fi-br-cross-small"></i>
+                </div>
+              </ng-container>
+            </ng-container>
+            <input type="text" placeholder="Search statuses" (focus)="this.showStopStatuses = true;">
+            <div style="max-height: 14rem; top: -14.5rem;" class="boards-dropdown" *ngIf="showStopStatuses"
+              appOutsideClick (outsideClick)="this.showStopStatuses = false;"
+              [clickExceptions]="['stop-statuses-flex']">
+              <div class="option" *ngFor="let status of availableStatuses[getAvailableStatusActiveIndex()].statuses"
+                role="option" (click)="onAddStatus('stopStatuses', status)">
+                <p>{{status}}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

@@ -32,7 +32,8 @@
     <p class="ss_side-text">Overview</p>
 
     <!-- Sidebar pills -->
-    <div class="sidebar-pill">
+    <div class="sidebar-pill" role="link" routerLink="/" routerLinkActive="active-sidebar"
+      [routerLinkActiveOptions]="{exact: true}">
       <div class="pill-left">
         <i class="fi fi-rr-apps"></i>
         <p>Dashboard</p>
@@ -99,7 +100,8 @@
       </div>
       <span class="spactivity-sinfo">New</span>
     </div>
-    <div class="sidebar-pill active-sidebar">
+    <div class="sidebar-pill" role="link" routerLink="/settings" routerLinkActive="active-sidebar"
+    [routerLinkActiveOptions]="{exact: false}">
       <div class="pill-left">
         <i class="fi fi-rr-settings"></i>
         <p>Settings</p>

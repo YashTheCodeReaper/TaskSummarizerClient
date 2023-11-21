@@ -10,15 +10,41 @@ export class JiraSettingsComponent {
   jiraAccountFormGroup!: FormGroup;
   currentProject: string = 'Product QA';
   availableBoards: { boardId: number; boardName: string }[] = [];
+  availableStatuses: { projectName: string; statuses: string[] }[] = [];
   jiraData: any = {
     email: 'yashwanthkumar.arivazhagan@tetherfi.com',
     apiToken:
       'ef88d62a-14ae-4cfa-8850-9079d292e09d-ef88d62a-14ae-4cfa-8850-9079d292e09d',
     boardRestrictions: [],
+    trackConstraints: [
+      {
+        project: 'Product QA',
+        startStatuses: [],
+        stopStatuses: [],
+      },
+    ],
   };
   showBoardsDisplayFlex: boolean = false;
+  showStartStatuses: boolean = false;
+  showStopStatuses: boolean = false;
 
   constructor() {
+    this.availableStatuses = [
+      {
+        projectName: 'Product QA',
+        statuses: [
+          'New',
+          'Assigned',
+          'Reopen',
+          'In Progress',
+          'Fixed',
+          'Unit Testing',
+          'Cancelled',
+          'Rejected',
+          'Environment Issue',
+        ],
+      },
+    ];
     this.availableBoards = [
       {
         boardId: 1,
@@ -141,4 +167,39 @@ export class JiraSettingsComponent {
       console.error(error);
     }
   }
+
+  getAvailableStatusActiveIndex(): number | any {
+    try {
+      return this.availableStatuses.findIndex(
+        (as) => as.projectName == this.currentProject
+      );
+    } catch (error) {
+      console.error;
+    }
+  }
+
+  onAddStatus(constraint: string, status: string): void {
+    try {
+      let isStatusAlreadyThere = this.jiraData.trackConstraints[
+        this.getAvailableStatusActiveIndex()
+      ][constraint].findIndex((status1: any) => status1 == status);
+
+      if (isStatusAlreadyThere < 0) {
+        isStatusAlreadyThere = this.jiraData.trackConstraints[
+          this.getAvailableStatusActiveIndex()
+        ][
+          constraint == 'startStatuses' ? 'stopStatuses' : 'startStatuses'
+        ].findIndex((status1: any) => status1 == status);
+      }
+
+      if (isStatusAlreadyThere < 0)
+        this.jiraData.trackConstraints[this.getAvailableStatusActiveIndex()][
+          constraint
+        ].push(status);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  onRemoveStatus(constraint: string, status: string): void {}
 }
