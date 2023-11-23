@@ -9,6 +9,7 @@ import { JiraSettingsComponent } from './main/settings/jira-settings/jira-settin
 import { AboutComponent } from './main/settings/about/about.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { TimesheetSettingsComponent } from './main/settings/timesheet-settings/timesheet-settings.component';
+import { TeamComponent } from './main/team/team.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: '',
         component: DashboardComponent,
+      },
+      {
+        path: 'team',
+        component: TeamComponent,
       },
       {
         path: 'settings',

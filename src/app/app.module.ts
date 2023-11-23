@@ -35,6 +35,7 @@ import { BoardSettingsComponent } from './main/settings/board-settings/board-set
 import { JiraSettingsComponent } from './main/settings/jira-settings/jira-settings.component';
 import { AboutComponent } from './main/settings/about/about.component';
 import { TimesheetSettingsComponent } from './main/settings/timesheet-settings/timesheet-settings.component';
+import { TeamComponent } from './main/team/team.component';
 
 export function playerFactory() {
   return player;
@@ -66,6 +67,7 @@ export function playerFactory() {
     JiraSettingsComponent,
     AboutComponent,
     TimesheetSettingsComponent,
+    TeamComponent,
   ],
   imports: [
     BrowserModule,
