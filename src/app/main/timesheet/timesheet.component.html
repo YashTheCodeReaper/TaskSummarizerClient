@@ -23,23 +23,23 @@
     </div>
   </div>
   <div class="tis-stage-bar">
-    <div class="stage-box active-stage-box">
+    <div class="stage-box" [ngClass]="{'completed-stage': currentStage > 0, 'active-stage-box': currentStage == 0}">
       <i class="fi fi-sr-shield-check"></i>
       <p>Authentication</p>
     </div>
     <i class="fi fi-br-angle-small-right"></i>
-    <div class="stage-box">
+    <div class="stage-box" [ngClass]="{'completed-stage': currentStage > 1, 'active-stage-box': currentStage == 1}">
       <i class="fi fi-sr-file-edit"></i>
       <p>Validation</p>
     </div>
     <i class="fi fi-br-angle-small-right"></i>
-    <div class="stage-box">
+    <div class="stage-box" [ngClass]="{'completed-stage': currentStage > 2, 'active-stage-box': currentStage == 2}">
       <i class="fi fi-sr-check-circle"></i>
       <p>Submission</p>
     </div>
   </div>
   <div class="tis-main">
-    <div class="stage-0-box">
+    <div class="stage-box stage-0-box" *ngIf="currentStage == 0">
       <h2>Just a click away to start!</h2>
       <p>Please click on authenticate zoho button, where you will be asked for timesheet concent. Allow to proceed
         further.</p>
@@ -47,6 +47,106 @@
       <button (click)="onAuthenticateZohoProjects()" style="align-self: center;" class="primary-button">
         <p class="pb-text">Authenticate ZOHO Projects</p>
       </button>
+    </div>
+    <div class="stage-box stage-1-box" *ngIf="currentStage == 1">
+      <div class="stb1-box">
+        <div class="st1b-left">
+          <h3><i class="fi fi-sr-route"></i> ZOHO Task Mapper</h3>
+          <div class="indv-day-flex">
+            <div class="day-box active-day">
+              <p>24 Mon</p>
+            </div>
+            <div class="day-box">
+              <p>25 Tue</p>
+            </div>
+            <div class="day-box">
+              <p>26 Wed</p>
+            </div>
+            <div class="day-box">
+              <p>27 Thu</p>
+            </div>
+            <div class="day-box">
+              <p>28 Fri</p>
+            </div>
+          </div>
+        </div>
+        <div class="st1b-right">
+          <div class="from-to-flex">
+            <div (click)="picker1.open()" class="day-box">
+              <p>{{fromDate | date:'dd MMM'}}</p>
+              <input [max]="toDate" matInput [matDatepicker]="picker1" #datePicker1>
+              <mat-datepicker #picker1 (closed)="onPickerClosed('from')"></mat-datepicker>
+            </div>
+            <i class="fi fi-br-minus-small"></i>
+            <div (click)="picker2.open()" class="day-box">
+              <p>{{toDate | date:'dd MMM'}}</p>
+              <input [min]="fromDate" [max]="today" matInput [matDatepicker]="picker2" #datePicker2>
+              <mat-datepicker #picker2 (closed)="onPickerClosed('to')"></mat-datepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stb1-main">
+        <div class="task-table">
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <p>Task ID</p>
+                </th>
+                <th>
+                  <p>ZOHO Project ID</p>
+                </th>
+                <th>
+                  <p>ZOHO Task ID</p>
+                </th>
+                <th>
+                  <p>Task Type</p>
+                </th>
+                <th>
+                  <p>Name</p>
+                </th>
+                <th>
+                  <p>Action</p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let task of timesheetData[0].active">
+                <td>
+                  <p>{{task.taskId}}</p>
+                </td>
+                <td>
+                  <input type="text" [(ngModel)]="task.zohoProject" disabled>
+                </td>
+                <td>
+                  <input type="text" [(ngModel)]="task.zohoTask" disabled>
+                </td>
+                <td>
+                  <div class="ttype">
+                    <img src="assets/images/common/{{task.taskType}}.svg" alt="">
+                    <p>{{task.taskType}}</p>
+                  </div>
+                </td>
+                <td>
+                  <p class="one-line-clamp">{{task.taskname}}</p>
+                </td>
+                <td>
+                  <div class="actions-flex">
+                    <i role="button" class="fi fi-rr-checkbox"></i>
+                    <i role="button" style="color: var(--danger-color);" class="fi fi-sr-trash"></i>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="task-bin">
+          <h4>Deleted tasks</h4>
+          <img src="assets/images/common/404.svg" alt="">
+          <p>No tasks deleted yet!</p>
+        </div>
+      </div>
     </div>
   </div>
 
