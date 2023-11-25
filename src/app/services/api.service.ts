@@ -16,32 +16,30 @@ export class ApiService {
   apiRouters!: ApiRouters;
 
   constructor(private dataService: DataService, private http: HttpClient) {
-
-    this.dataService.configAddedObservable.subscribe((config: ApplicationConfiguration) => {
-      this.appConfig = this.dataService.getConfig();
-      this.constructedBaseUrl = `${this.appConfig.baseApiUrl}${this.appConfig.apiVersionUrl}`;
-      this.apiRouters = this.appConfig.apiRouters;
-
-      setTimeout(() => {
-        this.createUser({username: 'jonsnow', password: 'Ya01022000#'});
-      }, 5000);
-    })
+    this.dataService.configAddedObservable.subscribe(
+      (config: ApplicationConfiguration) => {
+        this.appConfig = this.dataService.getConfig();
+        this.constructedBaseUrl = `${this.appConfig.baseApiUrl}${this.appConfig.nodeApiVersionUrl}`;
+        this.apiRouters = this.appConfig.apiRouters;
+      }
+    );
   }
 
-  /**
-   * Method to create a new user
-   * @param routerKey Api router call key
-   * @param bodyData Request body
-   * @returns Api response
-   */
-  createUser(bodyData: {
-    username: string;
-    password: string;
-  }): Observable<any> | void {
+  requestZohoOauthUrl(): Observable<any> | any {
+    try {
+      return this.http.get(
+        `${this.constructedBaseUrl}${this.apiRouters.requestZohoOauthUrl}`
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  getZohoAccessToken(authCode: string): Observable<any> | any {
     try {
       return this.http.post(
-        `${this.constructedBaseUrl}${this.apiRouters.registerUser}`,
-        bodyData
+        `${this.constructedBaseUrl}${this.apiRouters.getZohoAccessToken}`,
+        { code: authCode }
       );
     } catch (error) {
       console.error(error);

@@ -1,7 +1,8 @@
 {
-  "baseApiUrl": "https://localhost:3000",
-  "apiVersionUrl": "/tetherfi/jiraautomator/api/v1",
+  "baseApiUrl": "http://localhost:3000",
+  "nodeApiVersionUrl": "/taskFox/api/v1",
   "apiRouters": {
-    "registerUser": "/auth/createUser"
+    "requestZohoOauthUrl": "/zoho/oAuthReq",
+    "getZohoAccessToken": "/zoho/getAccessToken"
   }
 }

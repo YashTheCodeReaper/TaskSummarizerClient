@@ -10,6 +10,7 @@ import { AboutComponent } from './main/settings/about/about.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { TimesheetSettingsComponent } from './main/settings/timesheet-settings/timesheet-settings.component';
 import { TeamComponent } from './main/team/team.component';
+import { TimesheetComponent } from './main/timesheet/timesheet.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'team',
         component: TeamComponent,
+      },
+      {
+        path: 'timesheet',
+        component: TimesheetComponent,
       },
       {
         path: 'settings',

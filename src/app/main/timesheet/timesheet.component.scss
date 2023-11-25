@@ -1,0 +1,181 @@
+.timesheet_section {
+  width: calc(100vw - 35rem);
+  height: 100vh;
+  overflow: scroll;
+  position: relative;
+  background: var(--bg-1);
+  color: var(--light-text-1);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 3rem;
+
+  .tis-top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .board-info,
+    .app-utilities {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      position: relative;
+
+      i {
+        font-size: 2rem;
+      }
+
+      h3 {
+        font-size: 2.6rem;
+        font-weight: 400;
+      }
+    }
+
+    .app-utilities {
+      gap: 2rem;
+
+      .medium-button {
+        height: 5.5rem;
+        width: 5.5rem;
+        border-radius: 1.5rem;
+        background: var(--bg-2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        cursor: pointer;
+
+        .bell {
+          width: 1rem;
+          height: 1rem;
+          border-radius: 50%;
+          background: #ffe27c;
+          position: absolute;
+          top: 0;
+          right: -0.2rem;
+        }
+      }
+
+      .link-sharer {
+        width: 20rem;
+        height: 5.5rem;
+        border-radius: 1.5rem;
+        background: var(--bg-2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+
+        h5 {
+          width: 100%;
+          height: 100%;
+          font-size: 1.6rem;
+          font-weight: 400;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+
+          i {
+            font-size: 1.1rem;
+          }
+        }
+
+        .link-option {
+          border-radius: 1.5rem;
+          background: var(--bg-1);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .tis-stage-bar {
+    width: 100%;
+    min-height: 5rem;
+    border-radius: 1rem;
+    background: var(--bg-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    i {
+      font-size: 1.6rem;
+      margin-top: 0.5rem;
+      opacity: 0.65;
+    }
+
+    .stage-box {
+      height: 100%;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      opacity: 0.2;
+
+      i {
+        font-size: 1.6rem;
+        margin-top: 0.5rem;
+      }
+
+      p {
+        font-size: 1.4rem;
+        font-weight: 400;
+      }
+    }
+
+    .active-stage-box {
+      opacity: 1;
+    }
+  }
+
+  .tis-main {
+    height: 100%;
+    width: 100%;
+
+    .stage-0-box {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      h2{
+        font-size: 2.8rem;
+        font-weight: 400;
+      }
+
+      &>p{
+        font-size: 1.4rem;
+        font-weight: 400;
+        opacity: 0.75;
+        max-width: 50rem;
+        text-align: center;
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 50px;
+    background: var(--theme-var-1);
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}

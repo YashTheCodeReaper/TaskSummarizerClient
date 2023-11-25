@@ -1,0 +1,55 @@
+<section class="timesheet_section">
+  <div class="tis-top">
+    <div class="board-info">
+      <h3>Timesheet Automate</h3>
+    </div>
+    <div class="app-utilities">
+      <div class="medium-button notifications-button" (click)="this.appControlService.showNotifications = true;"
+        role="button">
+        <i class="fi fi-rr-bell"></i>
+        <div class="bell"></div>
+      </div>
+      <div class="medium-button export-task-button" role="button"
+        (click)="this.appControlService.showTaskExporter = true;">
+        <i class="fi fi-rr-file-download"></i>
+      </div>
+      <div class="link-sharer" style="pointer-events: none; opacity: 0.1;">
+        <h5>Share</h5>
+        <h5 class="link-option" role="button" (click)="this.appControlService.showAppShare = true;">
+          <span>Link</span>
+          <i class="fi fi-rr-angle-down"></i>
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div class="tis-stage-bar">
+    <div class="stage-box active-stage-box">
+      <i class="fi fi-sr-shield-check"></i>
+      <p>Authentication</p>
+    </div>
+    <i class="fi fi-br-angle-small-right"></i>
+    <div class="stage-box">
+      <i class="fi fi-sr-file-edit"></i>
+      <p>Validation</p>
+    </div>
+    <i class="fi fi-br-angle-small-right"></i>
+    <div class="stage-box">
+      <i class="fi fi-sr-check-circle"></i>
+      <p>Submission</p>
+    </div>
+  </div>
+  <div class="tis-main">
+    <div class="stage-0-box">
+      <h2>Just a click away to start!</h2>
+      <p>Please click on authenticate zoho button, where you will be asked for timesheet concent. Allow to proceed
+        further.</p>
+      <ng-lottie [height]="'250px'" [options]="zohoLoginAnimation"></ng-lottie>
+      <button (click)="onAuthenticateZohoProjects()" style="align-self: center;" class="primary-button">
+        <p class="pb-text">Authenticate ZOHO Projects</p>
+      </button>
+    </div>
+  </div>
+
+  <app-export-task *ngIf="appControlService.showTaskExporter"></app-export-task>
+  <app-notifications *ngIf="appControlService.showNotifications"></app-notifications>
+</section>

@@ -1,9 +1,11 @@
 export interface ApplicationConfiguration {
   baseApiUrl: string;
-  apiVersionUrl: string;
+  nodeApiVersionUrl: string;
   apiRouters: ApiRouters;
 }
 
 export interface ApiRouters {
   registerUser: string;
+  requestZohoOauthUrl: string;
+  getZohoAccessToken: string;
 }

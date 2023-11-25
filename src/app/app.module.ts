@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,11 +36,16 @@ import { JiraSettingsComponent } from './main/settings/jira-settings/jira-settin
 import { AboutComponent } from './main/settings/about/about.component';
 import { TimesheetSettingsComponent } from './main/settings/timesheet-settings/timesheet-settings.component';
 import { TeamComponent } from './main/team/team.component';
+import { TimesheetComponent } from './main/timesheet/timesheet.component';
+import { DataService } from './services/data.service';
 
 export function playerFactory() {
   return player;
 }
 
+export function checkQueryParamsChange(dataService: DataService) {
+  return async () => await dataService.fetchConfig();
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +73,7 @@ export function playerFactory() {
     AboutComponent,
     TimesheetSettingsComponent,
     TeamComponent,
+    TimesheetComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,7 +88,15 @@ export function playerFactory() {
     MatDialogModule,
     LottieModule.forRoot({ player: playerFactory }),
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: checkQueryParamsChange,
+      deps: [DataService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
