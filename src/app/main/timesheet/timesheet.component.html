@@ -90,11 +90,12 @@
         <div class="task-main-flex">
           <div class="day-progress-flex">
             <div class="progress-data-flex">
-              <h5>60% Completed</h5>
-              <p>01:37 left</p>
+              <h5>{{calculateWorkHours(timesheetData[0].active).percentageCompleted}}% Completed</h5>
+              <p>{{calculateWorkHours(timesheetData[0].active).workHoursLeft}} left</p>
             </div>
             <div class="progress-bar-out">
-              <div style="--daycompleteprogperc: 60" class="actual-progress"></div>
+              <div style="--daycompleteprogperc: {{calculateWorkHours(timesheetData[0].active).percentageCompleted}}"
+                class="actual-progress"></div>
             </div>
             <div class="progress-data-flex">
               <div class="task-types-flex">
@@ -103,51 +104,57 @@
                 <img src="assets/images/common/gitlab.svg" alt="">
                 <img src="assets/images/common/todo.svg" alt="">
               </div>
-              <p><i class="fi fi-sr-clock-three"></i>Mininum work hours: 08:00</p>
+              <div style="display: flex; gap: 2rem; align-items: center; justify-content: center;">
+                <p><i style="color: var(--theme-var-1);" class="fi fi-sr-clock-three"></i>Mininum work hours: 08:00</p>
+                <p><i style="color: var(--success-color);" class="fi fi-sr-time-fast"></i>Additional work hours:
+                  {{calculateWorkHours(timesheetData[0].active).additionalWorkHours}}</p>
+              </div>
             </div>
           </div>
-          <div class="task-project-card-flex">
-            <div class="zproject-container" cdkDropListGroup *ngFor="let zohoTask of timesheetData[0].active">
-              <div class="zoho-task-flex">
-                <div class="zoho-info-flex">
-                  <div class="zi-project">
-                    <h5 class="one-line-clamp">{{zohoTask.zohoProjectName}}</h5>
-                  </div>
-                  <div class="zi-task">
-                    <p class="one-line-clamp">{{zohoTask.zohoProjectTaskName}}</p>
-                  </div>
-                </div>
-                <div class="task-info-flex">
-                  <div class="task-approval-flex">
-                    <i class="fi fi-sr-check-circle"></i>
-                    <h5>4/4</h5>
-                  </div>
-                  <div class="hour-log">
-                    <input type="text" [(ngModel)]="zohoTask.workHours" placeholder="HH:MM">
-                  </div>
-                </div>
-              </div>
-              <div class="tasks-flex" cdkDropList cdkDropListSortingDisabled [cdkDropListData]="zohoTask.tasks"
-                (cdkDropListDropped)="drop($event)">
-
-                <div class="task-box" cdkDrag *ngFor="let task of zohoTask.tasks">
-                  <div class="tb-top">
-                    <div class="image-flex">
-                      <img src="assets/images/common/{{task.taskType}}.svg" alt="">
-                      <p>{{task.taskType}}</p>
+          <div class="tnt-flex">
+            <div class="task-project-card-flex" cdkDropListGroup>
+              <div class="zproject-container" *ngFor="let zohoTask of timesheetData[0].active; let i = index">
+                <div class="zoho-task-flex">
+                  <div class="zoho-info-flex">
+                    <div class="zi-project">
+                      <h5 class="one-line-clamp">{{zohoTask.zohoProjectName}}</h5>
                     </div>
-                    <h5>{{task.taskId}}</h5>
+                    <div class="zi-task">
+                      <p class="one-line-clamp">{{zohoTask.zohoProjectTaskName}}</p>
+                    </div>
                   </div>
-                  <h4>{{task.taskname}}</h4>
+                  <div class="task-info-flex">
+                    <div class="task-approval-flex">
+                      <i class="fi fi-sr-check-circle"></i>
+                      <h5>4/4</h5>
+                    </div>
+                    <div class="hour-log">
+                      <input type="text" [(ngModel)]="zohoTask.workHours" placeholder="HH:MM">
+                    </div>
+                  </div>
+                </div>
+                <div class="tasks-flex" cdkDropList [cdkDropListData]="zohoTask.tasks"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="task-box" cdkDrag *ngFor="let task of zohoTask.tasks">
+                    <div class="tb-top">
+                      <div class="image-flex">
+                        <img src="assets/images/common/{{task.taskType}}.svg" alt="">
+                        <p>{{task.taskType}}</p>
+                      </div>
+                      <h5>{{task.taskId}}</h5>
+                    </div>
+                    <h4>{{task.taskname}}</h4>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="new-card-container">
+              <img src="assets/images/main/timesheet/addproject.svg" alt="">
+              <button style="align-self: center;" class="primary-button">
+                <p class="pb-text">Add a zoho task</p>
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="task-bin">
-          <h4>Deleted tasks</h4>
-          <img src="assets/images/common/404.svg" alt="">
-          <p>No tasks deleted yet!</p>
         </div>
       </div>
     </div>

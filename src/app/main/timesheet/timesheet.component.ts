@@ -12,6 +12,7 @@ import {
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
+import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 export const MY_FORMATS = {
   parse: {
@@ -59,7 +60,7 @@ export class TimesheetComponent implements OnInit {
           zohoProjectName: 'IIT_Compilers_Clan',
           zohoProjectTaskId: 1231231,
           zohoProjectTaskName: 'Product issue fixing and troubleshooting',
-          workHours: '04:30',
+          workHours: '02:30',
           tasks: [
             {
               taskId: 'PRODQA-3523',
@@ -73,7 +74,8 @@ export class TimesheetComponent implements OnInit {
               taskType: 'jira',
               project: 'Engineering QA',
               isApproved: false,
-              taskname: 'Mutimedia Attachment Dialog Issue Fixes and Video Call Revamp Testing',
+              taskname:
+                'Mutimedia Attachment Dialog Issue Fixes and Video Call Revamp Testing',
             },
             {
               taskId: 'PQ-252',
@@ -87,7 +89,55 @@ export class TimesheetComponent implements OnInit {
               taskType: 'jira',
               project: 'Product Backlog',
               isApproved: false,
-              taskname: 'Visual IVR Jasmine Testing Framework Unit Testing Implementation',
+              taskname:
+                'Visual IVR Jasmine Testing Framework Unit Testing Implementation',
+            },
+          ],
+        },
+        {
+          zohoProjectId: 123123123,
+          zohoProjectName: 'Adani_Support_Tickets',
+          zohoProjectTaskId: 1231231,
+          zohoProjectTaskName: 'Release and Deployment Activities',
+          workHours: '03:30',
+          tasks: [
+            {
+              taskId: 'GTLTAG-0134',
+              taskType: 'gitlab',
+              project: '',
+              isApproved: false,
+              taskname: 'Visual IVR Patch Version 1.3.5.30-patch.1 Release',
+            },
+            {
+              taskId: 'GTLTAG-0135',
+              taskType: 'gitlab',
+              project: '',
+              isApproved: false,
+              taskname: 'Visual IVR Beta Version 1.4.0-beta.2 Release',
+            },
+          ],
+        },
+        {
+          zohoProjectId: 123123123,
+          zohoProjectName: 'CAG_Visual_IVR',
+          zohoProjectTaskId: 1231231,
+          zohoProjectTaskName: 'Internal / Technical Meetings and Discussions',
+          workHours: '01:30',
+          tasks: [
+            {
+              taskId: 'MSTCALL-0025',
+              taskType: 'msteams',
+              project: '',
+              isApproved: false,
+              taskname:
+                'Changi Airport Group Visual IVR Design Changes Discussion',
+            },
+            {
+              taskId: 'MSTCALL-0078',
+              taskType: 'msteams',
+              project: '',
+              isApproved: false,
+              taskname: 'Visual IVR QA Issue Discussions',
             },
           ],
         },
@@ -198,9 +248,54 @@ export class TimesheetComponent implements OnInit {
 
   drop(event: any): void {
     try {
-      console.log(event)
+      console.log(event);
+      if (event.previousContainer === event.container) {
+        moveItemInArray(
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex
+        );
+      } else {
+        transferArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex
+        );
+      }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
+  }
+
+  calculateWorkHours(workHoursArray: any) {
+    const workMinutes = workHoursArray.reduce(
+      (totalMinutes: any, entry: any) => {
+        const [hours, minutes] = entry.workHours.split(':').map(Number);
+        return totalMinutes + hours * 60 + minutes;
+      },
+      0
+    );
+    const minimumWorkHours = 8 * 60;
+    const workHoursLeft = Math.max(minimumWorkHours - workMinutes, 0);
+    const percentageCompleted = Math.min(
+      (workMinutes / minimumWorkHours) * 100,
+      100
+    );
+    const additionalWorkHours = Math.max(workMinutes - minimumWorkHours, 0);
+
+    return {
+      workHoursLeft: this.formatTime(workHoursLeft),
+      percentageCompleted: percentageCompleted.toFixed(1),
+      additionalWorkHours: this.formatTime(additionalWorkHours)
+    };
+  }
+
+  formatTime(minutes: any) {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${String(hours).padStart(2, '0')}:${String(
+      remainingMinutes
+    ).padStart(2, '0')}`;
   }
 }
