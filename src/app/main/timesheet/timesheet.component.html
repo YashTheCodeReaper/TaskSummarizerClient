@@ -87,59 +87,62 @@
         </div>
       </div>
       <div class="stb1-main">
-        <div class="task-table">
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <p>Task ID</p>
-                </th>
-                <th>
-                  <p>ZOHO Project ID</p>
-                </th>
-                <th>
-                  <p>ZOHO Task ID</p>
-                </th>
-                <th>
-                  <p>Task Type</p>
-                </th>
-                <th>
-                  <p>Name</p>
-                </th>
-                <th>
-                  <p>Action</p>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let task of timesheetData[0].active">
-                <td>
-                  <p>{{task.taskId}}</p>
-                </td>
-                <td>
-                  <input type="text" [(ngModel)]="task.zohoProject" disabled>
-                </td>
-                <td>
-                  <input type="text" [(ngModel)]="task.zohoTask" disabled>
-                </td>
-                <td>
-                  <div class="ttype">
-                    <img src="assets/images/common/{{task.taskType}}.svg" alt="">
-                    <p>{{task.taskType}}</p>
+        <div class="task-main-flex">
+          <div class="day-progress-flex">
+            <div class="progress-data-flex">
+              <h5>60% Completed</h5>
+              <p>01:37 left</p>
+            </div>
+            <div class="progress-bar-out">
+              <div style="--daycompleteprogperc: 60" class="actual-progress"></div>
+            </div>
+            <div class="progress-data-flex">
+              <div class="task-types-flex">
+                <img src="assets/images/common/jira.svg" alt="">
+                <img src="assets/images/common/msteams.svg" alt="">
+                <img src="assets/images/common/gitlab.svg" alt="">
+                <img src="assets/images/common/todo.svg" alt="">
+              </div>
+              <p><i class="fi fi-sr-clock-three"></i>Mininum work hours: 08:00</p>
+            </div>
+          </div>
+          <div class="task-project-card-flex">
+            <div class="zproject-container" cdkDropListGroup *ngFor="let zohoTask of timesheetData[0].active">
+              <div class="zoho-task-flex">
+                <div class="zoho-info-flex">
+                  <div class="zi-project">
+                    <h5 class="one-line-clamp">{{zohoTask.zohoProjectName}}</h5>
                   </div>
-                </td>
-                <td>
-                  <p class="one-line-clamp">{{task.taskname}}</p>
-                </td>
-                <td>
-                  <div class="actions-flex">
-                    <i role="button" class="fi fi-rr-checkbox"></i>
-                    <i role="button" style="color: var(--danger-color);" class="fi fi-sr-trash"></i>
+                  <div class="zi-task">
+                    <p class="one-line-clamp">{{zohoTask.zohoProjectTaskName}}</p>
                   </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </div>
+                <div class="task-info-flex">
+                  <div class="task-approval-flex">
+                    <i class="fi fi-sr-check-circle"></i>
+                    <h5>4/4</h5>
+                  </div>
+                  <div class="hour-log">
+                    <input type="text" [(ngModel)]="zohoTask.workHours" placeholder="HH:MM">
+                  </div>
+                </div>
+              </div>
+              <div class="tasks-flex" cdkDropList cdkDropListSortingDisabled [cdkDropListData]="zohoTask.tasks"
+                (cdkDropListDropped)="drop($event)">
+
+                <div class="task-box" cdkDrag *ngFor="let task of zohoTask.tasks">
+                  <div class="tb-top">
+                    <div class="image-flex">
+                      <img src="assets/images/common/{{task.taskType}}.svg" alt="">
+                      <p>{{task.taskType}}</p>
+                    </div>
+                    <h5>{{task.taskId}}</h5>
+                  </div>
+                  <h4>{{task.taskname}}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="task-bin">
           <h4>Deleted tasks</h4>
@@ -150,6 +153,6 @@
     </div>
   </div>
 
-  <app-export-task *ngIf="appControlService.showTaskExporter"></app-export-task>
-  <app-notifications *ngIf="appControlService.showNotifications"></app-notifications>
 </section>
+<app-export-task *ngIf="appControlService.showTaskExporter"></app-export-task>
+<app-notifications *ngIf="appControlService.showNotifications"></app-notifications>

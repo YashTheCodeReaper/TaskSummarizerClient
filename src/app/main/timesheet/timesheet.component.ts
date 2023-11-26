@@ -55,40 +55,41 @@ export class TimesheetComponent implements OnInit {
       bin: [],
       active: [
         {
-          taskId: 'PRODQA-3523',
-          taskType: 'jira',
-          project: 'Product QA',
-          isApproved: false,
-          taskname: 'Visual IVR AV Call Revamp',
-          zohoProject: 'IIT_Compilers_Clan',
-          zohoTask: 'Product issue fixing and troubleshooting',
-        },
-        {
-          taskId: 'ENGQA-973',
-          taskType: 'jira',
-          project: 'Engineering QA',
-          isApproved: false,
-          taskname: 'Multimedia Dialog Box Responsiveness Issue',
-          zohoProject: 'IIT_General_Activity_Tracker',
-          zohoTask: 'QA troubleshooting / Internal meeting',
-        },
-        {
-          taskId: 'TODO-434',
-          taskType: 'todo',
-          project: '',
-          isApproved: false,
-          taskname: 'Visual IVR AV Call Revampment',
-          zohoProject: 'IIT_Compilers_Clan',
-          zohoTask: 'Internal / Technical Meeting and Discussions',
-        },
-        {
-          taskId: 'MSTCALL-26',
-          taskType: 'msteams',
-          project: '',
-          isApproved: false,
-          taskname: 'Issue discussion with Trishul Shetty',
-          zohoProject: 'IIT_Compilers_Clan',
-          zohoTask: 'Internal / Technical Meeting and Discussions',
+          zohoProjectId: 123123123,
+          zohoProjectName: 'IIT_Compilers_Clan',
+          zohoProjectTaskId: 1231231,
+          zohoProjectTaskName: 'Product issue fixing and troubleshooting',
+          workHours: '04:30',
+          tasks: [
+            {
+              taskId: 'PRODQA-3523',
+              taskType: 'jira',
+              project: 'Product QA',
+              isApproved: false,
+              taskname: 'Visual IVR AV Call Revamp',
+            },
+            {
+              taskId: 'ENGQA-2235',
+              taskType: 'jira',
+              project: 'Engineering QA',
+              isApproved: false,
+              taskname: 'Mutimedia Attachment Dialog Issue Fixes and Video Call Revamp Testing',
+            },
+            {
+              taskId: 'PQ-252',
+              taskType: 'jira',
+              project: 'Project QA',
+              isApproved: false,
+              taskname: 'Visual IVR Announcement Node Spacing Issue',
+            },
+            {
+              taskId: 'PB-1232',
+              taskType: 'jira',
+              project: 'Product Backlog',
+              isApproved: false,
+              taskname: 'Visual IVR Jasmine Testing Framework Unit Testing Implementation',
+            },
+          ],
         },
       ],
     },
@@ -192,6 +193,14 @@ export class TimesheetComponent implements OnInit {
       else this.toDate = new Date(this.datePicker2El.nativeElement.value);
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  drop(event: any): void {
+    try {
+      console.log(event)
+    } catch (error) {
+      console.error(error)
     }
   }
 }

@@ -6,6 +6,7 @@
   background: var(--bg-1);
   color: var(--light-text-1);
   padding: 3rem;
+  padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -88,7 +89,7 @@
         }
 
         .link-option {
-          border-radius: 1.5rem;
+          border-radius: 0.5rem;
           background: var(--bg-1);
           cursor: pointer;
         }
@@ -99,7 +100,7 @@
   .tis-stage-bar {
     width: 100%;
     min-height: 5rem;
-    border-radius: 1.5rem;
+    border-radius: 0.5rem;
     background: var(--bg-2);
     display: flex;
     align-items: center;
@@ -181,13 +182,13 @@
       align-items: flex-start;
       justify-content: flex-start;
       gap: 2rem;
-      margin-top: -1.5rem;
+      margin-top: -1rem;
 
       .stb1-box {
         width: 100%;
         min-height: 6rem;
         background: var(--bg-2);
-        border-radius: 1.5rem;
+        border-radius: 0.5rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -218,7 +219,7 @@
           .indv-day-flex,
           .from-to-flex {
             padding: 0.5rem;
-            border-radius: 1.5rem;
+            border-radius: 0.5rem;
             height: 5rem;
             background: var(--bg-1);
             display: flex;
@@ -230,7 +231,7 @@
               padding: 0 2rem;
               background: transparent;
               height: 100%;
-              border-radius: 1.5rem;
+              border-radius: 0.5rem;
               display: flex;
               align-items: center;
               justify-content: center;
@@ -269,113 +270,276 @@
         width: 100%;
         overflow: hidden;
         display: grid;
-        grid-template-columns: 2.7fr 1fr;
+        grid-template-columns: 3.5fr 1fr;
+        gap: 2rem;
 
         &>div {
           width: 100%;
           height: 100%;
-          border-radius: 1.5rem;
+          border-radius: 0.5rem;
         }
 
-        .task-table {
+        .task-main-flex {
           width: 100%;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           justify-content: flex-start;
+          gap: 2rem;
 
-          table {
-            display: block;
-            height: calc(100vh - 30rem);
-            overflow: scroll;
+          .day-progress-flex {
+            width: 100%;
+            min-height: 9rem;
+            border-radius: 0.5rem;
+            background: var(--bg-2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0 2rem;
 
-            thead {
+            .progress-data-flex {
               width: 100%;
-              background: var(--bg-2);
-              height: 4.5rem;
-              position: sticky;
-              top: 0;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
 
-              tr {
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
+              .task-types-flex {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+
+                img {
+                  height: 1.5rem;
+                }
               }
 
-              tr th {
-                padding: 0 2rem;
+              h5 {
+                font-size: 1.4rem;
+                font-weight: 400;
+              }
 
-                p {
-                  font-size: 1.4rem;
-                  font-weight: 400;
-                  text-align: left;
+              p {
+                font-size: 1.4rem;
+                font-weight: 400;
+                opacity: 0.75;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+
+                i {
+                  margin-top: 0.5rem;
                 }
               }
             }
 
-            tbody {
-              background: var(--bg-3);
+            .progress-bar-out {
+              width: 100%;
+              height: 0.5rem;
+              background: var(--bg-1);
+              border-radius: 5rem;
+              position: relative;
+              overflow: hidden;
 
-              tr {
-                height: 6rem;
-                border-bottom-left-radius: 1.5rem;
-                border-bottom-right-radius: 1.5rem;
+              .actual-progress {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: calc(var(--daycompleteprogperc) * 1%);
+                background: var(--theme-var-1);
+                border-radius: 5rem;
+              }
+            }
+          }
 
-                td {
-                  padding: 0 2rem;
-                  position: relative;
+          .task-project-card-flex {
+            width: 100%;
+            height: 100%;
+            overflow-x: scroll;
 
-                  p {
-                    font-size: 1.4rem;
-                    font-weight: 400;
-                    text-align: left;
-                    max-width: 15rem;
-                  }
+            .zproject-container {
+              width: 30rem;
+              padding: 1.5rem;
+              background: var(--bg-2);
+              border-radius: 0.5rem;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              justify-content: flex-start;
+              gap: 2rem;
 
-                  input {
-                    width: 100%;
-                    max-width: 21rem;
-                    border: none;
-                    outline: none;
-                    background: var(--bg-1);
-                    border-radius: 0.5rem;
-                    padding: 0 1rem;
-                    height: 4rem;
-                    font-family: inherit;
-                    color: inherit;
-                    font-size: 1.4rem;
-                    font-weight: 400;
+              .zoho-task-flex {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .zoho-info-flex,
+                .task-info-flex {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: flex-start;
+                  justify-content: center;
+
+                  .zi-project,
+                  .zi-task,
+                  .task-approval-flex,
+                  .hour-log {
+                    position: relative;
+                    height: 2.5rem;
                     cursor: pointer;
-                  }
-
-                  .ttype {
-                    width: 100%;
                     display: flex;
                     align-items: center;
-                    justify-content: flex-start;
-                    gap: 1rem;
 
-                    img {
-                      height: 2rem;
+                    h5,
+                    p {
+                      font-size: 1.6rem;
+                      font-weight: 500;
+                      max-width: 15rem;
                     }
+                  }
+
+                  .task-approval-flex {
+                    justify-content: flex-end;
+                    gap: 0.5rem;
+                    cursor: auto;
+
+                    i {
+                      font-size: 1.2rem;
+                      margin-top: 0.5rem;
+                      color: var(--success-color);
+                    }
+
+                    h5 {
+                      font-size: 1.2rem;
+                      font-weight: 400;
+                    }
+                  }
+
+                  .zi-task,
+                  .hour-log {
+                    height: 2.5rem;
 
                     p {
                       font-size: 1.4rem;
                       font-weight: 400;
-                      text-transform: uppercase;
                     }
                   }
 
-                  .actions-flex {
+                  .hour-log {
+                    background: var(--bg-1);
+                    border-radius: 0.5rem;
+                    height: 2.5rem;
+                    padding: 0 0.5rem;
+                    align-self: flex-end;
                     display: flex;
                     align-items: center;
-                    justify-content: flex-start;
-                    gap: 1rem;
+                    justify-content: center;
+                    cursor: auto;
 
-                    i {
-                      font-size: 1.8rem;
-                      cursor: pointer;
+                    input {
+                      width: 3.75rem;
+                      background: transparent;
+                      outline: none;
+                      border: none;
+                      font-family: inherit;
+                      color: inherit;
+                      font-size: 1.4rem;
+                      font-weight: 400;
                     }
                   }
+                }
+
+                .task-info-flex {
+                  align-items: flex-end;
+                }
+              }
+
+              .tasks-flex {
+                width: 100%;
+                height: calc(100vh - 51rem);
+                overflow: scroll;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                gap: 1rem;
+
+                .task-box {
+                  width: 100%;
+                  background: var(--bg-1);
+                  border-radius: 0.5rem;
+                  cursor: pointer;
+                  padding: 1rem;
+                  position: relative;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: flex-start;
+                  justify-content: flex-start;
+                  gap: 1rem;
+                  user-select: none;
+
+                  * {
+                    transition: all 300ms ease;
+                  }
+
+                  .tb-top {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .image-flex {
+                      display: flex;
+                      align-items: center;
+                      justify-content: flex-start;
+                      gap: 0.5rem;
+
+                      img {
+                        height: 1.5rem;
+                      }
+
+                      p {
+                        font-size: 1.2rem;
+                        font-weight: 400;
+                        text-transform: uppercase;
+                      }
+                    }
+
+                    h5 {
+                      font-size: 1.2rem;
+                      font-weight: 400;
+                      opacity: 0.8;
+                    }
+                  }
+
+                  h4 {
+                    font-size: 1.3rem;
+                    font-weight: 400;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                  }
+                }
+
+                &::-webkit-scrollbar {
+                  width: 3px;
+                  height: 3px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                  border-radius: 50px;
+                  background: var(--theme-var-1);
+                }
+
+                &::-webkit-scrollbar-corner {
+                  background: transparent;
                 }
               }
             }
@@ -405,6 +569,7 @@
           justify-content: flex-start;
           gap: 2rem;
           position: relative;
+          height: 100%;
 
           img {
             width: 70%;
@@ -412,7 +577,6 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            opacity: 0.9;
           }
 
           h4 {
@@ -450,8 +614,89 @@
   }
 }
 
-.one-line-clamp{
+.one-line-clamp {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: pre;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  background: var(--bg-1);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  padding: 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+  user-select: none;
+  color: var(--light-text-1);
+  background: var(--bg-3);
+
+  * {
+    transition: all 300ms ease;
+  }
+
+  .tb-top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .image-flex {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.5rem;
+
+      img {
+        height: 1.5rem;
+      }
+
+      p {
+        font-size: 1.2rem;
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+    }
+
+    h5 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+  }
+
+  h4 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

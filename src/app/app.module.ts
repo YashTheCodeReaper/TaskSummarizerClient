@@ -2,6 +2,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { CdkDrag, CdkDropList, CdkDropListGroup, DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
@@ -86,6 +87,8 @@ export function checkQueryParamsChange(dataService: DataService) {
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    DragDropModule,
+    CdkDropListGroup, CdkDropList, CdkDrag,
     LottieModule.forRoot({ player: playerFactory }),
   ],
   providers: [
