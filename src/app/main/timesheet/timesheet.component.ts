@@ -48,6 +48,8 @@ export class TimesheetComponent implements OnInit {
   fromDate: Date = new Date();
   toDate: Date = new Date();
   today: Date = new Date();
+  datesArray: Date[] = [];
+  selectedDate!: Date;
   @ViewChild('datePicker1') datePicker1El!: ElementRef;
   @ViewChild('datePicker2') datePicker2El!: ElementRef;
   timesheetData = [
@@ -144,6 +146,50 @@ export class TimesheetComponent implements OnInit {
       ],
     },
   ];
+  availableZohoData = [
+    {
+      zohoProjectId: 12312312,
+      zohoProjectName: 'II_TTF_Compilers_Clan',
+      zohoTasks: [
+        {
+          zohoTaskId: 1212341234,
+          zohoTaskName: 'Product issue fixing and troubleshooting',
+        },
+        {
+          zohoTaskId: 1212341234,
+          zohoTaskName: 'Project issue fixing and troubleshooting',
+        },
+        {
+          zohoTaskId: 1212341234,
+          zohoTaskName: 'Tehchnical / internal meeting and discussions',
+        },
+        {
+          zohoTaskId: 1212341234,
+          zohoTaskName: 'Release and deployment activities',
+        },
+      ],
+    },
+    {
+      zohoProjectId: 12312312,
+      zohoProjectName: 'Tetherfi_General_Tracking_Activities',
+      zohoTasks: [
+        {
+          zohoTaskId: 1212341234,
+          zohoTaskName: 'Public Holiday',
+        },
+        {
+          zohoTaskId: 1212341234,
+          zohoTaskName: 'Creating proof of concepts',
+        },
+        {
+          zohoTaskId: 1212341234,
+          zohoTaskName: 'HR activities / Team non-technical activities',
+        },
+      ],
+    },
+  ];
+  showZPorjectDropdown: boolean[] = [];
+  showZTasksDropdown: boolean[] = [];
 
   constructor(
     public appControlService: AppControlService,
@@ -173,6 +219,8 @@ export class TimesheetComponent implements OnInit {
 
   ngOnInit(): void {
     this.setInitialDayOffsets();
+    this.setDateArray();
+    this.setDropdownSwitchers();
   }
 
   setInitialDayOffsets(): void {
@@ -271,6 +319,8 @@ export class TimesheetComponent implements OnInit {
   calculateWorkHours(workHoursArray: any) {
     const workMinutes = workHoursArray.reduce(
       (totalMinutes: any, entry: any) => {
+        if (entry.workHours.length != 5 || !entry.workHours.includes(':'))
+          entry.workHours = '00:00';
         const [hours, minutes] = entry.workHours.split(':').map(Number);
         return totalMinutes + hours * 60 + minutes;
       },
@@ -287,7 +337,7 @@ export class TimesheetComponent implements OnInit {
     return {
       workHoursLeft: this.formatTime(workHoursLeft),
       percentageCompleted: percentageCompleted.toFixed(1),
-      additionalWorkHours: this.formatTime(additionalWorkHours)
+      additionalWorkHours: this.formatTime(additionalWorkHours),
     };
   }
 
@@ -297,5 +347,22 @@ export class TimesheetComponent implements OnInit {
     return `${String(hours).padStart(2, '0')}:${String(
       remainingMinutes
     ).padStart(2, '0')}`;
+  }
+
+  setDateArray() {
+    this.datesArray = [];
+    let currentDate: Date = new Date(this.fromDate);
+
+    while (currentDate <= this.toDate) {
+      this.datesArray.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    this.selectedDate = this.datesArray[0];
+  }
+
+  setDropdownSwitchers() {
+    this.showZPorjectDropdown = [false, false, false]
+    this.showZTasksDropdown = [false, false, false]
   }
 }

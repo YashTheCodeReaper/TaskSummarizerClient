@@ -53,20 +53,8 @@
         <div class="st1b-left">
           <h3><i class="fi fi-sr-route"></i> ZOHO Task Mapper</h3>
           <div class="indv-day-flex">
-            <div class="day-box active-day">
-              <p>24 Mon</p>
-            </div>
-            <div class="day-box">
-              <p>25 Tue</p>
-            </div>
-            <div class="day-box">
-              <p>26 Wed</p>
-            </div>
-            <div class="day-box">
-              <p>27 Thu</p>
-            </div>
-            <div class="day-box">
-              <p>28 Fri</p>
+            <div class="day-box" [ngClass]="{'active-day': selectedDate == date}" *ngFor="let date of datesArray">
+              <p>{{date | date:'dd MMM'}}</p>
             </div>
           </div>
         </div>
@@ -116,20 +104,36 @@
               <div class="zproject-container" *ngFor="let zohoTask of timesheetData[0].active; let i = index">
                 <div class="zoho-task-flex">
                   <div class="zoho-info-flex">
-                    <div class="zi-project">
-                      <h5 class="one-line-clamp">{{zohoTask.zohoProjectName}}</h5>
+                    <div class="zi-project zi-project-{{i}}" role="button"
+                      (click)="this.showZPorjectDropdown[i] = true;">
+                      <h5 style="margin-left: -0.5rem;" class="one-line-clamp">
+                        {{zohoTask.zohoProjectName}}</h5>
+                      <div class="dropdown" *ngIf="showZPorjectDropdown[i]" appOutsideClick
+                        [clickExceptions]="['zi-project-'+i]" (outsideClick)="this.showZPorjectDropdown[i] = false;">
+                        <div class="option" *ngFor="let zohoProject of availableZohoData">
+                          <p class="one-line-clamp">
+                            {{zohoProject.zohoProjectName}}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div class="zi-task">
+                    <div class="zi-task zi-task-{{i}}" role="button" (click)="this.showZTasksDropdown[i] = true;">
                       <p class="one-line-clamp">{{zohoTask.zohoProjectTaskName}}</p>
+                      <div class="dropdown" *ngIf="showZTasksDropdown[i]" appOutsideClick
+                        [clickExceptions]="['zi-task-'+i]" (outsideClick)="this.showZTasksDropdown[i] = false;">
+                        <div class="option" *ngFor="let task of availableZohoData[0].zohoTasks">
+                          <p class="one-line-clamp">
+                            {{task.zohoTaskName}}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="task-info-flex">
                     <div class="task-approval-flex">
                       <i class="fi fi-sr-check-circle"></i>
-                      <h5>4/4</h5>
+                      <h5>4/{{zohoTask.tasks.length}}</h5>
                     </div>
                     <div class="hour-log">
-                      <input type="text" [(ngModel)]="zohoTask.workHours" placeholder="HH:MM">
+                      <input maxlength="5" type="text" [(ngModel)]="zohoTask.workHours" placeholder="HH:MM">
                     </div>
                   </div>
                 </div>
