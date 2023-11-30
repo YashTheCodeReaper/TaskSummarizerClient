@@ -9,13 +9,14 @@
   position: relative;
 
   .aw-left,
-  .aw-left {
+  .aw-right {
     width: 100%;
     height: 100%;
   }
 
   .aw-left {
     padding: 3rem;
+    padding-right: 1.5rem;
 
     .awl-enclosure {
       width: 100%;
@@ -63,6 +64,7 @@
     align-items: center;
     justify-content: center;
     padding: 3rem;
+    padding-left: 1.5rem;
 
     .awr-enclosure {
       width: 100%;
@@ -79,8 +81,8 @@
 
       .sc {
         position: absolute;
-        height: 6rem;
-        opacity: 0.2;
+        height: 15rem;
+        opacity: 0.5;
       }
 
       .sc1 {

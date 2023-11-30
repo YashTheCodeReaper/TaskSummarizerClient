@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class AppControlService {
   showAppShare: boolean = false;
   showJoinTeam: boolean = false;
-  showOnboarding: boolean = false;
+  showOnboarding: boolean = true;
   showNewBoard: boolean = false;
   showMemberSwitch: boolean = false;
   showTaskExporter: boolean = false;
