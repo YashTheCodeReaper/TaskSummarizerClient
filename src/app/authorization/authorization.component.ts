@@ -5,7 +5,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ApiService } from '../services/api.service';
 import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
@@ -16,8 +15,9 @@ import { AnimationOptions } from 'ngx-lottie';
 export class AuthorizationComponent implements OnInit {
   registerFormGroup!: FormGroup;
   jiraFormGroup!: FormGroup;
+  userFormGroup!: FormGroup;
   isSignIn: boolean = false;
-  currentStage: number = 1;
+  currentStage: number = 3;
   authAnimation1: AnimationOptions = {
     path: 'assets/images/main/auth/auth1.json',
     loop: true,
@@ -29,11 +29,47 @@ export class AuthorizationComponent implements OnInit {
     autoplay: true,
   };
   staySigned: boolean = true;
+  availableDesignations: { id: number; name: string; description: string }[] = [
+    {
+      id: 1,
+      name: 'Trainee Software Engineer',
+      description: '',
+    },
+    {
+      id: 1,
+      name: 'Junior Software Engineer',
+      description: '',
+    },
+    {
+      id: 1,
+      name: 'Software Engineer',
+      description: '',
+    },
+    {
+      id: 1,
+      name: 'Senior Software Engineer',
+      description: '',
+    },
+    {
+      id: 1,
+      name: 'Associate Technical Lead',
+      description: '',
+    },
+    {
+      id: 1,
+      name: 'Technical Lead',
+      description: '',
+    },
+    {
+      id: 1,
+      name: 'Others',
+      description: '',
+    },
+  ];
+  showDesignationsFlex: boolean = false;
+  imageDataUrl: any = '';
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private apiService: ApiService
-  ) {
+  constructor(private formBuilder: FormBuilder) {
     this.registerFormGroup = this.formBuilder.group({
       email: new FormControl('', [
         Validators.required,
@@ -53,6 +89,11 @@ export class AuthorizationComponent implements OnInit {
         Validators.required,
         Validators.minLength(20),
       ]),
+    });
+    this.userFormGroup = this.formBuilder.group({
+      username: new FormControl('', [Validators.required]),
+      designation: new FormControl('', [Validators.required]),
+      profilePicture: new FormControl(''),
     });
   }
 
@@ -79,7 +120,7 @@ export class AuthorizationComponent implements OnInit {
 
   moveForm(): void {
     try {
-      if (this.currentStage < 3) {
+      if (this.currentStage < 4) {
         if (this.currentStage == 1)
           this.jiraFormGroup.controls['email'].setValue(
             this.registerFormGroup.value.email
@@ -96,6 +137,15 @@ export class AuthorizationComponent implements OnInit {
     }
   }
 
+  onChooseDesignation(desObj: any): void {
+    try {
+      this.userFormGroup.controls['designation'].setValue(desObj.name);
+      this.showDesignationsFlex = false;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   getButtonValidation(): boolean | any {
     try {
       switch (this.currentStage) {
@@ -103,9 +153,58 @@ export class AuthorizationComponent implements OnInit {
           return this.registerFormGroup.valid;
         case 2:
           return this.jiraFormGroup.valid;
+        case 3:
+          return this.userFormGroup.valid;
         default:
           return true;
       }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  onImageSelection(files: FileList | any): void {
+    try {
+      const file = files[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = (e: any) => {
+          const img: any = new Image();
+
+          img.onload = () => {
+            const aspectRatio = img.width / img.height;
+            if (aspectRatio != 1) return;
+
+            let newWidth, newHeight;
+            if (aspectRatio > 1) {
+              newWidth = 500;
+              newHeight = 500 / aspectRatio;
+            } else {
+              newWidth = 500 * aspectRatio;
+              newHeight = 500;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            const ctx: any = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, newWidth, newHeight);
+            this.imageDataUrl = canvas.toDataURL('image/png');
+            this.userFormGroup.controls['profilePicture'].setValue(
+              this.imageDataUrl
+            );
+          };
+
+          img.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      }
+
+      const HTMLFileUploadElement: any =
+        document.getElementById(`file-selector'}`);
+      if (HTMLFileUploadElement) HTMLFileUploadElement.value = '';
     } catch (error) {
       console.error(error);
     }

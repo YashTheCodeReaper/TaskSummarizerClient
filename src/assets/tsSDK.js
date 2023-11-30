@@ -9,7 +9,7 @@ TsSDK.config = {
 };
 TsSDK.targetSubUrl = {
   checkPing: "/checkPing",
-  registerUser: "/registerUser"
+  registerUser: "/registerUser",
 };
 TsSDK.events = {};
 
@@ -71,9 +71,37 @@ TsSDK.checkPing = function () {
     });
 };
 
-TsSDK.registerUser = function() {
-  checkConfig();
-}
+TsSDK.registerUser = function (userObject) {
+  if (!TsSDK.config.apiKey) {
+    TsSDK.emit("SEVERE_ERROR", "SDK requires api key");
+    throw TsSDK.handleError("SEVERE_ERROR", "SDK requires api key");
+  }
+
+  return fetch(`${TsSDK.config.apiUrl1}${TsSDK.targetSubUrl.registerUser}`, {
+    method: "POST",
+    headers: {
+      Accept: "application.json",
+      "Content-Type": "application/json",
+    },
+    body: userObject,
+    cache: "default",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        TsSDK.emit("SEVERE_ERROR", "Error occured while registering the user");
+        throw TsSDK.handleError("API_ERROR", `HTTP Error: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      TsSDK.emit("REGISTERED_USER", data);
+      return data;
+    })
+    .catch((error) => {
+      TsSDK.emit("SEVERE_ERROR", "Error occured while registering the user");
+      throw TsSDK.handleError("CATCH_ERROR", error);
+    });
+};
 
 // CATCH_ERROR - error occured while in trycatching
 // API_ERROR - error occured in http response / non-ok response

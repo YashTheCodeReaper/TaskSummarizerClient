@@ -81,8 +81,8 @@
 
       .sc {
         position: absolute;
-        height: 15rem;
-        opacity: 0.5;
+        height: 20rem;
+        opacity: 0.2;
       }
 
       .sc1 {
@@ -113,13 +113,75 @@
         width: 40rem;
       }
 
-      p {
+      &>p {
         font-size: 1.6rem;
         font-weight: 400;
         opacity: 0.6;
         margin-top: -2rem;
         text-align: left;
         width: 40rem;
+      }
+
+      .profp-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .prof-circle {
+          width: 8rem;
+          height: 8rem;
+          border-radius: 50%;
+          background: var(--theme-var-1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+
+          img {
+            width: 100%;
+            max-height: 100%;
+            border-radius: 50%;
+          }
+
+          i {
+            font-size: 3.6rem;
+            margin-top: 0.7rem;
+          }
+
+          .fs-toggle {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 5rem;
+            background: var(--bg-1);
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-1);
+            box-shadow: -4px 4px 4px rgba($color: #000000, $alpha: 0.25);
+            cursor: pointer;
+            overflow: hidden;
+
+            input {
+              opacity: 0;
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              left: 0;
+              z-index: 2;
+              cursor: pointer;
+            }
+
+            i {
+              font-size: 1.4rem;
+              z-index: 1;
+            }
+          }
+        }
       }
 
       form {

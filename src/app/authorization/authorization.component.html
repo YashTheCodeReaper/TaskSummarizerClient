@@ -17,6 +17,7 @@
   <div class="aw-right">
     <div class="awr-enclosure">
       <img src="assets/images/common/jira.svg" alt="" class="sc sc2">
+      <img src="assets/images/common/msteams.svg" alt="" class="sc sc1">
       <ng-container *ngIf="!isSignIn">
         <ng-container *ngIf="currentStage==1">
           <h2>Get started!</h2>
@@ -35,7 +36,8 @@
               <label for="password">Choose a password</label>
               <input formControlName="password" type="text" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
             </div>
-            <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(registerFormGroup, 'password')">
+            <span style="margin-top: -0.5rem;" class="error-message"
+              *ngIf="validateField(registerFormGroup, 'password')">
               Please choose a password string 8 character password
             </span>
             <div class="checkbox-group">
@@ -78,6 +80,52 @@
         </ng-container>
 
         <ng-container *ngIf="currentStage==3">
+          <h2>User information</h2>
+          <p>Please provide your information</p>
+          <div class="profp-container">
+            <div class="prof-circle">
+              <img *ngIf="imageDataUrl" [src]="imageDataUrl">
+              <i *ngIf="!imageDataUrl" class="fi fi-sr-user"></i>
+              <div *ngIf="!imageDataUrl" class="fs-toggle" role="button">
+                <input type="file" name="file-selector" #file accept="image/*" (change)="onImageSelection(file.files)">
+                <i class="fi fi-br-picture"></i>
+              </div>
+            </div>
+          </div>
+          <form [formGroup]="userFormGroup">
+            <span style="margin-top: -0.5rem; align-self: center;" class="error-message info-message">
+              Please upload images with aspect ratio 1.
+            </span>
+            <div class="input-group input-group-auth-0"
+              [ngClass]="{'input-group-focus-forced': userFormGroup.controls['username'].value}">
+              <label for="username">Emter your full name</label>
+              <input formControlName="username" type="text" (focus)="onFieldFocus(0)" (blur)="onFieldFocus(0)">
+            </div>
+            <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(userFormGroup, 'username')">
+              Please enter a valid name
+            </span>
+            <div class="input-group input-group-auth-1"
+              [ngClass]="{'input-group-focus-forced': userFormGroup.controls['designation'].value}">
+              <label for="designation">Choose your designation</label>
+              <input formControlName="designation" type="text" id="file-selector"
+                (focus)="onFieldFocus(1); this.showDesignationsFlex = true;" (blur)="onFieldFocus(1)">
+              <div style="top: 5.5rem;" class="dropdown" appOutsideClick
+                (outsideClick)="this.showDesignationsFlex = false;" [clickExceptions]="['input-group-auth-1']"
+                *ngIf="showDesignationsFlex">
+                <div class="option" (click)="onChooseDesignation(role)" role="option"
+                  *ngFor="let role of availableDesignations">
+                  <p>{{role.name}}</p>
+                </div>
+              </div>
+            </div>
+            <span style="margin-top: -0.5rem;" class="error-message"
+              *ngIf="validateField(userFormGroup, 'designation')">
+              Choose a valid designation
+            </span>
+          </form>
+        </ng-container>
+
+        <ng-container *ngIf="currentStage==4">
           <h2>Get set go!</h2>
           <p style="margin-bottom: -2rem;">Everything's set. Please login to continue</p>
           <ng-lottie [height]="'200px'" [options]="authAnimation2"></ng-lottie>
@@ -88,7 +136,7 @@
         <div class="pb-text">{{currentStage == 3 ? 'Login' : 'Next'}}</div>
       </button>
       <div class="paginator">
-        <div *ngFor="let item of [].constructor(3); let i = index" class="page-index"
+        <div *ngFor="let item of [].constructor(4); let i = index" class="page-index"
           [ngClass]="{'active-index': currentStage==i+1}"></div>
       </div>
     </div>

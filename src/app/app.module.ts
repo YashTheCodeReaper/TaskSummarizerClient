@@ -17,7 +17,6 @@ import { JoinTeamComponent } from './main/sidebar/join-team/join-team.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OnboardingComponent } from './main/onboarding/onboarding.component';
 import { IntroComponent } from './main/onboarding/intro/intro.component';
-import { ObProfileComponent } from './main/onboarding/ob-profile/ob-profile.component';
 import { NewBoardComponent } from './main/sidebar/new-board/new-board.component';
 import { MemberSwitchComponent } from './main/dashboard/member-switch/member-switch.component';
 import { ExportTaskComponent } from './main/dashboard/export-task/export-task.component';
@@ -60,7 +59,6 @@ export function checkQueryParamsChange(dataService: DataService) {
     JoinTeamComponent,
     OnboardingComponent,
     IntroComponent,
-    ObProfileComponent,
     NewBoardComponent,
     MemberSwitchComponent,
     ExportTaskComponent,

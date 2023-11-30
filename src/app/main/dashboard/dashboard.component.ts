@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { AppControlService } from 'src/app/services/app-control.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,6 @@ export class DashboardComponent implements OnInit {
   );
   formattedDates: string[] | any = [];
   selectedDate: number = new Date().getDate();
-  isBoardAvailable: boolean = true;
   notFoundAnimation: AnimationOptions = {
     path: 'assets/images/main/dashboard/db-empty-1.json',
     loop: true,
@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public appControlService: AppControlService,
+    public dataService: DataService,
     private datePipe: DatePipe
   ) {
     this.generateFormattedDates();

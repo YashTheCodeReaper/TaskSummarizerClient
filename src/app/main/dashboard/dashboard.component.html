@@ -1,5 +1,5 @@
 <section class="dashboard_section">
-  <ng-container *ngIf="isBoardAvailable">
+  <ng-container *ngIf="dataService.boards.length">
     <div class="ds-top">
       <div class="board-info">
         <div class="branched-board">
@@ -390,7 +390,7 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="!isBoardAvailable">
+  <ng-container *ngIf="!dataService.boards.length">
     <div class="no-board-wrapper">
       <ng-lottie [height]="'250px'" [options]="notFoundAnimation"></ng-lottie>
       <h3>Looks like its such a void in here. Please create a board to begin exploration.</h3>

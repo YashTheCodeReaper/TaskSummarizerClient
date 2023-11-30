@@ -1,5 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { AppControlService } from 'src/app/services/app-control.service';
 
 @Component({
@@ -8,7 +7,6 @@ import { AppControlService } from 'src/app/services/app-control.service';
   styleUrls: ['./onboarding.component.scss'],
 })
 export class OnboardingComponent {
-  showProfileForm: boolean = false;
   showIntroOnboarding: boolean = true;
 
   constructor(public appControlService: AppControlService) {}

@@ -1,6 +1,4 @@
 <section class="onboarding_component">
-  <app-intro *ngIf="!showIntroOnboarding"
-    (onBoardingCompleted)="this.showProfileForm = true; this.showIntroOnboarding = false;"></app-intro>
-  <app-ob-profile *ngIf="!showProfileForm">
-  </app-ob-profile>
+  <app-intro *ngIf="showIntroOnboarding"
+    (onBoardingCompleted)="this.showIntroOnboarding = false;"></app-intro>
 </section>
