@@ -14,10 +14,11 @@ import { AnimationOptions } from 'ngx-lottie';
 })
 export class AuthorizationComponent implements OnInit {
   registerFormGroup!: FormGroup;
+  signInFormGroup!: FormGroup;
   jiraFormGroup!: FormGroup;
   userFormGroup!: FormGroup;
   isSignIn: boolean = false;
-  currentStage: number = 3;
+  currentStage: number = 1;
   authAnimation1: AnimationOptions = {
     path: 'assets/images/main/auth/auth1.json',
     loop: true,
@@ -80,6 +81,16 @@ export class AuthorizationComponent implements OnInit {
         Validators.minLength(8),
       ]),
     });
+    this.signInFormGroup = this.formBuilder.group({
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/),
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
+    });
     this.jiraFormGroup = this.formBuilder.group({
       email: new FormControl('', [
         Validators.required,
@@ -127,7 +138,10 @@ export class AuthorizationComponent implements OnInit {
           );
         this.currentStage++;
       } else {
-        let finalObj = this.registerFormGroup.value;
+        let finalObj = {
+          ...this.registerFormGroup.value,
+          ...this.userFormGroup.value,
+        };
         finalObj.jira = this.jiraFormGroup.value;
         finalObj.staySigned = this.staySigned;
         console.log(finalObj);
@@ -148,6 +162,7 @@ export class AuthorizationComponent implements OnInit {
 
   getButtonValidation(): boolean | any {
     try {
+      if(this.isSignIn) return this.signInFormGroup.valid;
       switch (this.currentStage) {
         case 1:
           return this.registerFormGroup.valid;
@@ -169,10 +184,8 @@ export class AuthorizationComponent implements OnInit {
 
       if (file) {
         const reader = new FileReader();
-
         reader.onload = (e: any) => {
           const img: any = new Image();
-
           img.onload = () => {
             const aspectRatio = img.width / img.height;
             if (aspectRatio != 1) return;
@@ -195,18 +208,48 @@ export class AuthorizationComponent implements OnInit {
               this.imageDataUrl
             );
           };
-
           img.src = e.target.result;
         };
-
         reader.readAsDataURL(file);
       }
 
       const HTMLFileUploadElement: any =
-        document.getElementById(`file-selector'}`);
+        document.getElementById(`file-selector`);
       if (HTMLFileUploadElement) HTMLFileUploadElement.value = '';
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  onDesignationFlexOutsideClick(): void {
+    try {
+      if (
+        !this.availableDesignations.some(
+          (desObj) => desObj == this.userFormGroup.controls['designation'].value
+        )
+      ) {
+        this.userFormGroup.controls['designation'].setValue('');
+      }
+      this.showDesignationsFlex = false;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  filterObject(designationsArray: any[]): any[] | any {
+    try {
+      return designationsArray.filter((desObj) =>
+        desObj.name
+          .replaceAll(' ', '')
+          .toLowerCase()
+          .includes(
+            this.userFormGroup.controls['designation'].value
+              .replaceAll(' ', '')
+              .toLowerCase()
+          )
+      );
+    } catch (error) {
+      console.error();
     }
   }
 }

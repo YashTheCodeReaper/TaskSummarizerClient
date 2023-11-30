@@ -81,7 +81,7 @@
 
       .sc {
         position: absolute;
-        height: 20rem;
+        height: 15rem;
         opacity: 0.2;
       }
 
@@ -214,6 +214,7 @@
 
         span {
           color: var(--theme-var-1);
+          cursor: pointer;
         }
       }
 
