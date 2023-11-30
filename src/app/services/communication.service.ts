@@ -12,7 +12,7 @@ export class CommunicationService {
 
   constructor() {
     TsSDK.init({
-      apiUrl: 'https://api.example.com',
+      apiUrl1: 'https://api.example.com',
       apiKey: 'asd',
       applicationBearerToken: 'sdfsdf',
     });
@@ -35,6 +35,9 @@ export class CommunicationService {
       });
       TsSDK.on('SEVERE_ERROR', (data: any) => {
         this.callbacks.next({ callbackEvent: 'severe_error', callbackData: data });
+      });
+      TsSDK.on('API_ERROR', (data: any) => {
+        this.callbacks.next({ callbackEvent: 'api_error', callbackData: data });
       });
     } catch (error) {
       console.error(error);

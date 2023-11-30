@@ -39,6 +39,7 @@ import { TimesheetSettingsComponent } from './main/settings/timesheet-settings/t
 import { TeamComponent } from './main/team/team.component';
 import { TimesheetComponent } from './main/timesheet/timesheet.component';
 import { DataService } from './services/data.service';
+import { SevereErrorComponent } from './shared/severe-error/severe-error.component';
 
 export function playerFactory() {
   return player;
@@ -75,6 +76,7 @@ export function checkQueryParamsChange(dataService: DataService) {
     TimesheetSettingsComponent,
     TeamComponent,
     TimesheetComponent,
+    SevereErrorComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,13 +8,31 @@ import { CommunicationService } from './services/communication.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(public appControlService: AppControlService, private commService: CommunicationService) {
-    this.commService.checkPing();
+  showSevereErrorPage: boolean = false;
+
+  constructor(
+    public appControlService: AppControlService,
+    private commService: CommunicationService
+  ) {
+    // this.commService.checkPing();
   }
 
   ngOnInit(): void {
     this.commService.callbacksObservable.subscribe((callbackData: any) => {
-      console.log(callbackData)
-    })
+      switch (callbackData.callbackEvent) {
+        case 'severe_error': {
+          this.handleSevereError();
+          break;
+        }
+      }
+    });
+  }
+
+  handleSevereError(): void {
+    try {
+      this.showSevereErrorPage = true;
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

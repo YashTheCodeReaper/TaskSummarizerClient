@@ -3,12 +3,13 @@ var TsSDK = {};
 
 // Taskmanager SDK global configurations
 TsSDK.config = {
-  apiUrl: "",
+  apiUrl1: "",
   apiKey: null,
   applicationBearerToken: "",
 };
 TsSDK.targetSubUrl = {
   checkPing: "/checkPing",
+  registerUser: "/registerUser"
 };
 TsSDK.events = {};
 
@@ -48,7 +49,7 @@ function checkConfig() {
 TsSDK.checkPing = function () {
   checkConfig();
 
-  return fetch(`${TsSDK.config.apiUrl}${TsSDK.targetSubUrl.checkPing}`, {
+  return fetch(`${TsSDK.config.apiUrl1}${TsSDK.targetSubUrl.checkPing}`, {
     headers: {
       Authorization: `Bearer ${TsSDK.config.applicationBearerToken}`,
     },
@@ -70,13 +71,17 @@ TsSDK.checkPing = function () {
     });
 };
 
+TsSDK.registerUser = function() {
+  checkConfig();
+}
+
 // CATCH_ERROR - error occured while in trycatching
 // API_ERROR - error occured in http response / non-ok response
 // SEVERE_ERROR - error which blocks the functionality of the application
 
 // Example usage of the SDK
 // Note: Make sure to initialize the SDK with user-specific configuration before using it
-// TsSDK.init({ apiUrl: 'https://api.example.com', apiKey: 'user_api_key', applicationBearerToken: 'jwt token' });
+// TsSDK.init({ apiUrl1: 'https://api.example.com', apiKey: 'user_api_key', applicationBearerToken: 'jwt token' });
 
 // Subscribe to events
 // TsSDK.on('dataReceived', function (data) {

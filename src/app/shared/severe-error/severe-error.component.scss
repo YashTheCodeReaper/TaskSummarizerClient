@@ -1,0 +1,21 @@
+.severe_error-section{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999999999999999999999999999999;
+  background: var(--bg-1);
+  color: var(--light-text-1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+
+  h3{
+    font-size: 2.4rem;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.2;
+  }
+}
