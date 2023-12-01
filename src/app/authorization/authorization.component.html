@@ -34,7 +34,7 @@
             <div class="input-group input-group-auth-1"
               [ngClass]="{'input-group-focus-forced': registerFormGroup.controls['password'].value}">
               <label for="password">Choose a password</label>
-              <input formControlName="password" type="text" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
+              <input formControlName="password" type="password" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
             </div>
             <span style="margin-top: -0.5rem;" class="error-message"
               *ngIf="validateField(registerFormGroup, 'password')">
@@ -131,7 +131,7 @@
           <ng-lottie [height]="'200px'" [options]="authAnimation2"></ng-lottie>
         </ng-container>
 
-        <p class="form-link-text">
+        <p class="form-link-text" *ngIf="currentStage != 4">
           Already have an account? <span (click)="this.isSignIn = true;" role="link">Login</span>
         </p>
       </ng-container>
@@ -151,7 +151,7 @@
           <div class="input-group input-group-auth-1"
             [ngClass]="{'input-group-focus-forced': signInFormGroup.controls['password'].value}">
             <label for="password">Choose a password</label>
-            <input formControlName="password" type="text" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
+            <input formControlName="password" type="password" (focus)="onFieldFocus(1)" (blur)="onFieldFocus(1)">
           </div>
           <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(signInFormGroup, 'password')">
             Please choose a password string 8 character password

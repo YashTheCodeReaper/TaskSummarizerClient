@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
     new Date().getFullYear(),
     new Date().getMonth()
   );
-  formattedDates: string[] | any = [];
+  dateArray: { originalDate: Date; formattedDate: string }[] = [];
   selectedDate: number = new Date().getDate();
   notFoundAnimation: AnimationOptions = {
     path: 'assets/images/main/dashboard/db-empty-1.json',
@@ -32,13 +32,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      document
-        .querySelector('.active-day')
-        ?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'center',
-        });
+      document.querySelector('.active-day')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center',
+      });
     }, 100);
   }
 
@@ -60,9 +58,11 @@ export class DashboardComponent implements OnInit {
         'EEEdd',
         'en-US'
       );
-      this.formattedDates.push(
-        formattedDate.substring(0, 2) + formattedDate.substring(3)
-      );
+      this.dateArray.push({
+        formattedDate:
+          formattedDate.substring(0, 2) + formattedDate.substring(3),
+        originalDate: currentDate,
+      });
     }
   }
 }

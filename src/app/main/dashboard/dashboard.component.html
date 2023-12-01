@@ -86,9 +86,9 @@
     <div class="ds-middle">
       <div class="sheet-enclosure">
         <div class="day-flex">
-          <div class="day-box" *ngFor="let date of formattedDates"
-            [ngClass]="{'active-day': date.includes(selectedDate)}">
-            <h5>{{date.substring(0,2)}}<span>{{date.substring(2,4)}}</span></h5>
+          <div class="day-box" *ngFor="let date of dateArray"
+            [ngClass]="{'active-day': date.originalDate.getDate() == selectedDate}">
+            <h5>{{date.formattedDate.substring(0,2)}}<span>{{date.formattedDate.substring(2,4)}}</span></h5>
           </div>
         </div>
         <div class="sheet-enclosure-1">
