@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-declare var TsSDK: any;
+declare var TsSdk: any;
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +11,10 @@ export class CommunicationService {
   callbacksObservable: Observable<any> = this.callbacks.asObservable();
 
   constructor() {
-    TsSDK.init({
-      apiUrl1: 'https://api.example.com',
-      apiKey: 'asd',
-      applicationBearerToken: 'sdfsdf',
+    TsSdk.Initialize({
+      serverUrl1: 'https://api.example.com',
+      apiKey: '',
+      apiToken: '',
     });
 
     this.registerCallbacks();
@@ -22,7 +22,7 @@ export class CommunicationService {
 
   checkPing(): void {
     try {
-      TsSDK.checkPing();
+      TsSdk.CheckServerPing();
     } catch (error) {
       console.error(error);
     }
@@ -30,13 +30,16 @@ export class CommunicationService {
 
   registerCallbacks(): void {
     try {
-      TsSDK.on('ERROR', (data: any) => {
+      TsSdk.On('ERROR', (data: any) => {
         this.callbacks.next({ callbackEvent: 'error', callbackData: data });
       });
-      TsSDK.on('SEVERE_ERROR', (data: any) => {
-        this.callbacks.next({ callbackEvent: 'severe_error', callbackData: data });
+      TsSdk.On('SEVERE_ERROR', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'severe_error',
+          callbackData: data,
+        });
       });
-      TsSDK.on('API_ERROR', (data: any) => {
+      TsSdk.On('API_ERROR', (data: any) => {
         this.callbacks.next({ callbackEvent: 'api_error', callbackData: data });
       });
     } catch (error) {

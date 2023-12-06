@@ -44,7 +44,7 @@ export class TimesheetComponent implements OnInit {
     loop: true,
     autoplay: true,
   };
-  currentStage: number = 0;
+  currentStage: number = 1;
   fromDate: Date = new Date();
   toDate: Date = new Date();
   today: Date = new Date();
