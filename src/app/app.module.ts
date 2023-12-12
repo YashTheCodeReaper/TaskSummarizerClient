@@ -2,7 +2,13 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { CdkDrag, CdkDropList, CdkDropListGroup, DragDropModule } from '@angular/cdk/drag-drop';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {
+  CdkDrag,
+  CdkDropList,
+  CdkDropListGroup,
+  DragDropModule,
+} from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
@@ -39,6 +45,7 @@ import { TeamComponent } from './main/team/team.component';
 import { TimesheetComponent } from './main/timesheet/timesheet.component';
 import { DataService } from './services/data.service';
 import { SevereErrorComponent } from './shared/severe-error/severe-error.component';
+import { JaptGuideComponent } from './authorization/japt-guide/japt-guide.component';
 
 export function playerFactory() {
   return player;
@@ -75,6 +82,7 @@ export function checkQueryParamsChange(dataService: DataService) {
     TeamComponent,
     TimesheetComponent,
     SevereErrorComponent,
+    JaptGuideComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +96,10 @@ export function checkQueryParamsChange(dataService: DataService) {
     MatNativeDateModule,
     MatDialogModule,
     DragDropModule,
-    CdkDropListGroup, CdkDropList, CdkDrag,
+    CdkDropListGroup,
+    CdkDropList,
+    CdkDrag,
+    MatSnackBarModule,
     LottieModule.forRoot({ player: playerFactory }),
   ],
   providers: [

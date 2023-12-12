@@ -1,0 +1,24 @@
+<section class="japt-guide-section">
+  <div class="jg-container" appOutsideClick (outsideClick)="this.appControlService.showJapiGuide = false;" [clickExceptions]="['japi-revealer']">
+    <div class="image-slider-container">
+      <img src="assets/images/main/auth/japistep_{{currentStage}}.png" alt="">
+    </div>
+    <div class="stage-content">
+      <h3 *ngIf="currentStage == 1">Navigate to your Atlassian JIRA settings and find Atlassian account settings and
+        click that.</h3>
+      <h3 *ngIf="currentStage == 2">Find the security tab in your Atlassian account settings page.</h3>
+      <h3 *ngIf="currentStage == 3">Find the api tokens section and click create and manage api tokens.</h3>
+      <h3 *ngIf="currentStage == 4">Click create api token and a popup will appear.</h3>
+      <h3 *ngIf="currentStage == 5">Now choose a label for your api token. This label is finalized and it cannot be
+        modified later.</h3>
+      <h3 *ngIf="currentStage == 6">Now you will get your api token. Please note that it will disappear after you close
+        the popup. So make sure you copied and saved it somewhere.</h3>
+      <div class="paginator">
+        <i (click)="onStageChange('left')" class="fi fi-sr-angle-circle-left"></i>
+        <div *ngFor="let item of [].constructor(6); let i = index" class="page-index"
+          [ngClass]="{'active-index': i==currentStage-1}"></div>
+        <i (click)="onStageChange('right')" class="fi fi-sr-angle-circle-right"></i>
+      </div>
+    </div>
+  </div>
+</section>

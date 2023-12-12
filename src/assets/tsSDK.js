@@ -47,12 +47,24 @@ window.console.log = this.console.log || function () {};
     apiToken: "",
   };
 
+  TsSdk.targetSubUrl = {
+    registerUser: "auth/registerUser",
+  };
+
   var ErrorCodes = {
     SEVERE_ERROR: 1001,
+    ERROR: 1002,
+    CATCH_ERROR: 1003,
+    API_ERROR: 1004,
+  };
+
+  var SuccessCodes = {
+    REGISTERED_USER: 3001,
   };
 
   var ReturnCodes = {
     MISSING_SDK_CREDENTIAL: 2001,
+    ERROR_REGISTERING_USER: 2002,
   };
 
   /**
@@ -83,7 +95,7 @@ window.console.log = this.console.log || function () {};
    * @param {String/Number} code Name of the error
    * @param {Any} message Error data
    */
-  TsSdk.handleError = function (code, message) {
+  TsSdk.HandleError = function (code, message) {
     console.error(code, message.errorMessage);
   };
 
@@ -99,8 +111,38 @@ window.console.log = this.console.log || function () {};
         case ErrorCodes.SEVERE_ERROR:
           ret = "SEVERE_ERROR";
           break;
+        case ErrorCodes.ERROR:
+          ret = "ERROR";
+          break;
+        case ErrorCodes.API_ERROR:
+          ret = "API_ERROR";
+          break;
+        case ErrorCodes.CATCH_ERROR:
+          ret = "CATCH_ERROR";
+          break;
         default:
           ret = defaultCode ?? "SDK_ERROR";
+      }
+      return ret;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Get the name/title of the success using success code
+   * @param {Number} code SDK success code that is to be converted to name
+   * @param {String/Empty} defaultCode Default success name if code is not found
+   * @returns {String} success name/title
+   */
+  this._GetSuccessCodeName = function (code, defaultCode) {
+    try {
+      switch (code) {
+        case SuccessCodes.REGISTERED_USER:
+          ret = "REGISTERED_USER";
+          break;
+        default:
+          ret = defaultCode ?? "ACTION_SUCCESS";
       }
       return ret;
     } catch (error) {
@@ -120,6 +162,9 @@ window.console.log = this.console.log || function () {};
         case ReturnCodes.MISSING_SDK_CREDENTIAL:
           ret = "Sdk essential configurations are missing";
           break;
+        case ReturnCodes.ERROR_REGISTERING_USER:
+          ret = "Error occured while registering a new user";
+          break;
         default:
           ret =
             defaultCode ??
@@ -135,15 +180,11 @@ window.console.log = this.console.log || function () {};
    * Validate SDK essential configurations
    */
   function checkConfig() {
-    if (
-      !TsSdk.config.apiKey ||
-      !TsSdk.config.serverUrl1 ||
-      !TsSdk.config.apiToken
-    ) {
+    if (!TsSdk.config.apiKey || !TsSdk.config.serverUrl1) {
       TsSdk.Emit(_GetErrorCodeName(ErrorCodes.SEVERE_ERROR), {
         callbackData: _GetReturnCodeName(ReturnCodes.MISSING_SDK_CREDENTIAL),
       });
-      throw TsSdk.handleError(_GetErrorCodeName(ErrorCodes.SEVERE_ERROR), {
+      throw TsSdk.HandleError(_GetErrorCodeName(ErrorCodes.SEVERE_ERROR), {
         errorMessage: _GetReturnCodeName(ReturnCodes.MISSING_SDK_CREDENTIAL),
       });
     }
@@ -173,8 +214,61 @@ window.console.log = this.console.log || function () {};
   /**
    * Check for server availability and handle accordingly.
    */
-  TsSdk.CheckServerPing = function () {
-    checkConfig();
+  TsSdk.CheckServerPing = function () {};
+
+  /**
+   *
+   * @param {Object: {name: String, email: string, password: string, jira: Object: {email: String, apiToken: String}, profilePicture: String, staySigned: Boolean, designation: String}} newUserObject
+   * @returns
+   */
+  TsSdk.registerUser = function (newUserObject) {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.registerUser}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newUserObject),
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_REGISTERING_USER
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(_GetSuccessCodeName(SuccessCodes.REGISTERED_USER), data);
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_REGISTERING_USER
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
   };
 })(this);
 

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
 declare var TsSdk: any;
-
 @Injectable({
   providedIn: 'root',
 })
@@ -12,8 +11,8 @@ export class CommunicationService {
 
   constructor() {
     TsSdk.Initialize({
-      serverUrl1: 'https://api.example.com',
-      apiKey: '',
+      serverUrl1: 'http://localhost:3000/tetherfi/tsum/api/v1/',
+      apiKey: '1122',
       apiToken: '',
     });
 
@@ -41,6 +40,12 @@ export class CommunicationService {
       });
       TsSdk.On('API_ERROR', (data: any) => {
         this.callbacks.next({ callbackEvent: 'api_error', callbackData: data });
+      });
+      TsSdk.On('REGISTERED_USER', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'registered_user',
+          callbackData: data,
+        });
       });
     } catch (error) {
       console.error(error);

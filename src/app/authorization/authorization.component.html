@@ -40,13 +40,6 @@
               *ngIf="validateField(registerFormGroup, 'password')">
               Please choose a password string 8 character password
             </span>
-            <div class="checkbox-group">
-              <div class="custom-checkbox" role="checkbox" [ngClass]="{'inactive-checkbox': !staySigned}"
-                (click)="this.staySigned = !this.staySigned">
-                <div class="checkbox-ball"></div>
-              </div>
-              <p>Stay signed in?</p>
-            </div>
           </form>
         </ng-container>
 
@@ -71,7 +64,8 @@
               A valid JIRA api token is required
             </span>
             <span style="margin-top: -0.5rem;" class="error-message info-message">
-              <strong role="link" style="cursor: pointer;">Click here</strong> if you don't know how to get api token
+              <strong class="japi-revealer" role="link" style="cursor: pointer;" (click)="this.appControlService.showJapiGuide = true;">Click
+                here</strong> if you don't know how to get api token
             </span>
           </form>
         </ng-container>
@@ -94,11 +88,11 @@
               Please upload images with aspect ratio 1.
             </span>
             <div class="input-group input-group-auth-0"
-              [ngClass]="{'input-group-focus-forced': userFormGroup.controls['username'].value}">
-              <label for="username">Emter your full name</label>
-              <input formControlName="username" type="text" (focus)="onFieldFocus(0)" (blur)="onFieldFocus(0)">
+              [ngClass]="{'input-group-focus-forced': userFormGroup.controls['name'].value}">
+              <label for="name">Emter your full name</label>
+              <input formControlName="name" type="text" (focus)="onFieldFocus(0)" (blur)="onFieldFocus(0)">
             </div>
-            <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(userFormGroup, 'username')">
+            <span style="margin-top: -0.5rem;" class="error-message" *ngIf="validateField(userFormGroup, 'name')">
               Please enter a valid name
             </span>
             <div class="input-group input-group-auth-1"
@@ -179,3 +173,5 @@
     </div>
   </div>
 </section>
+
+<app-japt-guide *ngIf="appControlService.showJapiGuide"></app-japt-guide>

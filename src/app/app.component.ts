@@ -18,10 +18,17 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.commService.callbacksObservable.subscribe((callbackData: any) => {
-      switch (callbackData.callbackEvent) {
+    this.commService.callbacksObservable.subscribe((callbackObj: any) => {
+      switch (callbackObj.callbackEvent) {
         case 'severe_error': {
           this.handleSevereError();
+          break;
+        }
+        case 'error': {
+          this.appControlService.confirmDialog(
+            callbackObj.callbackData.callbackData,
+            (result: any) => {}
+          );
           break;
         }
       }
@@ -32,7 +39,7 @@ export class AppComponent implements OnInit {
     try {
       this.showSevereErrorPage = true;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 }

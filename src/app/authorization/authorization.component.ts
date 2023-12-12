@@ -6,6 +6,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { AnimationOptions } from 'ngx-lottie';
+import { AppControlService } from '../services/app-control.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommunicationService } from '../services/communication.service';
+
+declare var TsSdk: any;
 
 @Component({
   selector: 'app-authorization',
@@ -70,7 +75,12 @@ export class AuthorizationComponent implements OnInit {
   showDesignationsFlex: boolean = false;
   imageDataUrl: any = '';
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    public appControlService: AppControlService,
+    private _snackBar: MatSnackBar,
+    private commService: CommunicationService
+  ) {
     this.registerFormGroup = this.formBuilder.group({
       email: new FormControl('', [
         Validators.required,
@@ -102,13 +112,25 @@ export class AuthorizationComponent implements OnInit {
       ]),
     });
     this.userFormGroup = this.formBuilder.group({
-      username: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
       designation: new FormControl('', [Validators.required]),
       profilePicture: new FormControl(''),
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.commService.callbacksObservable.subscribe((callbackObj: any) => {
+      switch (callbackObj.callbackEvent) {
+        case 'registered_user': {
+          this._snackBar.open(callbackObj.callbackData.message, 'Great', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          break;
+        }
+      }
+    });
+  }
 
   onFieldFocus(fieldIndex: number): void {
     try {
@@ -131,21 +153,24 @@ export class AuthorizationComponent implements OnInit {
 
   moveForm(): void {
     try {
-      if (this.currentStage < 4) {
+      if (this.currentStage == 4) {
+        this.isSignIn = true;
+        return;
+      }
+      if (this.currentStage < 3) {
         if (this.currentStage == 1)
           this.jiraFormGroup.controls['email'].setValue(
             this.registerFormGroup.value.email
           );
-        this.currentStage++;
       } else {
         let finalObj = {
           ...this.registerFormGroup.value,
           ...this.userFormGroup.value,
         };
-        finalObj.jira = this.jiraFormGroup.value;
-        finalObj.staySigned = this.staySigned;
-        console.log(finalObj);
+        finalObj.jira = JSON.stringify(this.jiraFormGroup.value);
+        TsSdk.registerUser(finalObj);
       }
+      this.currentStage++;
     } catch (error) {
       console.error(error);
     }
@@ -162,7 +187,7 @@ export class AuthorizationComponent implements OnInit {
 
   getButtonValidation(): boolean | any {
     try {
-      if(this.isSignIn) return this.signInFormGroup.valid;
+      if (this.isSignIn) return this.signInFormGroup.valid;
       switch (this.currentStage) {
         case 1:
           return this.registerFormGroup.valid;

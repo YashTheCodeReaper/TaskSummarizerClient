@@ -17,11 +17,13 @@ export class AppControlService {
   showTaskExporter: boolean = false;
   showNotifications: boolean = false;
   showAddTask: boolean = false;
+  showJapiGuide: boolean = false;
 
   constructor(private dialog: MatDialog) {}
 
   confirmDialog(message: string, onClose: any): void {
     try {
+      this.dialog.closeAll();
       const dialogData = new NotilandModel(message);
       const dialogRef = this.dialog.open(NotilandComponent, {
         data: dialogData,
