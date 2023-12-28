@@ -30,7 +30,8 @@
 
 <ng-container *ngIf="!data?.showNotiland">
   <div class="confirmation-box">
-    <ng-lottie style="margin-top: -5rem;" [height]="'300px'" [options]="confirmAnimation"></ng-lottie>
+    <!-- <ng-lottie style="margin-top: -5rem;" [height]="'300px'" [options]="confirmAnimation"></ng-lottie> -->
+    <img src="assets/images/common/confirmation.svg" alt="">
     <h4>{{data.warnMessage}}</h4>
     <div class="button-flex">
       <button class="primary-button danger-button" (click)="onDecline()">

@@ -47,6 +47,12 @@ export class CommunicationService {
           callbackData: data,
         });
       });
+      TsSdk.On('LOGGED_IN_USER', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'logged_in_user',
+          callbackData: data,
+        });
+      });
     } catch (error) {
       console.error(error);
     }

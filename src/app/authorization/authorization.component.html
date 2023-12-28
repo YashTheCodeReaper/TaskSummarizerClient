@@ -105,7 +105,7 @@
                 *ngIf="showDesignationsFlex">
                 <div class="option" (click)="onChooseDesignation(role)" role="option"
                   *ngFor="let role of filterObject(availableDesignations)">
-                  <p>{{role.name}}</p>
+                  <p>{{role}}</p>
                 </div>
                 <div class="option" *ngIf="!filterObject(availableDesignations).length">
                   <p>Not found</p>
@@ -159,7 +159,7 @@
           </div>
         </form>
         <p class="form-link-text">
-          Don't have an account? <span (click)="this.isSignIn = false;" role="link">Create one</span>
+          Don't have an account? <span (click)="this.isSignIn = false; this.currentStage = 1" role="link">Create one</span>
         </p>
       </ng-container>
 

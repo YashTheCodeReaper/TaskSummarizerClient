@@ -9,6 +9,8 @@ import { AnimationOptions } from 'ngx-lottie';
 import { AppControlService } from '../services/app-control.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommunicationService } from '../services/communication.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 declare var TsSdk: any;
 
@@ -35,42 +37,16 @@ export class AuthorizationComponent implements OnInit {
     autoplay: true,
   };
   staySigned: boolean = true;
-  availableDesignations: { id: number; name: string; description: string }[] = [
-    {
-      id: 1,
-      name: 'Trainee Software Engineer',
-      description: '',
-    },
-    {
-      id: 1,
-      name: 'Junior Software Engineer',
-      description: '',
-    },
-    {
-      id: 1,
-      name: 'Software Engineer',
-      description: '',
-    },
-    {
-      id: 1,
-      name: 'Senior Software Engineer',
-      description: '',
-    },
-    {
-      id: 1,
-      name: 'Associate Technical Lead',
-      description: '',
-    },
-    {
-      id: 1,
-      name: 'Technical Lead',
-      description: '',
-    },
-    {
-      id: 1,
-      name: 'Others',
-      description: '',
-    },
+  availableDesignations: string[] = [
+    'Trainee Software Engineer',
+    'Internee',
+    'Junior Software Engineer',
+    'Software Engineer',
+    'Senior Software Engineer',
+    'Associate Technical Lead',
+    'Technical Lead',
+    'Senior Technical Lead',
+    'Other',
   ];
   showDesignationsFlex: boolean = false;
   imageDataUrl: any = '';
@@ -79,7 +55,9 @@ export class AuthorizationComponent implements OnInit {
     private formBuilder: FormBuilder,
     public appControlService: AppControlService,
     private _snackBar: MatSnackBar,
-    private commService: CommunicationService
+    private commService: CommunicationService,
+    private cookieService: CookieService,
+    private router: Router
   ) {
     this.registerFormGroup = this.formBuilder.group({
       email: new FormControl('', [
@@ -110,6 +88,7 @@ export class AuthorizationComponent implements OnInit {
         Validators.required,
         Validators.minLength(20),
       ]),
+      isInitFetchCompleted: new FormControl(false),
     });
     this.userFormGroup = this.formBuilder.group({
       name: new FormControl('', [Validators.required]),
@@ -122,10 +101,27 @@ export class AuthorizationComponent implements OnInit {
     this.commService.callbacksObservable.subscribe((callbackObj: any) => {
       switch (callbackObj.callbackEvent) {
         case 'registered_user': {
-          this._snackBar.open(callbackObj.callbackData.message, 'Great', {
+          this._snackBar.open(callbackObj.callbackData.message, 'OK', {
             horizontalPosition: 'center',
             verticalPosition: 'top',
+            duration: 5000,
           });
+          this.currentStage++;
+          break;
+        }
+        case 'logged_in_user': {
+          console.log(callbackObj);
+          this._snackBar.open(callbackObj.callbackData.message, 'OK', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            duration: 5000,
+          });
+          if (callbackObj.callbackData.status == 'success') {
+            this.cookieService.set('jwt', callbackObj.callbackData.token);
+            setTimeout(() => {
+              this.router.navigate(['/']);
+            }, 1000);
+          }
           break;
         }
       }
@@ -153,6 +149,12 @@ export class AuthorizationComponent implements OnInit {
 
   moveForm(): void {
     try {
+      if (this.isSignIn) {
+        let signInUserObj = this.signInFormGroup.value;
+        signInUserObj.staySigned = this.staySigned;
+        TsSdk.logInUser(signInUserObj);
+        return;
+      }
       if (this.currentStage == 4) {
         this.isSignIn = true;
         return;
@@ -162,6 +164,7 @@ export class AuthorizationComponent implements OnInit {
           this.jiraFormGroup.controls['email'].setValue(
             this.registerFormGroup.value.email
           );
+        this.currentStage++;
       } else {
         let finalObj = {
           ...this.registerFormGroup.value,
@@ -170,7 +173,6 @@ export class AuthorizationComponent implements OnInit {
         finalObj.jira = JSON.stringify(this.jiraFormGroup.value);
         TsSdk.registerUser(finalObj);
       }
-      this.currentStage++;
     } catch (error) {
       console.error(error);
     }
@@ -264,7 +266,7 @@ export class AuthorizationComponent implements OnInit {
   filterObject(designationsArray: any[]): any[] | any {
     try {
       return designationsArray.filter((desObj) =>
-        desObj.name
+        desObj
           .replaceAll(' ', '')
           .toLowerCase()
           .includes(

@@ -11,11 +11,13 @@ import { AuthorizationComponent } from './authorization/authorization.component'
 import { TimesheetSettingsComponent } from './main/settings/timesheet-settings/timesheet-settings.component';
 import { TeamComponent } from './main/team/team.component';
 import { TimesheetComponent } from './main/timesheet/timesheet.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
+    canActivate: [AuthGuardService],
     children: [
       {
         path: '',

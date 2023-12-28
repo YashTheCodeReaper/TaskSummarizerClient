@@ -49,6 +49,8 @@ window.console.log = this.console.log || function () {};
 
   TsSdk.targetSubUrl = {
     registerUser: "auth/registerUser",
+    logInUser: "auth/logInUser",
+    authorizeUser: "auth/authorizeUser",
   };
 
   var ErrorCodes = {
@@ -60,11 +62,15 @@ window.console.log = this.console.log || function () {};
 
   var SuccessCodes = {
     REGISTERED_USER: 3001,
+    LOGGED_IN_USER: 3002,
+    AUTHORIZED_USER: 3003,
   };
 
   var ReturnCodes = {
     MISSING_SDK_CREDENTIAL: 2001,
     ERROR_REGISTERING_USER: 2002,
+    ERROR_LOGGING_IN_USER: 2003,
+    ERROR_AUTHORIZING_USER: 2004,
   };
 
   /**
@@ -141,6 +147,12 @@ window.console.log = this.console.log || function () {};
         case SuccessCodes.REGISTERED_USER:
           ret = "REGISTERED_USER";
           break;
+        case SuccessCodes.LOGGED_IN_USER:
+          ret = "LOGGED_IN_USER";
+          break;
+        case SuccessCodes.AUTHORIZED_USER:
+          ret = "AUTHORIZED_USER";
+          break;
         default:
           ret = defaultCode ?? "ACTION_SUCCESS";
       }
@@ -164,6 +176,12 @@ window.console.log = this.console.log || function () {};
           break;
         case ReturnCodes.ERROR_REGISTERING_USER:
           ret = "Error occured while registering a new user";
+          break;
+        case ReturnCodes.ERROR_LOGGING_IN_USER:
+          ret = "Error occured while logging in user";
+          break;
+        case ReturnCodes.ERROR_AUTHORIZING_USER:
+          ret = "Error occured while authorizing user";
           break;
         default:
           ret =
@@ -217,9 +235,8 @@ window.console.log = this.console.log || function () {};
   TsSdk.CheckServerPing = function () {};
 
   /**
-   *
+   * Function to register a new user to the database
    * @param {Object: {name: String, email: string, password: string, jira: Object: {email: String, apiToken: String}, profilePicture: String, staySigned: Boolean, designation: String}} newUserObject
-   * @returns
    */
   TsSdk.registerUser = function (newUserObject) {
     try {
@@ -259,6 +276,113 @@ window.console.log = this.console.log || function () {};
           TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
             callbackData: _GetReturnCodeName(
               ReturnCodes.ERROR_REGISTERING_USER
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to login a user to the setup
+   * @param {Object: {email: string, password: string} userObject
+   */
+  TsSdk.logInUser = function (userObject) {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.logInUser}`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userObject),
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_LOGGING_IN_USER
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(_GetSuccessCodeName(SuccessCodes.LOGGED_IN_USER), data);
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(ReturnCodes.ERROR_LOGGING_IN_USER),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to authorize a user using jwt
+   * @param String jwtToken
+   */
+  TsSdk.authorizeUser = function (jwtToken) {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.authorizeUser}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: jwtToken }),
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_AUTHORIZING_USER
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(_GetSuccessCodeName(SuccessCodes.AUTHORIZED_USER), data);
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_AUTHORIZING_USER
             ),
           });
           throw TsSdk.HandleError(
