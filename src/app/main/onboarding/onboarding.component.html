@@ -1,4 +1,10 @@
 <section class="onboarding_component">
-  <app-intro *ngIf="showIntroOnboarding"
-    (onBoardingCompleted)="this.showIntroOnboarding = false;"></app-intro>
+  <app-intro
+    *ngIf="showIntroOnboarding"
+    (onBoardingCompleted)="obCompleted('intro')"
+  ></app-intro>
+  <app-jira-init-fetcher
+    *ngIf="showJif"
+    (onJifCompleted)="onJifCompleted()"
+  ></app-jira-init-fetcher>
 </section>

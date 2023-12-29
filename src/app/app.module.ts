@@ -45,7 +45,7 @@ import { TeamComponent } from './main/team/team.component';
 import { TimesheetComponent } from './main/timesheet/timesheet.component';
 import { DataService } from './services/data.service';
 import { SevereErrorComponent } from './shared/severe-error/severe-error.component';
-import { JaptGuideComponent } from './authorization/japt-guide/japt-guide.component';
+import { JiraInitFetcherComponent } from './main/onboarding/jira-init-fetcher/jira-init-fetcher.component';
 
 export function playerFactory() {
   return player;
@@ -82,7 +82,7 @@ export function checkQueryParamsChange(dataService: DataService) {
     TeamComponent,
     TimesheetComponent,
     SevereErrorComponent,
-    JaptGuideComponent,
+    JiraInitFetcherComponent,
   ],
   imports: [
     BrowserModule,

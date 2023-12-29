@@ -3,7 +3,7 @@
   <router-outlet></router-outlet>
   <div class="blur-overlay"
     *ngIf="(appControlService.showJoinTeam || appControlService.showOnboarding || appControlService.showNewBoard || appControlService.showAddTask)">
+    <app-onboarding *ngIf="appControlService.showOnboarding"></app-onboarding>
   </div>
-  <app-onboarding *ngIf="appControlService.showOnboarding"></app-onboarding>
 </ng-container>
 <app-severe-error *ngIf="showSevereErrorPage"></app-severe-error>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable, ReplaySubject } from 'rxjs';
 
 declare var TsSdk: any;
@@ -9,11 +10,11 @@ export class CommunicationService {
   private callbacks = new ReplaySubject<any>(1);
   callbacksObservable: Observable<any> = this.callbacks.asObservable();
 
-  constructor() {
+  constructor(private cookieService: CookieService) {
     TsSdk.Initialize({
       serverUrl1: 'http://localhost:3000/tetherfi/tsum/api/v1/',
       apiKey: '1122',
-      apiToken: '',
+      apiToken: this.cookieService.get('jwt'),
     });
 
     this.registerCallbacks();
@@ -50,6 +51,18 @@ export class CommunicationService {
       TsSdk.On('LOGGED_IN_USER', (data: any) => {
         this.callbacks.next({
           callbackEvent: 'logged_in_user',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('FETCHED_JIRA_HISTORY', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'fetched_jira_history',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('ONBOARDING_UPDATED', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'onboarding_updated',
           callbackData: data,
         });
       });

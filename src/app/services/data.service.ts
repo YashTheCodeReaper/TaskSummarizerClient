@@ -12,7 +12,8 @@ export class DataService {
   configAddedObservable: Observable<ApplicationConfiguration> =
     this.configAddedSubject.asObservable();
   configUrl: string = 'assets/app.config.json';
-  boards = [1];
+  boards = [];
+  userObj: any = {};
 
   constructor(private http: HttpClient) {}
 

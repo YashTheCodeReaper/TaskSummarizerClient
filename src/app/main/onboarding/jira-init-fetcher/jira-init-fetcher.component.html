@@ -1,0 +1,19 @@
+<div class="jif_component">
+  <img src="assets/images/common/jira.svg" alt="" />
+  <h3>Atlassian JIRA history analysis</h3>
+  <p>
+    Please wait while we update the database by fetching your JIRA history.
+    Please do not close the application! It may take few minutes.
+  </p>
+  <h4 *ngIf="showInitStat && !dbInsertionStatus">
+    Total tasks found: {{ foundIssues }}/{{ totalIssues }}
+  </h4>
+  <h4 *ngIf="dbInsertionStatus == 1">Inserting fetched details in database. Please wait.</h4>
+  <h4 *ngIf="dbInsertionStatus == 2">Successfully inserted in database</h4>
+  <div class="progress-container" *ngIf="!showInitStat && !dbInsertionStatus">
+    <div class="progress-tube">
+      <div [ngStyle]="{'--jifpr': (fetchedIssues/totalIssues) * 100}" class="pt-fill"></div>
+    </div>
+    <p>Fetching task: {{ currentIssueKey }}</p>
+  </div>
+</div>

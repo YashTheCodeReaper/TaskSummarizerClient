@@ -8,6 +8,8 @@ import {
 } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+import { DataService } from './data.service';
+import { AppControlService } from './app-control.service';
 
 declare var TsSdk: any;
 
@@ -15,7 +17,12 @@ declare var TsSdk: any;
   providedIn: 'root',
 })
 export class AuthGuardService implements CanActivate {
-  constructor(private router: Router, private cookieService: CookieService) {}
+  constructor(
+    private router: Router,
+    private cookieService: CookieService,
+    private dataService: DataService,
+    private appControlService: AppControlService
+  ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -27,23 +34,38 @@ export class AuthGuardService implements CanActivate {
     return new Promise<boolean>((resolve, reject) => {
       const token = this.cookieService.get('jwt');
       if (!token) {
-        this.cookieService.delete('jwt');
-        this.router.navigate(['/auth']);
+        this.actionOnUnauthorization();
         resolve(false);
         return;
       }
 
       TsSdk.authorizeUser(token)
         .then((response: any) => {
-          if (response.data.length) resolve(true);
+          if (response.data.length) {
+            this.dataService.userObj = response.data[0];
+            this.appControlService.validateOnboarding();
+            resolve(true);
+          } else {
+            this.actionOnUnauthorization();
+            resolve(false);
+            return;
+          }
         })
         .catch((error: any) => {
           console.log(error);
-          this.cookieService.delete('jwt');
-          this.router.navigate(['/auth']);
+          this.actionOnUnauthorization();
           resolve(false);
           return;
         });
     });
+  }
+
+  actionOnUnauthorization(): void {
+    try {
+      this.cookieService.delete('jwt');
+      this.router.navigate(['/auth']);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

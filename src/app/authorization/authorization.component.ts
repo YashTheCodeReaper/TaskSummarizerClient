@@ -24,7 +24,7 @@ export class AuthorizationComponent implements OnInit {
   signInFormGroup!: FormGroup;
   jiraFormGroup!: FormGroup;
   userFormGroup!: FormGroup;
-  isSignIn: boolean = false;
+  isSignIn: boolean = true;
   currentStage: number = 1;
   authAnimation1: AnimationOptions = {
     path: 'assets/images/main/auth/auth1.json',
@@ -178,9 +178,9 @@ export class AuthorizationComponent implements OnInit {
     }
   }
 
-  onChooseDesignation(desObj: any): void {
+  onChooseDesignation(designation: any): void {
     try {
-      this.userFormGroup.controls['designation'].setValue(desObj.name);
+      this.userFormGroup.controls['designation'].setValue(designation);
       this.showDesignationsFlex = false;
     } catch (error) {
       console.error(error);

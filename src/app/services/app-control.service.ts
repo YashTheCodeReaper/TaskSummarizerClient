@@ -4,6 +4,7 @@ import {
   NotilandModel,
 } from '../shared/notiland/notiland.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,9 @@ export class AppControlService {
   showAddTask: boolean = false;
   showJapiGuide: boolean = false;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private dataService: DataService) {
+    this.validateOnboarding();
+  }
 
   confirmDialog(message: string, onClose: any): void {
     try {
@@ -30,6 +33,18 @@ export class AppControlService {
       });
       dialogRef.afterClosed().subscribe((dialogResult) => {
         onClose(dialogResult);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  validateOnboarding(): void {
+    try {
+      if (!Object.keys(this.dataService.userObj).length) return;
+      Object.keys(this.dataService.userObj.onboarding)?.forEach((key) => {
+        if (!this.dataService.userObj.onboarding[key])
+          this.showOnboarding = true;
       });
     } catch (error) {
       console.error(error);

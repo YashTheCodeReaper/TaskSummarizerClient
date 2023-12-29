@@ -51,6 +51,8 @@ window.console.log = this.console.log || function () {};
     registerUser: "auth/registerUser",
     logInUser: "auth/logInUser",
     authorizeUser: "auth/authorizeUser",
+    fetchJiraHistory: "jira/fetchJiraHistory",
+    updateOnboarding: "general/updateOnboarding",
   };
 
   var ErrorCodes = {
@@ -64,6 +66,8 @@ window.console.log = this.console.log || function () {};
     REGISTERED_USER: 3001,
     LOGGED_IN_USER: 3002,
     AUTHORIZED_USER: 3003,
+    FETCHED_JIRA_HISTORY: 3004,
+    ONBOARDING_UPDATED: 3005,
   };
 
   var ReturnCodes = {
@@ -71,6 +75,8 @@ window.console.log = this.console.log || function () {};
     ERROR_REGISTERING_USER: 2002,
     ERROR_LOGGING_IN_USER: 2003,
     ERROR_AUTHORIZING_USER: 2004,
+    ERROR_FETCHING_JIRA_HISTORY: 2005,
+    ERROR_UPDATING_ONBOARDING: 2006,
   };
 
   /**
@@ -153,6 +159,12 @@ window.console.log = this.console.log || function () {};
         case SuccessCodes.AUTHORIZED_USER:
           ret = "AUTHORIZED_USER";
           break;
+        case SuccessCodes.FETCHED_JIRA_HISTORY:
+          ret = "FETCHED_JIRA_HISTORY";
+          break;
+        case SuccessCodes.ONBOARDING_UPDATED:
+          ret = "ONBOARDING_UPDATED";
+          break;
         default:
           ret = defaultCode ?? "ACTION_SUCCESS";
       }
@@ -182,6 +194,12 @@ window.console.log = this.console.log || function () {};
           break;
         case ReturnCodes.ERROR_AUTHORIZING_USER:
           ret = "Error occured while authorizing user";
+          break;
+        case ReturnCodes.ERROR_FETCHING_JIRA_HISTORY:
+          ret = "Error occured while fetching jira task history";
+          break;
+        case ReturnCodes.ERROR_UPDATING_ONBOARDING:
+          ret = "Error occured while updating onboarding status";
           break;
         default:
           ret =
@@ -383,6 +401,123 @@ window.console.log = this.console.log || function () {};
           TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
             callbackData: _GetReturnCodeName(
               ReturnCodes.ERROR_AUTHORIZING_USER
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to invoke fetching jira history
+   * @param {Object: {email: string, apiToken: string} jiraCreds
+   */
+  TsSdk.fetchJiraHistory = function (jiraCreds) {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.fetchJiraHistory}`,
+        {
+          credentials: "include",
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(jiraCreds),
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_FETCHING_JIRA_HISTORY
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(
+            _GetSuccessCodeName(SuccessCodes.FETCHED_JIRA_HISTORY),
+            data
+          );
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_FETCHING_JIRA_HISTORY
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to update onboarding status
+   */
+  TsSdk.updateOnboarding = function (obObj) {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.updateOnboarding}`,
+        {
+          credentials: "include",
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(obObj),
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_UPDATING_ONBOARDING
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(
+            _GetSuccessCodeName(SuccessCodes.ONBOARDING_UPDATED),
+            data
+          );
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_UPDATING_ONBOARDING
             ),
           });
           throw TsSdk.HandleError(
