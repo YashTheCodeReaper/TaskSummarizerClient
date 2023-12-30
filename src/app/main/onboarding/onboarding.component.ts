@@ -32,6 +32,7 @@ export class OnboardingComponent {
             duration: 5000,
           });
           this.showJif = false;
+          this.appControlService.showOnboarding = false;
           break;
         }
         case 'onboarding_updated': {

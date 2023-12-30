@@ -51,17 +51,20 @@ export class JiraInitFetcherComponent implements OnInit {
         }
         if (JSON.parse(event.data)?.onDbProgress) {
           this.dbInsertionStatus = 1;
-          return;
         }
         if (JSON.parse(event.data)?.onDbProgressCompleted) {
-          this.dbInsertionStatus = 2;
-          return;
+          setTimeout(() => {
+            this.dbInsertionStatus = 2;
+            return;
+          }, 2000);
         }
         if (JSON.parse(event.data)?.fetchCompleted) {
-          this.dbInsertionStatus = 3;
           socket.close();
-          this.onJifCompleted.emit();
-          return;
+          this.dbInsertionStatus = 3;
+          setTimeout(() => {
+            this.onJifCompleted.emit();
+            return;
+          }, 3000);
         }
       });
     }, 500);

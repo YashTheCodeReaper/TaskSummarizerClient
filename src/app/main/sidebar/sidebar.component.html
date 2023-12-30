@@ -1,15 +1,22 @@
 <section class="sidebar_section">
-
   <!-- Sidebar top template -->
   <div class="ss_top">
     <div class="sst_profile-search">
       <div class="profile-flex">
         <div class="image-circle">
-          <img src="https://i.pravatar.cc/500?img=34" alt="">
+          <img
+            src="{{
+              dataService.getConfig().baseApiUrl + userObj.profile_picture_path
+            }}"
+            *ngIf="userObj.profile_picture_path"
+          />
+          <div class="no-image-ph" *ngIf="!userObj.profile_picture_path">
+            <h3>{{ getMiniUserName(userObj.name) }}</h3>
+          </div>
         </div>
         <div class="profile-content-flex">
-          <h5>Yashwanth</h5>
-          <p>Software Developer</p>
+          <h5>{{ userObj.name }}</h5>
+          <p>{{ userObj.designation }}</p>
         </div>
       </div>
       <div class="action-flex">
@@ -20,7 +27,7 @@
     </div>
     <div class="sst_app-search">
       <i class="fi fi-rr-search"></i>
-      <input type="text" placeholder="Search boards here...">
+      <input type="text" placeholder="Search boards here..." />
     </div>
   </div>
 
@@ -29,8 +36,13 @@
     <p class="ss_side-text">Overview</p>
 
     <!-- Sidebar pills -->
-    <div class="sidebar-pill" role="link" routerLink="/" routerLinkActive="active-sidebar"
-      [routerLinkActiveOptions]="{exact: true}">
+    <div
+      class="sidebar-pill"
+      role="link"
+      routerLink="/"
+      routerLinkActive="active-sidebar"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <div class="pill-left">
         <i class="fi fi-rr-apps"></i>
         <p>Dashboard</p>
@@ -47,45 +59,63 @@
       </div>
       <div class="boards-info-flex">
         <div class="board-flex">
-          <i style="color: #f48c7d;" class="fi fi-br-circle"></i>
+          <i style="color: #f48c7d" class="fi fi-br-circle"></i>
           <p>Yashwanth's board</p>
         </div>
       </div>
     </div>
 
     <!-- Personal boards info -->
-    <div class="boards-info-flex" style="padding-bottom: 1rem;" *ngIf="dataService.boards.length">
+    <div
+      class="boards-info-flex"
+      style="padding-bottom: 1rem"
+      *ngIf="dataService.boards.length"
+    >
       <div class="board-flex">
-        <i style="color: #24c3a9;" class="fi fi-rr-triangle"></i>
+        <i style="color: #24c3a9" class="fi fi-rr-triangle"></i>
         <p>My personal board</p>
       </div>
-      <div style="color: var(--theme-var-1);" class="board-flex" (click)="this.appControlService.showNewBoard = true;">
+      <div
+        style="color: var(--theme-var-1)"
+        class="board-flex"
+        (click)="this.appControlService.showNewBoard = true"
+      >
         <i class="fi fi-br-plus"></i>
-        <p style="font-weight: 500;">Create new board</p>
+        <p style="font-weight: 500">Create new board</p>
       </div>
     </div>
-    <div class="sidebar-pill" role="link" routerLink="/timesheet" routerLinkActive="active-sidebar"
-    [routerLinkActiveOptions]="{exact: false}">
+    <div
+      class="sidebar-pill"
+      role="link"
+      routerLink="/timesheet"
+      routerLinkActive="active-sidebar"
+      [routerLinkActiveOptions]="{ exact: false }"
+    >
       <div class="pill-left">
         <i class="fi fi-rr-bolt"></i>
         <p>Timesheet Companion</p>
       </div>
     </div>
-    <div class="sidebar-pill" role="link" routerLink="/team" routerLinkActive="active-sidebar"
-    [routerLinkActiveOptions]="{exact: false}">
+    <div
+      class="sidebar-pill"
+      role="link"
+      routerLink="/team"
+      routerLinkActive="active-sidebar"
+      [routerLinkActiveOptions]="{ exact: false }"
+    >
       <div class="pill-left">
         <i class="fi fi-rr-volleyball"></i>
         <p>Team</p>
       </div>
       <div class="team-members-short-flex">
-        <div style="margin-right: -0.5rem;" class="mini-image-circle">
-          <img src="https://i.pravatar.cc/150?img=20">
+        <div style="margin-right: -0.5rem" class="mini-image-circle">
+          <img src="https://i.pravatar.cc/150?img=20" />
         </div>
-        <div style="margin-right: -0.5rem;" class="mini-image-circle">
-          <img src="https://i.pravatar.cc/150?img=30">
+        <div style="margin-right: -0.5rem" class="mini-image-circle">
+          <img src="https://i.pravatar.cc/150?img=30" />
         </div>
-        <div style="margin-right: -0.5rem;" class="mini-image-circle">
-          <img src="https://i.pravatar.cc/150?img=40">
+        <div style="margin-right: -0.5rem" class="mini-image-circle">
+          <img src="https://i.pravatar.cc/150?img=40" />
         </div>
         <div class="mini-image-circle number-circle">
           <p>+9</p>
@@ -99,8 +129,13 @@
       </div>
       <span class="spactivity-sinfo">New</span>
     </div>
-    <div class="sidebar-pill" role="link" routerLink="/settings" routerLinkActive="active-sidebar"
-    [routerLinkActiveOptions]="{exact: false}">
+    <div
+      class="sidebar-pill"
+      role="link"
+      routerLink="/settings"
+      routerLinkActive="active-sidebar"
+      [routerLinkActiveOptions]="{ exact: false }"
+    >
       <div class="pill-left">
         <i class="fi fi-rr-settings"></i>
         <p>Settings</p>
@@ -140,7 +175,10 @@
       </div>
     </div>
 
-    <div class="join-team-flex" (click)="this.appControlService.showJoinTeam = true;">
+    <div
+      class="join-team-flex"
+      (click)="this.appControlService.showJoinTeam = true"
+    >
       <div class="join-button" role="button">
         <i class="fi fi-rr-link-alt"></i>
       </div>

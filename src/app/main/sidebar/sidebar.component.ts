@@ -5,8 +5,25 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
-  constructor(public appControlService: AppControlService, public dataService: DataService){}
+  userObj: any;
+
+  constructor(
+    public appControlService: AppControlService,
+    public dataService: DataService
+  ) {
+    this.userObj = this.dataService.userObj;
+  }
+
+  getMiniUserName(name: string): string | any {
+    try {
+      return name.split(' ').length > 1
+        ? name.split(' ')[0][0] + name.split(' ')[1][0]
+        : name.split(' ')[0][0] + name.split(' ')[0][1];
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

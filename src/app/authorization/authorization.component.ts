@@ -49,6 +49,7 @@ export class AuthorizationComponent implements OnInit {
     'Other',
   ];
   showDesignationsFlex: boolean = false;
+  showJaptGuide: boolean = false;
   imageDataUrl: any = '';
 
   constructor(
@@ -118,6 +119,7 @@ export class AuthorizationComponent implements OnInit {
           });
           if (callbackObj.callbackData.status == 'success') {
             this.cookieService.set('jwt', callbackObj.callbackData.token);
+            this.commService.initializeSdk();
             setTimeout(() => {
               this.router.navigate(['/']);
             }, 1000);

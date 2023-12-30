@@ -1,6 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppControlService } from 'src/app/services/app-control.service';
+import { CommunicationService } from 'src/app/services/communication.service';
+import { DataService } from 'src/app/services/data.service';
+
+declare var TsSdk: any;
 
 @Component({
   selector: 'app-new-board',
@@ -28,7 +33,12 @@ export class NewBoardComponent {
   showExportInfo: boolean = false;
   showPrivateBoardInfo: boolean = false;
 
-  constructor(private appControlService: AppControlService) {
+  constructor(
+    private appControlService: AppControlService,
+    private dataService: DataService,
+    private commService: CommunicationService,
+    private _snackBar: MatSnackBar
+  ) {
     this.stages = [
       {
         icon: 'fi-sr-layer-plus',
@@ -72,6 +82,20 @@ export class NewBoardComponent {
         status: 'inactive',
       },
     ];
+
+    this.commService.callbacksObservable.subscribe((callbackObj: any) => {
+      switch (callbackObj.callbackEvent) {
+        case 'board_created': {
+          this._snackBar.open(callbackObj.callbackData.message, 'OK', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            duration: 5000,
+          });
+          this.appControlService.showNewBoard = false;
+          break;
+        }
+      }
+    });
 
     this.createBoardFormGroup = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -130,6 +154,26 @@ export class NewBoardComponent {
 
   onProceed(direction: string) {
     try {
+      if (this.currentStage == 3) {
+        let boardObj = { ...this.createBoardFormGroup.value };
+        boardObj.userId = this.dataService.userObj.user_id;
+        boardObj.timeConstraints = {
+          clockIn: '10:00 AM',
+          clockOut: '07:00 PM',
+          breakIn: '01:00 PM',
+          breakOut: '02:00 PM',
+        };
+        boardObj.trackables = this.trackables
+          .filter((trObj) => trObj.status == 'active')
+          .map((trObj) => trObj.name);
+        boardObj.accessibilityConstraints = {
+          enableExorting: this.enableExport,
+          enableTimeTracking: this.enableTimeTracking,
+          isPrivate: this.isPrivateBoard,
+        };
+        TsSdk.createBoard(boardObj);
+        return;
+      }
       if (direction == 'fwd') {
         if (this.currentStage < this.maxContainerIndex) this.currentStage++;
       } else {

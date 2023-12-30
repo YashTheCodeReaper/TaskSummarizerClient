@@ -53,6 +53,7 @@ window.console.log = this.console.log || function () {};
     authorizeUser: "auth/authorizeUser",
     fetchJiraHistory: "jira/fetchJiraHistory",
     updateOnboarding: "general/updateOnboarding",
+    createBoard: "boards/createBoard",
   };
 
   var ErrorCodes = {
@@ -68,6 +69,7 @@ window.console.log = this.console.log || function () {};
     AUTHORIZED_USER: 3003,
     FETCHED_JIRA_HISTORY: 3004,
     ONBOARDING_UPDATED: 3005,
+    BOARD_CREATED: 3006,
   };
 
   var ReturnCodes = {
@@ -77,6 +79,7 @@ window.console.log = this.console.log || function () {};
     ERROR_AUTHORIZING_USER: 2004,
     ERROR_FETCHING_JIRA_HISTORY: 2005,
     ERROR_UPDATING_ONBOARDING: 2006,
+    ERROR_CREATING_BOARD: 2007,
   };
 
   /**
@@ -165,6 +168,9 @@ window.console.log = this.console.log || function () {};
         case SuccessCodes.ONBOARDING_UPDATED:
           ret = "ONBOARDING_UPDATED";
           break;
+        case SuccessCodes.BOARD_CREATED:
+          ret = "BOARD_CREATED";
+          break;
         default:
           ret = defaultCode ?? "ACTION_SUCCESS";
       }
@@ -200,6 +206,9 @@ window.console.log = this.console.log || function () {};
           break;
         case ReturnCodes.ERROR_UPDATING_ONBOARDING:
           ret = "Error occured while updating onboarding status";
+          break;
+        case ReturnCodes.ERROR_CREATING_BOARD:
+          ret = "Error occured while creating a board";
           break;
         default:
           ret =
@@ -308,7 +317,7 @@ window.console.log = this.console.log || function () {};
 
   /**
    * Function to login a user to the setup
-   * @param {Object: {email: string, password: string} userObject
+   * @param {Object: {email: string, password: string}} userObject
    */
   TsSdk.logInUser = function (userObject) {
     try {
@@ -415,7 +424,7 @@ window.console.log = this.console.log || function () {};
 
   /**
    * Function to invoke fetching jira history
-   * @param {Object: {email: string, apiToken: string} jiraCreds
+   * @param {Object: {email: string, apiToken: string}} jiraCreds
    */
   TsSdk.fetchJiraHistory = function (jiraCreds) {
     try {
@@ -474,6 +483,7 @@ window.console.log = this.console.log || function () {};
 
   /**
    * Function to update onboarding status
+   * @param {Object : {intro: Boolean, dashboard: Boolean, teams: Boolean, settings: Boolean, timesheetCompanion: Boolean}} obObj
    */
   TsSdk.updateOnboarding = function (obObj) {
     try {
@@ -519,6 +529,60 @@ window.console.log = this.console.log || function () {};
             callbackData: _GetReturnCodeName(
               ReturnCodes.ERROR_UPDATING_ONBOARDING
             ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to update onboarding status
+   * @param {Object: {name: String, description: String, trackables: Array, accessibilityConstraints: Object, timeConstraints: Object[], userId: String}} boardObject
+   */
+  TsSdk.createBoard = function (boardObject) {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.createBoard}`,
+        {
+          credentials: "include",
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(boardObject),
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_CREATING_BOARD
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(_GetSuccessCodeName(SuccessCodes.BOARD_CREATED), data);
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(ReturnCodes.ERROR_CREATING_BOARD),
           });
           throw TsSdk.HandleError(
             _GetErrorCodeName(ErrorCodes.CATCH_ERROR),

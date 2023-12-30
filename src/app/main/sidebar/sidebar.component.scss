@@ -35,6 +35,21 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          overflow: hidden;
+
+          .no-image-ph {
+            width: 100%;
+            height: 100%;
+            background: var(--theme-var-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            h3 {
+              font-size: 2rem;
+              font-weight: 500;
+            }
+          }
 
           img {
             border-radius: 50%;
@@ -51,6 +66,11 @@
           h5 {
             font-size: 1.8rem;
             font-weight: 300;
+            max-width: 20rem;
+            -webkit-line-clamp: 1;
+            white-space: pre;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
 
           p {
@@ -154,7 +174,7 @@
       position: relative;
 
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: -1.1rem;
@@ -262,7 +282,7 @@
       background: var(--theme-var-1);
     }
 
-    &::-webkit-scrollbar-corner{
+    &::-webkit-scrollbar-corner {
       background: transparent;
     }
   }

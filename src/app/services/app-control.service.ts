@@ -18,7 +18,6 @@ export class AppControlService {
   showTaskExporter: boolean = false;
   showNotifications: boolean = false;
   showAddTask: boolean = false;
-  showJapiGuide: boolean = false;
 
   constructor(private dialog: MatDialog, private dataService: DataService) {
     this.validateOnboarding();

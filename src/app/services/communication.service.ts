@@ -11,13 +11,20 @@ export class CommunicationService {
   callbacksObservable: Observable<any> = this.callbacks.asObservable();
 
   constructor(private cookieService: CookieService) {
-    TsSdk.Initialize({
-      serverUrl1: 'http://localhost:3000/tetherfi/tsum/api/v1/',
-      apiKey: '1122',
-      apiToken: this.cookieService.get('jwt'),
-    });
-
+    this.initializeSdk();
     this.registerCallbacks();
+  }
+
+  initializeSdk(): void {
+    try {
+      TsSdk.Initialize({
+        serverUrl1: 'http://localhost:3000/tetherfi/tsum/api/v1/',
+        apiKey: '1122',
+        apiToken: this.cookieService.get('jwt'),
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   checkPing(): void {
@@ -63,6 +70,12 @@ export class CommunicationService {
       TsSdk.On('ONBOARDING_UPDATED', (data: any) => {
         this.callbacks.next({
           callbackEvent: 'onboarding_updated',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('BOARD_CREATED', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'board_created',
           callbackData: data,
         });
       });
