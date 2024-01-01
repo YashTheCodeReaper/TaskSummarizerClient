@@ -45,7 +45,11 @@ export class AuthGuardService implements CanActivate {
             this.dataService.userObj = response.data[0];
             this.appControlService.validateOnboarding();
             TsSdk.getAllBoards();
-            TsSdk.getTeam();
+            TsSdk.getAllInvolvedTeams({
+              allTeams: this.dataService.userObj.teams
+                ? this.dataService.userObj.teams
+                : [],
+            });
             resolve(true);
           } else {
             this.actionOnUnauthorization();

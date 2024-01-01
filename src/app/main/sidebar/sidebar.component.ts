@@ -26,4 +26,14 @@ export class SidebarComponent {
       console.error(error);
     }
   }
+
+  getTeamInfo(teamId: string): any {
+    try {
+      return this.dataService.myInvolvedTeams.find(
+        (teamObj: any) => teamObj.team_id == teamId
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

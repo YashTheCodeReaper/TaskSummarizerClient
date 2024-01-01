@@ -57,7 +57,9 @@ window.console.log = this.console.log || function () {};
     getAllBoards: "boards/getAllBoards",
     updateLinkedTeams: "boards/updateLinkedTeams",
     createTeam: "teams/createTeam",
-    getTeam: "teams/getTeam",
+    getMyTeam: "teams/getMyTeam",
+    getAllInvolvedTeams: "teams/getAllInvolvedTeams",
+    updateMyTeams: "users/updateMyTeams",
   };
 
   var ErrorCodes = {
@@ -78,6 +80,8 @@ window.console.log = this.console.log || function () {};
     TEAM_CREATED: 3008,
     TEAM_FETCHED: 3009,
     LINKED_TEAMS_UPDATED: 3010,
+    MY_TEAMS_UPDATED: 3011,
+    ALL_TEAMS_FETCHED: 3012,
   };
 
   var ReturnCodes = {
@@ -92,6 +96,8 @@ window.console.log = this.console.log || function () {};
     ERROR_CREATING_TEAM: 2009,
     ERROR_FETCHING_TEAM: 2010,
     ERROR_UPDATING_LINKED_TEAMS: 2011,
+    ERROR_UPDATING_MY_TEAMS: 2012,
+    ERROR_FETCHING_ALL_MY_TEAMS: 2013,
   };
 
   /**
@@ -195,6 +201,12 @@ window.console.log = this.console.log || function () {};
         case SuccessCodes.LINKED_TEAMS_UPDATED:
           ret = "LINKED_TEAMS_UPDATED";
           break;
+        case SuccessCodes.MY_TEAMS_UPDATED:
+          ret = "MY_TEAMS_UPDATED";
+          break;
+        case SuccessCodes.ALL_TEAMS_FETCHED:
+          ret = "ALL_TEAMS_FETCHED";
+          break;
         default:
           ret = defaultCode ?? "ACTION_SUCCESS";
       }
@@ -245,6 +257,12 @@ window.console.log = this.console.log || function () {};
           break;
         case ReturnCodes.ERROR_UPDATING_LINKED_TEAMS:
           ret = "Error occured while updating linked teams in a board";
+          break;
+        case ReturnCodes.ERROR_UPDATING_MY_TEAMS:
+          ret = "Error occured while updating my involved teams";
+          break;
+        case ReturnCodes.ERROR_FETCHING_ALL_MY_TEAMS:
+          ret = "Error occured while getting all my teams details";
           break;
         default:
           ret =
@@ -737,20 +755,23 @@ window.console.log = this.console.log || function () {};
   /**
    * Function to fetch a team
    */
-  TsSdk.getTeam = function () {
+  TsSdk.getMyTeam = function () {
     try {
       checkConfig();
 
-      return fetch(`${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.getTeam}`, {
-        credentials: "include",
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${TsSdk.config.apiToken}`,
-          Accept: "application.json",
-          "Content-Type": "application/json",
-        },
-        cache: "default",
-      })
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.getMyTeam}`,
+        {
+          credentials: "include",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          cache: "default",
+        }
+      )
         .then((response) => {
           if (!response.ok) {
             TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
@@ -828,6 +849,118 @@ window.console.log = this.console.log || function () {};
           TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
             callbackData: _GetReturnCodeName(
               ReturnCodes.ERROR_UPDATING_LINKED_TEAMS
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to update the user involved teams
+   * @param {Object: {modifiedTeams: Array} modifiedTeamsObject
+   */
+  TsSdk.updateMyTeams = function (modifiedTeamsObject) {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.updateMyTeams}`,
+        {
+          credentials: "include",
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(modifiedTeamsObject),
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_UPDATING_MY_TEAMS
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(_GetSuccessCodeName(SuccessCodes.MY_TEAMS_UPDATED), data);
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_UPDATING_MY_TEAMS
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to update the user involved teams
+   * @param {Object: {allTeams: Array} allMyTeamsArray
+   */
+  TsSdk.getAllInvolvedTeams = function (allMyTeamsArray) {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.getAllInvolvedTeams}`,
+        {
+          credentials: "include",
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(allMyTeamsArray),
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_FETCHING_ALL_MY_TEAMS
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(_GetSuccessCodeName(SuccessCodes.ALL_TEAMS_FETCHED), data);
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_FETCHING_ALL_MY_TEAMS
             ),
           });
           throw TsSdk.HandleError(

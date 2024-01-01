@@ -17,7 +17,7 @@ export class DataService {
   teams: any = [];
   userObj: any = {};
   orgBoards: any[] = [];
-  myTeam: any;
+  myInvolvedTeams: any;
 
   constructor(
     private http: HttpClient,
@@ -27,12 +27,15 @@ export class DataService {
       switch (callbackObj.callbackEvent) {
         case 'boards_fetched': {
           this.boards = callbackObj.callbackData.data;
-          this.orgBoards = callbackObj.callbackData.data;
+          this.orgBoards = JSON.parse(
+            JSON.stringify(callbackObj.callbackData.data)
+          );
           this.flatenBoards();
           break;
         }
-        case 'team_fetched': {
-          this.myTeam = callbackObj.callbackData.data[0];
+        case 'all_teams_fetched': {
+          this.myInvolvedTeams = callbackObj.callbackData.data;
+          console.log(this.myInvolvedTeams);
           break;
         }
       }

@@ -103,6 +103,12 @@ export class CommunicationService {
           callbackData: data,
         });
       });
+      TsSdk.On('ALL_TEAMS_FETCHED', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'all_teams_fetched',
+          callbackData: data,
+        });
+      });
     } catch (error) {
       console.error(error);
     }

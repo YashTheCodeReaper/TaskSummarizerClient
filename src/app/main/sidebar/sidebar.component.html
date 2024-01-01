@@ -52,16 +52,16 @@
 
     <!-- Dashboard team info -->
     <ng-container *ngFor="let board of dataService.boards; let i = index">
-      <div class="team-info-flex" *ngIf="board.linked_team">
+      <div class="team-info-flex" *ngIf="board.linked_team && dataService.myInvolvedTeams?.length">
         <div class="team-dropdown">
           <i class="fi fi-rr-folder-open"></i>
-          <p>Compilers Clan</p>
+          <p>{{getTeamInfo(board.linked_team).name}}</p>
           <i class="fi dropdown-icon fi-br-angle-up"></i>
         </div>
         <div class="boards-info-flex">
           <div class="board-flex">
             <i style="color: #f48c7d" class="fi fi-br-circle"></i>
-            <p>Yashwanth's board</p>
+            <p>{{board.name}}</p>
           </div>
         </div>
       </div>

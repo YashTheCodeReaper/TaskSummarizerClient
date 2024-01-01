@@ -57,7 +57,7 @@
       </div>
     </div>
   </div>
-  <ng-container *ngIf="dataService.myTeam">
+  <ng-container *ngIf="dataService.myInvolvedTeams.length">
     <div class="ts-top-middle">
       <div class="stat-box">
         <i class="overlay-icon fi fi-br-check"></i>
@@ -673,7 +673,7 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="!dataService.myTeam">
+  <ng-container *ngIf="!dataService.myInvolvedTeams.length">
     <div class="new-ts-container">
       <h2>You are no member of any team. Working alone?</h2>
       <p>

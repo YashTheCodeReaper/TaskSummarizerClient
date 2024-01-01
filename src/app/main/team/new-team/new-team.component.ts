@@ -73,7 +73,7 @@ export class NewTeamComponent implements OnInit {
     this.commService.callbacksObservable.subscribe((callbackObj: any) => {
       switch (callbackObj.callbackEvent) {
         case 'team_created': {
-          TsSdk.getTeam();
+          TsSdk.getMyTeam();
           break;
         }
         case 'team_fetched': {
@@ -85,8 +85,13 @@ export class NewTeamComponent implements OnInit {
               )
             ].linked_teams;
 
+          let modifiedMyTeams = dataService.userObj.teams;
+
           if (!updatedLinkedTeams) updatedLinkedTeams = [];
           updatedLinkedTeams.push(callbackObj.callbackData.data[0].team_id);
+
+          if (!modifiedMyTeams) modifiedMyTeams = [];
+          modifiedMyTeams.push(callbackObj.callbackData.data[0].team_id);
 
           let updateLinkedTeamsObj = {
             boardId: this.chosenBoard.board_id,
@@ -94,6 +99,7 @@ export class NewTeamComponent implements OnInit {
           };
 
           TsSdk.updateLinkedTeams(updateLinkedTeamsObj);
+          TsSdk.updateMyTeams({ modifiedTeams: modifiedMyTeams });
           break;
         }
         case 'linked_teams_updated': {
