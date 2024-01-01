@@ -172,7 +172,7 @@ export class AuthorizationComponent implements OnInit {
           ...this.registerFormGroup.value,
           ...this.userFormGroup.value,
         };
-        finalObj.jira = JSON.stringify(this.jiraFormGroup.value);
+        finalObj.jira = this.jiraFormGroup.value;
         TsSdk.registerUser(finalObj);
       }
     } catch (error) {

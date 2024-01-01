@@ -44,7 +44,7 @@ export class TimesheetComponent implements OnInit {
     loop: true,
     autoplay: true,
   };
-  currentStage: number = 1;
+  currentStage: number = 0;
   fromDate: Date = new Date();
   toDate: Date = new Date();
   today: Date = new Date();
@@ -362,7 +362,7 @@ export class TimesheetComponent implements OnInit {
   }
 
   setDropdownSwitchers() {
-    this.showZPorjectDropdown = [false, false, false]
-    this.showZTasksDropdown = [false, false, false]
+    this.showZPorjectDropdown = [false, false, false];
+    this.showZTasksDropdown = [false, false, false];
   }
 }

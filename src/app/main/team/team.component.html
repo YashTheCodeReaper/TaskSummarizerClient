@@ -1,16 +1,16 @@
 <section class="team_section">
   <div class="ts-top">
     <div class="board-info">
-      <h3>Compilers Clan</h3>
-      <div class="team-members-short-flex">
-        <div style="margin-right: -0.5rem;" class="mini-image-circle">
-          <img src="https://i.pravatar.cc/150?img=20">
+      <h3>Team analytics</h3>
+      <div class="team-members-short-flex" *ngIf="dataService.teams.length">
+        <div style="margin-right: -0.5rem" class="mini-image-circle">
+          <img src="https://i.pravatar.cc/150?img=20" />
         </div>
-        <div style="margin-right: -0.5rem;" class="mini-image-circle">
-          <img src="https://i.pravatar.cc/150?img=30">
+        <div style="margin-right: -0.5rem" class="mini-image-circle">
+          <img src="https://i.pravatar.cc/150?img=30" />
         </div>
-        <div style="margin-right: -0.5rem;" class="mini-image-circle">
-          <img src="https://i.pravatar.cc/150?img=40">
+        <div style="margin-right: -0.5rem" class="mini-image-circle">
+          <img src="https://i.pravatar.cc/150?img=40" />
         </div>
         <div class="mini-image-circle number-circle">
           <p>+9</p>
@@ -18,449 +18,688 @@
       </div>
     </div>
     <div class="app-utilities">
-      <div class="medium-button notifications-button" (click)="this.appControlService.showNotifications = true;"
-        role="button">
+      <div
+        class="medium-button notifications-button"
+        (click)="this.appControlService.showNotifications = true"
+        role="button"
+      >
         <i class="fi fi-rr-bell"></i>
         <div class="bell"></div>
       </div>
-      <div style="pointer-events: none; opacity: 0.3;" class="medium-button export-task-button" role="button"
-        (click)="this.appControlService.showTaskExporter = true;">
+      <div
+        [ngStyle]="{
+          'pointer-events': !dataService.teams.length ? 'none' : 'all',
+          opacity: !dataService.teams.length ? '0.3' : '1'
+        }"
+        style="pointer-events: none; opacity: 0.3"
+        class="medium-button export-task-button"
+        role="button"
+        (click)="this.appControlService.showTaskExporter = true"
+      >
         <i class="fi fi-rr-file-download"></i>
       </div>
-      <div class="link-sharer">
+      <div
+        class="link-sharer"
+        [ngStyle]="{
+          'pointer-events': !dataService.teams.length ? 'none' : 'all',
+          opacity: !dataService.teams.length ? '0.3' : '1'
+        }"
+      >
         <h5>Share</h5>
-        <h5 class="link-option" role="button" (click)="this.appControlService.showAppShare = true;">
+        <h5
+          class="link-option"
+          role="button"
+          (click)="this.appControlService.showAppShare = true"
+        >
           <span>Link</span>
           <i class="fi fi-rr-angle-down"></i>
         </h5>
       </div>
     </div>
   </div>
-  <div class="ts-top-middle">
-    <div class="stat-box">
-      <i class="overlay-icon fi fi-br-check"></i>
-      <div class="sb-title">
-        <div class="icon-circle">
-          <i class="fi fi-br-check"></i>
-        </div>
-        <p>Tasks completed</p>
-      </div>
-      <h1>32</h1>
-      <div class="stat-perc inc">
-        <i class="fi fi-rr-arrow-trend-up"></i>
-        <p><span>2.1%</span> vs last week</p>
-      </div>
-    </div>
-    <div class="stat-box">
-      <i class="overlay-icon fi-sr-time-quarter-past"></i>
-      <div class="sb-title">
-        <div class="icon-circle">
-          <i class="fi fi-sr-time-quarter-past"></i>
-        </div>
-        <p>Hours logged</p>
-      </div>
-      <h1>256</h1>
-      <div class="stat-perc dec">
-        <i class="fi fi-rr-arrow-trend-down"></i>
-        <p><span>0.5%</span> vs last week</p>
-      </div>
-    </div>
-    <div class="stat-box">
-      <i class="overlay-icon fi-br-power"></i>
-      <div class="sb-title">
-        <div class="icon-circle">
-          <i class="fi fi-br-power"></i>
-        </div>
-        <p>Leaves taken</p>
-      </div>
-      <h1>02</h1>
-      <div class="stat-perc dec">
-        <i class="fi fi-rr-arrow-trend-down"></i>
-        <p><span>98%</span> vs last week</p>
-      </div>
-    </div>
-    <div class="ovweekly-achiever-flex">
-      <ng-lottie [height]="'300px'" [options]="chosenOneAnimation"></ng-lottie>
-      <div class="content-flex">
-        <h4>Yashwanthkumar, The Chosen One.</h4>
-        <p>We congratulate you for working hard so far this week. Your contribution to your team seems quite great.</p>
-        <div class="stat-flex-1">
-          <div class="stat-box-1">
-            <h5>20</h5>
-            <p>Tasks</p>
+  <ng-container *ngIf="dataService.myTeam">
+    <div class="ts-top-middle">
+      <div class="stat-box">
+        <i class="overlay-icon fi fi-br-check"></i>
+        <div class="sb-title">
+          <div class="icon-circle">
+            <i class="fi fi-br-check"></i>
           </div>
-          <div class="stat-box-1">
-            <h5>40+</h5>
-            <p>Hours</p>
-          </div>
-          <div class="stat-box-1">
-            <h5>0</h5>
-            <p>Leaves</p>
-          </div>
-          <img src="https://i.pravatar.cc/50?img=57" alt="">
+          <p>Tasks completed</p>
+        </div>
+        <h1>32</h1>
+        <div class="stat-perc inc">
+          <i class="fi fi-rr-arrow-trend-up"></i>
+          <p><span>2.1%</span> vs last week</p>
         </div>
       </div>
-    </div>
-  </div>
-  <div style="margin-top: -2.5rem;" class="ts-top-middle-1">
-    <div class="jira-heatmap-flex">
-      <div class="ja-card" *ngFor="let member of members">
-        <div class="jac-top">
-          <div class="member-flex">
-            <img src="{{member.profilePic}}" alt="">
-            <div class="member-name-flex">
-              <h5>{{member.name}}</h5>
-              <p>{{member.designation}}</p>
-            </div>
+      <div class="stat-box">
+        <i class="overlay-icon fi-sr-time-quarter-past"></i>
+        <div class="sb-title">
+          <div class="icon-circle">
+            <i class="fi fi-sr-time-quarter-past"></i>
           </div>
-          <div class="project-pointer-labels-flex">
-            <div [ngStyle]="{'background': getColor(heatObj.name)}" class="pointer"
-              *ngFor="let heatObj of member.jiraHeat">
-            </div>
-            <i class="fi fi-rr-caret-up"></i>
-          </div>
+          <p>Hours logged</p>
         </div>
-        <div class="jac-bottom">
-          <div class="heat-tiles-container">
-            <div *ngFor="let heatObj of member.jiraHeat" class="tile-row">
-              <div style="--tileBlockOp: {{mapObj}}" class="tile-block" *ngFor="let mapObj of heatObj.heatMap"></div>
-              <div style="width: 1.5rem;" class="tile-block dummy">
-                <i [ngStyle]="{'color': getColor(heatObj.name)}" class="fi fi-ss-bullet"></i>
-              </div>
-            </div>
-            <div class="tile-row" style="margin-top: -0.5rem;">
-              <div class="tile-block dummy">
-                <p>Su</p>
-              </div>
-              <div class="tile-block dummy">
-                <p>Mo</p>
-              </div>
-              <div class="tile-block dummy">
-                <p>Tu</p>
-              </div>
-              <div class="tile-block dummy">
-                <p>We</p>
-              </div>
-              <div class="tile-block dummy">
-                <p>Th</p>
-              </div>
-              <div class="tile-block dummy">
-                <p>Fr</p>
-              </div>
-              <div class="tile-block dummy">
-                <p>Sa</p>
-              </div>
-              <div style="width: 1.5rem;" class="tile-block dummy">
-              </div>
-            </div>
-          </div>
+        <h1>256</h1>
+        <div class="stat-perc dec">
+          <i class="fi fi-rr-arrow-trend-down"></i>
+          <p><span>0.5%</span> vs last week</p>
         </div>
       </div>
-    </div>
-    <div class="diff-task-overview">
-      <div class="dt-container">
-        <h3>Weekly team campaigns</h3>
-        <div class="info-box">
-          <i class="fi fi-sr-apps"></i>
-          <p>Team campaigns help you analyze what your team has focused more last week.</p>
+      <div class="stat-box">
+        <i class="overlay-icon fi-br-power"></i>
+        <div class="sb-title">
+          <div class="icon-circle">
+            <i class="fi fi-br-power"></i>
+          </div>
+          <p>Leaves taken</p>
         </div>
-        <div class="task-grid" style="margin-top: 1rem;">
-          <div class="task-box">
-            <img src="assets/images/common/jira.svg" alt="">
-            <div class="title">
-              <i class="fi fi-ss-bullet"></i>
+        <h1>02</h1>
+        <div class="stat-perc dec">
+          <i class="fi fi-rr-arrow-trend-down"></i>
+          <p><span>98%</span> vs last week</p>
+        </div>
+      </div>
+      <div class="ovweekly-achiever-flex">
+        <ng-lottie
+          [height]="'300px'"
+          [options]="chosenOneAnimation"
+        ></ng-lottie>
+        <div class="content-flex">
+          <h4>Yashwanthkumar, The Chosen One.</h4>
+          <p>
+            We congratulate you for working hard so far this week. Your
+            contribution to your team seems quite great.
+          </p>
+          <div class="stat-flex-1">
+            <div class="stat-box-1">
+              <h5>20</h5>
               <p>Tasks</p>
             </div>
-            <div class="stat-flex">
-              <h4>20</h4>
-              <div class="stat-perc inc">
-                <i class="fi fi-rr-arrow-trend-up"></i>
-                <p><span>2.1%</span> vs last week</p>
+            <div class="stat-box-1">
+              <h5>40+</h5>
+              <p>Hours</p>
+            </div>
+            <div class="stat-box-1">
+              <h5>0</h5>
+              <p>Leaves</p>
+            </div>
+            <img src="https://i.pravatar.cc/50?img=57" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: -2.5rem" class="ts-top-middle-1">
+      <div class="jira-heatmap-flex">
+        <div class="ja-card" *ngFor="let member of members">
+          <div class="jac-top">
+            <div class="member-flex">
+              <img src="{{ member.profilePic }}" alt="" />
+              <div class="member-name-flex">
+                <h5>{{ member.name }}</h5>
+                <p>{{ member.designation }}</p>
+              </div>
+            </div>
+            <div class="project-pointer-labels-flex">
+              <div
+                [ngStyle]="{ background: getColor(heatObj.name) }"
+                class="pointer"
+                *ngFor="let heatObj of member.jiraHeat"
+              ></div>
+              <i class="fi fi-rr-caret-up"></i>
+            </div>
+          </div>
+          <div class="jac-bottom">
+            <div class="heat-tiles-container">
+              <div *ngFor="let heatObj of member.jiraHeat" class="tile-row">
+                <div
+                  style="--tileBlockOp: {{ mapObj }}"
+                  class="tile-block"
+                  *ngFor="let mapObj of heatObj.heatMap"
+                ></div>
+                <div style="width: 1.5rem" class="tile-block dummy">
+                  <i
+                    [ngStyle]="{ color: getColor(heatObj.name) }"
+                    class="fi fi-ss-bullet"
+                  ></i>
+                </div>
+              </div>
+              <div class="tile-row" style="margin-top: -0.5rem">
+                <div class="tile-block dummy">
+                  <p>Su</p>
+                </div>
+                <div class="tile-block dummy">
+                  <p>Mo</p>
+                </div>
+                <div class="tile-block dummy">
+                  <p>Tu</p>
+                </div>
+                <div class="tile-block dummy">
+                  <p>We</p>
+                </div>
+                <div class="tile-block dummy">
+                  <p>Th</p>
+                </div>
+                <div class="tile-block dummy">
+                  <p>Fr</p>
+                </div>
+                <div class="tile-block dummy">
+                  <p>Sa</p>
+                </div>
+                <div style="width: 1.5rem" class="tile-block dummy"></div>
               </div>
             </div>
           </div>
-          <div class="task-box">
-            <img src="assets/images/common/gitlab.svg" alt="">
-            <div class="title">
-              <i class="fi fi-ss-bullet"></i>
-              <p>Commits</p>
+        </div>
+      </div>
+      <div class="diff-task-overview">
+        <div class="dt-container">
+          <h3>Weekly team campaigns</h3>
+          <div class="info-box">
+            <i class="fi fi-sr-apps"></i>
+            <p>
+              Team campaigns help you analyze what your team has focused more
+              last week.
+            </p>
+          </div>
+          <div class="task-grid" style="margin-top: 1rem">
+            <div class="task-box">
+              <img src="assets/images/common/jira.svg" alt="" />
+              <div class="title">
+                <i class="fi fi-ss-bullet"></i>
+                <p>Tasks</p>
+              </div>
+              <div class="stat-flex">
+                <h4>20</h4>
+                <div class="stat-perc inc">
+                  <i class="fi fi-rr-arrow-trend-up"></i>
+                  <p><span>2.1%</span> vs last week</p>
+                </div>
+              </div>
             </div>
-            <div class="stat-flex">
-              <h4>08</h4>
-              <div class="stat-perc dec">
-                <i class="fi fi-rr-arrow-trend-down"></i>
-                <p><span>1.7%</span> vs last week</p>
+            <div class="task-box">
+              <img src="assets/images/common/gitlab.svg" alt="" />
+              <div class="title">
+                <i class="fi fi-ss-bullet"></i>
+                <p>Commits</p>
+              </div>
+              <div class="stat-flex">
+                <h4>08</h4>
+                <div class="stat-perc dec">
+                  <i class="fi fi-rr-arrow-trend-down"></i>
+                  <p><span>1.7%</span> vs last week</p>
+                </div>
+              </div>
+            </div>
+            <div class="task-box">
+              <img src="assets/images/common/msteams.svg" alt="" />
+              <div class="title">
+                <i class="fi fi-ss-bullet"></i>
+                <p>Calls</p>
+              </div>
+              <div class="stat-flex">
+                <h4>7hr</h4>
+                <div class="stat-perc inc">
+                  <i class="fi fi-rr-arrow-trend-up"></i>
+                  <p><span>9.1%</span> vs last week</p>
+                </div>
+              </div>
+            </div>
+            <div class="task-box">
+              <img
+                style="top: 3rem"
+                src="assets/images/common/zoho.svg"
+                alt=""
+              />
+              <div class="title">
+                <i class="fi fi-ss-bullet"></i>
+                <p>Timesheet</p>
+              </div>
+              <div class="stat-flex">
+                <h4>7/7</h4>
+                <div class="stat-perc inc">
+                  <p>Everyone filled</p>
+                </div>
               </div>
             </div>
           </div>
-          <div class="task-box">
-            <img src="assets/images/common/msteams.svg" alt="">
-            <div class="title">
-              <i class="fi fi-ss-bullet"></i>
-              <p>Calls</p>
+        </div>
+      </div>
+    </div>
+    <div class="ts-middle-left">
+      <div class="title-flex">
+        <h3>Tasks weekly analytics</h3>
+        <div class="team-members-short-flex">
+          <div style="margin-right: -0.5rem" class="mini-image-circle">
+            <img src="https://i.pravatar.cc/150?img=20" />
+          </div>
+          <div style="margin-right: -0.5rem" class="mini-image-circle">
+            <img src="https://i.pravatar.cc/150?img=30" />
+          </div>
+          <div style="margin-right: -0.5rem" class="mini-image-circle">
+            <img src="https://i.pravatar.cc/150?img=40" />
+          </div>
+          <div class="mini-image-circle number-circle">
+            <p>+9</p>
+          </div>
+        </div>
+      </div>
+      <div class="an-labels-flex">
+        <div class="an-label">
+          <i style="color: #7da9ff" class="fi fi-ss-bullet"></i>
+          <img src="assets/images/common/jira.svg" alt="" />
+          <p>Atlassian JIRA</p>
+        </div>
+        <div class="an-label">
+          <i style="color: #f48c7d" class="fi fi-ss-bullet"></i>
+          <img src="assets/images/common/gitlab.svg" alt="" />
+          <p>Commits</p>
+        </div>
+        <div class="an-label">
+          <i style="color: #ff7edb" class="fi fi-ss-bullet"></i>
+          <img src="assets/images/common/msteams.svg" alt="" />
+          <p>Calls</p>
+        </div>
+      </div>
+      <div class="an-chart-container">
+        <div class="chart-bar">
+          <div style="border: none" class="bar-block">
+            <p
+              style="
+                align-self: flex-start;
+                text-align: right;
+                width: 100%;
+                padding-right: 3rem;
+                margin-top: -0.75rem;
+              "
+            >
+              40
+            </p>
+          </div>
+          <div style="border: none" class="bar-block">
+            <p
+              style="
+                align-self: flex-start;
+                text-align: right;
+                width: 100%;
+                padding-right: 3rem;
+                margin-top: -0.75rem;
+              "
+            >
+              30
+            </p>
+          </div>
+          <div style="border: none" class="bar-block">
+            <p
+              style="
+                align-self: flex-start;
+                text-align: right;
+                width: 100%;
+                padding-right: 3rem;
+                margin-top: -0.75rem;
+              "
+            >
+              20
+            </p>
+          </div>
+          <div style="border: none" class="bar-block">
+            <p
+              style="
+                align-self: flex-start;
+                text-align: right;
+                width: 100%;
+                padding-right: 3rem;
+                margin-top: -0.75rem;
+              "
+            >
+              10
+            </p>
+          </div>
+          <div style="border: none" class="bar-block">
+            <p
+              style="
+                align-self: flex-start;
+                text-align: right;
+                width: 100%;
+                padding-right: 3rem;
+                margin-top: -0.75rem;
+              "
+            >
+              0
+            </p>
+          </div>
+        </div>
+        <div class="chart-bar">
+          <div class="bar-flex">
+            <div class="bar-straw">
+              <div
+                style="background: #7da9ff; --juicelevel: 50"
+                class="straw-juice"
+              ></div>
             </div>
-            <div class="stat-flex">
-              <h4>7hr</h4>
-              <div class="stat-perc inc">
-                <i class="fi fi-rr-arrow-trend-up"></i>
-                <p><span>9.1%</span> vs last week</p>
-              </div>
+            <div class="bar-straw">
+              <div
+                style="background: #f48c7d; --juicelevel: 32"
+                class="straw-juice"
+              ></div>
+            </div>
+            <div class="bar-straw">
+              <div
+                style="background: #ff7edb; --juicelevel: 70"
+                class="straw-juice"
+              ></div>
             </div>
           </div>
-          <div class="task-box">
-            <img style="top: 3rem;" src="assets/images/common/zoho.svg" alt="">
-            <div class="title">
-              <i class="fi fi-ss-bullet"></i>
-              <p>Timesheet</p>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div
+            style="border-top: 1px solid rgba(255, 255, 255, 0.1)"
+            class="bar-block"
+          >
+            <p>24 Sun</p>
+          </div>
+        </div>
+        <div class="chart-bar">
+          <div class="bar-flex">
+            <div class="bar-straw">
+              <div
+                style="background: #7da9ff; --juicelevel: 23"
+                class="straw-juice"
+              ></div>
             </div>
-            <div class="stat-flex">
-              <h4>7/7</h4>
-              <div class="stat-perc inc">
-                <p>Everyone filled</p>
-              </div>
+            <div class="bar-straw">
+              <div
+                style="background: #f48c7d; --juicelevel: 45"
+                class="straw-juice"
+              ></div>
+            </div>
+            <div class="bar-straw">
+              <div
+                style="background: #ff7edb; --juicelevel: 2"
+                class="straw-juice"
+              ></div>
             </div>
           </div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div
+            style="border-top: 1px solid rgba(255, 255, 255, 0.1)"
+            class="bar-block"
+          >
+            <p>25 Mon</p>
+          </div>
+        </div>
+        <div class="chart-bar">
+          <div class="bar-flex">
+            <div class="bar-straw">
+              <div
+                style="background: #7da9ff; --juicelevel: 100"
+                class="straw-juice"
+              ></div>
+            </div>
+            <div class="bar-straw">
+              <div
+                style="background: #f48c7d; --juicelevel: 92"
+                class="straw-juice"
+              ></div>
+            </div>
+            <div class="bar-straw">
+              <div
+                style="background: #ff7edb; --juicelevel: 58"
+                class="straw-juice"
+              ></div>
+            </div>
+          </div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div
+            style="border-top: 1px solid rgba(255, 255, 255, 0.1)"
+            class="bar-block"
+          >
+            <p>26 Tue</p>
+          </div>
+        </div>
+        <div class="chart-bar">
+          <div class="bar-flex">
+            <div class="bar-straw">
+              <div
+                style="background: #7da9ff; --juicelevel: 73"
+                class="straw-juice"
+              ></div>
+            </div>
+            <div class="bar-straw">
+              <div
+                style="background: #f48c7d; --juicelevel: 36"
+                class="straw-juice"
+              ></div>
+            </div>
+            <div class="bar-straw">
+              <div
+                style="background: #ff7edb; --juicelevel: 31"
+                class="straw-juice"
+              ></div>
+            </div>
+          </div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div
+            style="border-top: 1px solid rgba(255, 255, 255, 0.1)"
+            class="bar-block"
+          >
+            <p>27 Wed</p>
+          </div>
+        </div>
+        <div class="chart-bar">
+          <div class="bar-flex">
+            <div class="bar-straw">
+              <div
+                style="background: #7da9ff; --juicelevel: 11"
+                class="straw-juice"
+              ></div>
+            </div>
+            <div class="bar-straw">
+              <div
+                style="background: #f48c7d; --juicelevel: 38"
+                class="straw-juice"
+              ></div>
+            </div>
+            <div class="bar-straw">
+              <div
+                style="background: #ff7edb; --juicelevel: 23"
+                class="straw-juice"
+              ></div>
+            </div>
+          </div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div
+            style="border-top: 1px solid rgba(255, 255, 255, 0.1)"
+            class="bar-block"
+          >
+            <p>28 Thu</p>
+          </div>
+        </div>
+        <div class="chart-bar">
+          <div class="bar-flex">
+            <div class="bar-straw">
+              <div
+                style="background: #7da9ff; --juicelevel: 34"
+                class="straw-juice"
+              ></div>
+            </div>
+            <div class="bar-straw">
+              <div
+                style="background: #f48c7d; --juicelevel: 32"
+                class="straw-juice"
+              ></div>
+            </div>
+            <div class="bar-straw">
+              <div
+                style="background: #ff7edb; --juicelevel: 73"
+                class="straw-juice"
+              ></div>
+            </div>
+          </div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div
+            style="border-top: 1px solid rgba(255, 255, 255, 0.1)"
+            class="bar-block"
+          >
+            <p>29 Fri</p>
+          </div>
+        </div>
+        <div class="chart-bar">
+          <div class="bar-flex">
+            <div class="bar-straw">
+              <div class="straw-juice empty"></div>
+            </div>
+            <div class="bar-straw">
+              <div class="straw-juice empty"></div>
+            </div>
+            <div class="bar-straw">
+              <div class="straw-juice empty"></div>
+            </div>
+          </div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div class="bar-block"></div>
+          <div
+            style="border-top: 1px solid rgba(255, 255, 255, 0.1)"
+            class="bar-block"
+          >
+            <p>30 Sat</p>
+          </div>
+        </div>
+        <div class="chart-bar">
+          <div style="border: none" class="bar-block">
+            <p
+              style="
+                align-self: flex-start;
+                text-align: left;
+                width: 100%;
+                padding-left: 3rem;
+                margin-top: -0.75rem;
+              "
+            >
+              100%
+            </p>
+          </div>
+          <div style="border: none" class="bar-block">
+            <p
+              style="
+                align-self: flex-start;
+                text-align: left;
+                width: 100%;
+                padding-left: 3rem;
+                margin-top: -0.75rem;
+              "
+            >
+              75%
+            </p>
+          </div>
+          <div style="border: none" class="bar-block">
+            <p
+              style="
+                align-self: flex-start;
+                text-align: left;
+                width: 100%;
+                padding-left: 3rem;
+                margin-top: -0.75rem;
+              "
+            >
+              50%
+            </p>
+          </div>
+          <div style="border: none" class="bar-block">
+            <p
+              style="
+                align-self: flex-start;
+                text-align: left;
+                width: 100%;
+                padding-left: 3rem;
+                margin-top: -0.75rem;
+              "
+            >
+              25%
+            </p>
+          </div>
+          <div style="border: none" class="bar-block">
+            <p
+              style="
+                align-self: flex-start;
+                text-align: left;
+                width: 100%;
+                padding-left: 3rem;
+                margin-top: -0.75rem;
+              "
+            >
+              0%
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="ts-middle-left">
-    <div class="title-flex">
-      <h3>Tasks weekly analytics</h3>
-      <div class="team-members-short-flex">
-        <div style="margin-right: -0.5rem;" class="mini-image-circle">
-          <img src="https://i.pravatar.cc/150?img=20">
-        </div>
-        <div style="margin-right: -0.5rem;" class="mini-image-circle">
-          <img src="https://i.pravatar.cc/150?img=30">
-        </div>
-        <div style="margin-right: -0.5rem;" class="mini-image-circle">
-          <img src="https://i.pravatar.cc/150?img=40">
-        </div>
-        <div class="mini-image-circle number-circle">
-          <p>+9</p>
+    <div class="ts-middle-right">
+      <img src="assets/images/main/team/jos.svg" alt="" />
+      <div class="content-flex">
+        <h4>Yashwanth, Jaws Of Steel!</h4>
+        <p>
+          Congrats, You have contributed a lotta time attending meetings to
+          solve issues.
+        </p>
+        <div class="stat-flex-1">
+          <div class="stat-box-1">
+            <h5>20+ Hrs</h5>
+            <p>On call</p>
+          </div>
+          <img src="https://i.pravatar.cc/50?img=52" alt="" />
         </div>
       </div>
     </div>
-    <div class="an-labels-flex">
-      <div class="an-label">
-        <i style="color: #7da9ff;" class="fi fi-ss-bullet"></i>
-        <img src="assets/images/common/jira.svg" alt="">
-        <p>Atlassian JIRA</p>
-      </div>
-      <div class="an-label">
-        <i style="color: #f48c7d;" class="fi fi-ss-bullet"></i>
-        <img src="assets/images/common/gitlab.svg" alt="">
-        <p>Commits</p>
-      </div>
-      <div class="an-label">
-        <i style="color: #ff7edb;" class="fi fi-ss-bullet"></i>
-        <img src="assets/images/common/msteams.svg" alt="">
-        <p>Calls</p>
-      </div>
+  </ng-container>
+
+  <ng-container *ngIf="!dataService.myTeam">
+    <div class="new-ts-container">
+      <h2>You are no member of any team. Working alone?</h2>
+      <p>
+        Please proceed to create your team by clicking the button below. Enable
+        analytics to analyze performance of members.
+      </p>
+      <ng-lottie [height]="'300px'" [options]="newTeamsAnimation"></ng-lottie>
+      <button
+        (click)="onCreateNewTeam()"
+        style="align-self: center"
+        class="primary-button"
+      >
+        <p
+          class="pb-text"
+          role="button"
+          (click)="this.appControlService.showNewTeam = true"
+        >
+          Create a new team
+        </p>
+      </button>
     </div>
-    <div class="an-chart-container">
-      <div class="chart-bar">
-        <div style="border: none;" class="bar-block">
-          <p style="align-self: flex-start; text-align: right; width:
-          100%; padding-right: 3rem; margin-top: -0.75rem;">40</p>
-        </div>
-        <div style="border: none;" class="bar-block">
-          <p style="align-self: flex-start; text-align: right; width:
-          100%; padding-right: 3rem; margin-top: -0.75rem;">30</p>
-        </div>
-        <div style="border: none;" class="bar-block">
-          <p style="align-self: flex-start; text-align: right; width:
-          100%; padding-right: 3rem; margin-top: -0.75rem;">20</p>
-        </div>
-        <div style="border: none;" class="bar-block">
-          <p style="align-self: flex-start; text-align: right; width:
-          100%; padding-right: 3rem; margin-top: -0.75rem;">10</p>
-        </div>
-        <div style="border: none;" class="bar-block">
-          <p style="align-self: flex-start; text-align: right; width:
-          100%; padding-right: 3rem; margin-top: -0.75rem;">0</p>
-        </div>
-      </div>
-      <div class="chart-bar">
-        <div class="bar-flex">
-          <div class="bar-straw">
-            <div style="background: #7da9ff; --juicelevel: 50" class="straw-juice"></div>
-          </div>
-          <div class="bar-straw">
-            <div style="background: #f48c7d; --juicelevel: 32" class="straw-juice"></div>
-          </div>
-          <div class="bar-straw">
-            <div style="background: #ff7edb; --juicelevel: 70" class="straw-juice"></div>
-          </div>
-        </div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div style="border-top: 1px solid rgba(255, 255, 255, 0.1)" class="bar-block">
-          <p>24 Sun</p>
-        </div>
-      </div>
-      <div class="chart-bar">
-        <div class="bar-flex">
-          <div class="bar-straw">
-            <div style="background: #7da9ff; --juicelevel: 23" class="straw-juice"></div>
-          </div>
-          <div class="bar-straw">
-            <div style="background: #f48c7d; --juicelevel: 45" class="straw-juice"></div>
-          </div>
-          <div class="bar-straw">
-            <div style="background: #ff7edb; --juicelevel: 2" class="straw-juice"></div>
-          </div>
-        </div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div style="border-top: 1px solid rgba(255, 255, 255, 0.1)" class="bar-block">
-          <p>25 Mon</p>
-        </div>
-      </div>
-      <div class="chart-bar">
-        <div class="bar-flex">
-          <div class="bar-straw">
-            <div style="background: #7da9ff; --juicelevel: 100" class="straw-juice"></div>
-          </div>
-          <div class="bar-straw">
-            <div style="background: #f48c7d; --juicelevel: 92" class="straw-juice"></div>
-          </div>
-          <div class="bar-straw">
-            <div style="background: #ff7edb; --juicelevel: 58" class="straw-juice"></div>
-          </div>
-        </div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div style="border-top: 1px solid rgba(255, 255, 255, 0.1)" class="bar-block">
-          <p>26 Tue</p>
-        </div>
-      </div>
-      <div class="chart-bar">
-        <div class="bar-flex">
-          <div class="bar-straw">
-            <div style="background: #7da9ff; --juicelevel: 73" class="straw-juice"></div>
-          </div>
-          <div class="bar-straw">
-            <div style="background: #f48c7d; --juicelevel: 36" class="straw-juice"></div>
-          </div>
-          <div class="bar-straw">
-            <div style="background: #ff7edb; --juicelevel: 31" class="straw-juice"></div>
-          </div>
-        </div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div style="border-top: 1px solid rgba(255, 255, 255, 0.1)" class="bar-block">
-          <p>27 Wed</p>
-        </div>
-      </div>
-      <div class="chart-bar">
-        <div class="bar-flex">
-          <div class="bar-straw">
-            <div style="background: #7da9ff; --juicelevel: 11" class="straw-juice"></div>
-          </div>
-          <div class="bar-straw">
-            <div style="background: #f48c7d; --juicelevel: 38" class="straw-juice"></div>
-          </div>
-          <div class="bar-straw">
-            <div style="background: #ff7edb; --juicelevel: 23" class="straw-juice"></div>
-          </div>
-        </div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div style="border-top: 1px solid rgba(255, 255, 255, 0.1)" class="bar-block">
-          <p>28 Thu</p>
-        </div>
-      </div>
-      <div class="chart-bar">
-        <div class="bar-flex">
-          <div class="bar-straw">
-            <div style="background: #7da9ff; --juicelevel: 34" class="straw-juice"></div>
-          </div>
-          <div class="bar-straw">
-            <div style="background: #f48c7d; --juicelevel: 32" class="straw-juice"></div>
-          </div>
-          <div class="bar-straw">
-            <div style="background: #ff7edb; --juicelevel: 73" class="straw-juice"></div>
-          </div>
-        </div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div style="border-top: 1px solid rgba(255, 255, 255, 0.1)" class="bar-block">
-          <p>29 Fri</p>
-        </div>
-      </div>
-      <div class="chart-bar">
-        <div class="bar-flex">
-          <div class="bar-straw">
-            <div class="straw-juice empty"></div>
-          </div>
-          <div class="bar-straw">
-            <div class="straw-juice empty"></div>
-          </div>
-          <div class="bar-straw">
-            <div class="straw-juice empty"></div>
-          </div>
-        </div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div class="bar-block"></div>
-        <div style="border-top: 1px solid rgba(255, 255, 255, 0.1)" class="bar-block">
-          <p>30 Sat</p>
-        </div>
-      </div>
-      <div class="chart-bar">
-        <div style="border: none;" class="bar-block">
-          <p style="align-self: flex-start; text-align: left; width:
-          100%; padding-left: 3rem; margin-top: -0.75rem;">100%</p>
-        </div>
-        <div style="border: none;" class="bar-block">
-          <p style="align-self: flex-start; text-align: left; width:
-          100%; padding-left: 3rem; margin-top: -0.75rem;">75%</p>
-        </div>
-        <div style="border: none;" class="bar-block">
-          <p style="align-self: flex-start; text-align: left; width:
-          100%; padding-left: 3rem; margin-top: -0.75rem;">50%</p>
-        </div>
-        <div style="border: none;" class="bar-block">
-          <p style="align-self: flex-start; text-align: left; width:
-          100%; padding-left: 3rem; margin-top: -0.75rem;">25%</p>
-        </div>
-        <div style="border: none;" class="bar-block">
-          <p style="align-self: flex-start; text-align: left; width:
-          100%; padding-left: 3rem; margin-top: -0.75rem;">0%</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="ts-middle-right">
-    <img src="assets/images/main/team/jos.svg" alt="">
-    <div class="content-flex">
-      <h4>Yashwanth, Jaws Of Steel!</h4>
-      <p>Congrats, You have contributed a lotta time attending meetings to solve issues.</p>
-      <div class="stat-flex-1">
-        <div class="stat-box-1">
-          <h5>20+ Hrs</h5>
-          <p>On call</p>
-        </div>
-        <img src="https://i.pravatar.cc/50?img=52" alt="">
-      </div>
-    </div>
-  </div>
+  </ng-container>
 
   <app-share *ngIf="appControlService.showAppShare"></app-share>
-  <app-notifications *ngIf="appControlService.showNotifications"></app-notifications>
+  <app-notifications
+    *ngIf="appControlService.showNotifications"
+  ></app-notifications>
+  <app-new-team *ngIf="appControlService.showNewTeam"></app-new-team>
 </section>

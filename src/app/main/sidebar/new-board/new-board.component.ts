@@ -154,9 +154,8 @@ export class NewBoardComponent {
 
   onProceed(direction: string) {
     try {
-      if (this.currentStage == 3) {
+      if (this.currentStage == 3 && direction == 'fwd') {
         let boardObj = { ...this.createBoardFormGroup.value };
-        boardObj.userId = this.dataService.userObj.user_id;
         boardObj.timeConstraints = {
           clockIn: '10:00 AM',
           clockOut: '07:00 PM',

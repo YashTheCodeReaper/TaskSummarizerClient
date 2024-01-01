@@ -1,0 +1,308 @@
+<div class="new-team_component">
+  <div class="nt-top">
+    <div class="breadcrumb-flex">
+      <div class="curr-user-flex">
+        <img
+          src="{{
+            dataService.getConfig().baseApiUrl + userObj.profile_picture_path
+          }}"
+          *ngIf="userObj.profile_picture_path"
+        />
+        <div class="no-image-ph" *ngIf="!userObj.profile_picture_path">
+          <h3>{{ getMiniUserName(userObj.name) }}</h3>
+        </div>
+        <h5>{{ userObj.name }}</h5>
+      </div>
+      <i class="fi fi-rr-angle-right"></i>
+      <h5>
+        <i class="fi fi-sr-volleyball"></i>
+        <span>Create a team</span>
+      </h5>
+    </div>
+    <i class="fi fi-rr-cross" (click)="closeNewTeam()"></i>
+  </div>
+  <div class="nt-top-middle">
+    <div
+      class="stage-box active-stage"
+      *ngFor="let stage of stages; let i = index"
+      [ngClass]="{
+        'active-stage': currentStage >= i,
+        'completed-stage': currentStage >= i + 1
+      }"
+    >
+      <i class="fi {{ stage.icon }}"></i>
+      <p>{{ stage.name }}</p>
+    </div>
+  </div>
+  <div class="nt-enclosure">
+    <div class="nt-enclosure-1">
+      <div class="nt-enclosure-2" #nte2>
+        <div class="nt-enclosure-box" *ngFor="let stage of stages">
+          <h3>{{ stage.description }}</h3>
+
+          <ng-container *ngIf="currentStage == 0">
+            <div class="profp-container">
+              <div class="prof-circle">
+                <img *ngIf="imageDataUrl" [src]="imageDataUrl" />
+                <i *ngIf="!imageDataUrl" class="fi fi-sr-users"></i>
+                <div *ngIf="!imageDataUrl" class="fs-toggle" role="button">
+                  <input
+                    type="file"
+                    name="file-selector"
+                    #file
+                    accept="image/*"
+                    (change)="onImageSelection(file.files)"
+                  />
+                  <i class="fi fi-br-picture"></i>
+                </div>
+              </div>
+            </div>
+            <form [formGroup]="teamInfoFormGroup">
+              <div
+                class="input-group input-group-nt1-0"
+                [ngClass]="{
+                  'input-group-focus-forced':
+                    teamInfoFormGroup.controls['name'].value?.length
+                }"
+              >
+                <label for="name">Set a name</label>
+                <input
+                  formControlName="name"
+                  type="text"
+                  (focus)="onFieldFocus(0)"
+                  (blur)="onFieldFocus(0)"
+                />
+                <i
+                  *ngIf="validateField(teamInfoFormGroup, 'name')"
+                  class="warn-icon fi fi-sr-info"
+                ></i>
+              </div>
+              <span
+                class="error-message"
+                *ngIf="validateField(teamInfoFormGroup, 'name')"
+                >Please choose a name to proceed!</span
+              >
+              <span class="error-message info-message">
+                Set a name for your team.
+              </span>
+              <div
+                class="input-group input-group-nt1-1"
+                style="margin-top: 2rem"
+                [ngClass]="{
+                  'input-group-focus-forced':
+                    teamInfoFormGroup.controls['description'].value?.length
+                }"
+              >
+                <label for="description">Enter a description</label>
+                <input
+                  formControlName="description"
+                  type="text"
+                  (focus)="onFieldFocus(1)"
+                  (blur)="onFieldFocus(1)"
+                />
+                <i
+                  *ngIf="validateField(teamInfoFormGroup, 'description')"
+                  class="warn-icon fi fi-sr-info"
+                ></i>
+              </div>
+              <span
+                class="error-message"
+                *ngIf="validateField(teamInfoFormGroup, 'description')"
+                >Say something about this team</span
+              >
+              <span class="error-message info-message">
+                Give a short description on what the team is about and what your
+                members are into.
+              </span>
+            </form>
+          </ng-container>
+
+          <ng-container *ngIf="currentStage == 1">
+            <h4>
+              Team analytics is the place where you can view your and your team
+              member's task analytics. Your team members also will be able to
+              view their analytics. Enable this to evaluate your team's
+              performance each week and hard working individual gets recognized
+              everytime.
+            </h4>
+            <div class="concent-preview-flex">
+              <div
+                role="checkbox"
+                class="consent-flex"
+                (click)="this.analyticConsented = !this.analyticConsented"
+              >
+                <i
+                  class="fi fi-{{ analyticConsented ? 'sr' : 'rr' }}-checkbox"
+                  [ngClass]="{ 'active-icon': analyticConsented }"
+                ></i>
+                <p>Consent for team analytics</p>
+              </div>
+              <img
+                src="assets/images/main/team/teamAnalyticSample.png"
+                alt=""
+              />
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="currentStage == 2">
+            <form [formGroup]="accessibilityInfoFormGroup">
+              <div
+                class="input-group input-group-nt1-2"
+                [ngClass]="{
+                  'input-group-focus-forced':
+                    accessibilityInfoFormGroup.controls['linkedBoard'].value
+                      ?.length,
+                  'input-group-focus': showBoardsFlex
+                }"
+              >
+                <label for="linkedBoard">Choose a board</label>
+                <input
+                  formControlName="linkedBoard"
+                  type="text"
+                  (focus)="onFieldFocus(2)"
+                  (blur)="onFieldFocus(2)"
+                />
+                <div
+                  style="top: 7.5rem"
+                  class="dropdown"
+                  appOutsideClick
+                  (outsideClick)="onBoardsFlexOutsideClick()"
+                  [clickExceptions]="['input-group-nt1-2']"
+                  *ngIf="showBoardsFlex"
+                >
+                  <div
+                    class="option"
+                    (click)="onChooseBoard(board)"
+                    role="option"
+                    *ngFor="let board of filterObject(availableBoards)"
+                  >
+                    <p>{{ board.name }}</p>
+                  </div>
+                  <div
+                    class="option"
+                    *ngIf="!filterObject(availableBoards).length"
+                  >
+                    <p>Not found</p>
+                  </div>
+                </div>
+                <i
+                  *ngIf="
+                    validateField(accessibilityInfoFormGroup, 'linkedBoard')
+                  "
+                  class="warn-icon fi fi-sr-info"
+                ></i>
+              </div>
+              <span
+                class="error-message"
+                *ngIf="validateField(accessibilityInfoFormGroup, 'linkedBoard')"
+                >Please link your board to proceed!</span
+              >
+              <span class="error-message info-message">
+                Choose on of your public boards to link to this team.
+              </span>
+              <div class="checkbox-group" style="margin-top: 2rem">
+                <div
+                  class="custom-checkbox"
+                  role="checkbox"
+                  [ngClass]="{
+                    'inactive-checkbox':
+                      !accessibilityInfoFormGroup.controls['anyoneCanInvite']
+                        .value
+                  }"
+                  (click)="
+                    accessibilityInfoFormGroup.controls[
+                      'anyoneCanInvite'
+                    ].setValue(
+                      !accessibilityInfoFormGroup.controls['anyoneCanInvite']
+                        .value
+                    )
+                  "
+                >
+                  <div class="checkbox-ball"></div>
+                </div>
+                <p>Anyone can invite others</p>
+              </div>
+              <span class="error-message info-message">
+                Enable this if you want your members to be able to invite others
+                members to your team.
+              </span>
+            </form>
+          </ng-container>
+
+          <ng-container *ngIf="currentStage == 3">
+            <div class="new-team-summary-flex">
+              <h4>{{ teamInfoFormGroup.value?.name }} <img src="{{teamInfoFormGroup.value?.profilePicture}}" alt=""></h4>
+              <p>{{ teamInfoFormGroup.value?.description }}</p>
+              <h5>
+                Team analytics {{ analyticConsented ? "enabled" : "disabled" }}
+                <i
+                  (mouseenter)="this.showAnalyticConcentInfo = true"
+                  (mouseleave)="this.showAnalyticConcentInfo = false"
+                  class="fi fi-sr-interrogation"
+                ></i>
+                <span *ngIf="showAnalyticConcentInfo" class="trackable-detail">
+                  {{
+                    analyticConsented
+                      ? "Your and your team members performance analytic dashboard will be visibie to you and your team members."
+                      : "Your and your team members performance analytic dashboard is disabled."
+                  }}
+                </span>
+              </h5>
+              <h5>
+                <p>Linked board</p>
+              </h5>
+              <div class="boards-flex" style="margin-top: -1.5rem">
+                <div class="board">
+                  <p>{{ chosenBoard.name }}</p>
+                </div>
+              </div>
+              <h5>
+                Members can be invited by
+                {{
+                  accessibilityInfoFormGroup.controls["anyoneCanInvite"].value
+                    ? "anyone"
+                    : "no one but you"
+                }}
+                <i
+                  (mouseenter)="this.showAccessibilityInfo = true"
+                  (mouseleave)="this.showAccessibilityInfo = false"
+                  class="fi fi-sr-interrogation"
+                ></i>
+                <span *ngIf="showAccessibilityInfo" class="trackable-detail">
+                  {{
+                    accessibilityInfoFormGroup.controls["anyoneCanInvite"].value
+                      ? "You and your team members can invite any member to join your team. Invite link will be new for each member who chooses to invite."
+                      : "Only you can invite other members to join your team. Invite members by creating an invite link."
+                  }}
+                </span>
+              </h5>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="button-flex">
+    <button
+      *ngIf="currentStage > 0"
+      [disabled]="!currentStage"
+      class="primary-button danger-button"
+      [ngClass]="{ 'blocked-button': currentStage == 0 }"
+      (click)="onProceed('bwd')"
+    >
+      <i class="pb-icon fi fi-rr-arrow-left"></i>
+      <div class="pb-text">Back</div>
+    </button>
+    <button
+      class="primary-button"
+      [ngClass]="{ 'blocked-button': !getButtonStatus() }"
+      (click)="onProceed('fwd')"
+    >
+      <div class="pb-text">
+        {{ currentStage == 3 ? "Create team" : "Next" }}
+      </div>
+      <i class="pb-icon fi fi-rr-arrow-right"></i>
+    </button>
+  </div>
+</div>

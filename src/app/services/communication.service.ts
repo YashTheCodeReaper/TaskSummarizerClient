@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 
 declare var TsSdk: any;
 @Injectable({
   providedIn: 'root',
 })
 export class CommunicationService {
-  private callbacks = new ReplaySubject<any>(1);
+  private callbacks = new Subject<any>();
   callbacksObservable: Observable<any> = this.callbacks.asObservable();
 
   constructor(private cookieService: CookieService) {
@@ -76,6 +76,30 @@ export class CommunicationService {
       TsSdk.On('BOARD_CREATED', (data: any) => {
         this.callbacks.next({
           callbackEvent: 'board_created',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('BOARDS_FETCHED', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'boards_fetched',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('TEAM_CREATED', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'team_created',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('TEAM_FETCHED', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'team_fetched',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('LINKED_TEAMS_UPDATED', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'linked_teams_updated',
           callbackData: data,
         });
       });

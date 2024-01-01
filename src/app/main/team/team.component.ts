@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { AppControlService } from 'src/app/services/app-control.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-team',
@@ -10,6 +11,11 @@ import { AppControlService } from 'src/app/services/app-control.service';
 export class TeamComponent {
   chosenOneAnimation: AnimationOptions = {
     path: 'assets/images/main/team/chosenone.json',
+    loop: true,
+    autoplay: true,
+  };
+  newTeamsAnimation: AnimationOptions = {
+    path: 'assets/images/main/team/newTeam.json',
     loop: true,
     autoplay: true,
   };
@@ -108,7 +114,10 @@ export class TeamComponent {
     },
   ];
 
-  constructor(public appControlService: AppControlService) {
+  constructor(
+    public appControlService: AppControlService,
+    public dataService: DataService
+  ) {
     this.prepareHeatMap();
   }
 
@@ -154,5 +163,12 @@ export class TeamComponent {
 
   getRandomInt(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  onCreateNewTeam(): void {
+    try {
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

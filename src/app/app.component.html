@@ -1,8 +1,15 @@
-
 <ng-container *ngIf="!showSevereErrorPage">
   <router-outlet></router-outlet>
-  <div class="blur-overlay"
-    *ngIf="(appControlService.showJoinTeam || appControlService.showOnboarding || appControlService.showNewBoard || appControlService.showAddTask)">
+  <div
+    class="blur-overlay"
+    *ngIf="
+      appControlService.showNewTeam ||
+      appControlService.showJoinTeam ||
+      appControlService.showOnboarding ||
+      appControlService.showNewBoard ||
+      appControlService.showAddTask
+    "
+  >
     <app-onboarding *ngIf="appControlService.showOnboarding"></app-onboarding>
   </div>
 </ng-container>
