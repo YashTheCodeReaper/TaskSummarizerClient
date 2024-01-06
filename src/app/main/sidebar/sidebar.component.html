@@ -52,16 +52,26 @@
 
     <!-- Dashboard team info -->
     <ng-container *ngFor="let board of dataService.boards; let i = index">
-      <div class="team-info-flex" *ngIf="board.linked_team && dataService.myInvolvedTeams?.length">
-        <div class="team-dropdown">
+      <div
+        class="team-info-flex"
+        *ngIf="board.linked_team && dataService.myInvolvedTeams?.length"
+      >
+        <div
+          class="team-dropdown"
+          [ngClass]="{
+            'active-team': dataService.selectedBoard?.linked_team?.includes(
+              board.linked_team
+            )
+          }"
+        >
           <i class="fi fi-rr-folder-open"></i>
-          <p>{{getTeamInfo(board.linked_team).name}}</p>
-          <i class="fi dropdown-icon fi-br-angle-up"></i>
+          <p>{{ dataService.getTeamInfo(board.linked_team).name }}</p>
+          <i class="fi dropdown-icon fi-br-angle-down"></i>
         </div>
-        <div class="boards-info-flex">
+        <div class="boards-info-flex" role="button" (click)="onSelectBoard(board)">
           <div class="board-flex">
             <i style="color: #f48c7d" class="fi fi-br-circle"></i>
-            <p>{{board.name}}</p>
+            <p>{{ board.name }}</p>
           </div>
         </div>
       </div>
@@ -71,9 +81,12 @@
         class="boards-info-flex"
         style="padding-bottom: 1rem"
         *ngIf="!board.linked_team"
-        [ngStyle]="{ 'margin-top': i == 0 ? '0.75rem' : '' }"
+        [ngStyle]="{
+          'margin-top': i == 0 ? '0.75rem' : '',
+          'margin-bottom': i == 0 ? '-1rem' : '0'
+        }"
       >
-        <div class="board-flex">
+        <div class="board-flex" role="button" (click)="onSelectBoard(board)">
           <i style="color: #24c3a9" class="fi fi-rr-triangle"></i>
           <p>{{ board.name }}</p>
         </div>
@@ -84,6 +97,7 @@
         class="board-flex"
         (click)="this.appControlService.showNewBoard = true"
         style="margin-bottom: 0.75rem; color: var(--theme-var-1)"
+        role="button"
       >
         <i class="fi fi-br-plus"></i>
         <p style="font-weight: 500">Create new board</p>

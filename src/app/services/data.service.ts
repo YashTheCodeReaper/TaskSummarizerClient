@@ -4,6 +4,8 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CommunicationService } from './communication.service';
 
+declare var TsSdk: any;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +19,10 @@ export class DataService {
   teams: any = [];
   userObj: any = {};
   orgBoards: any[] = [];
-  myInvolvedTeams: any;
+  myInvolvedTeams: any[] = [];
+  selectedBoard: any;
+  teamMembers: any = {};
+  myInvolvedUsers: any[] = [];
 
   constructor(
     private http: HttpClient,
@@ -31,11 +36,24 @@ export class DataService {
             JSON.stringify(callbackObj.callbackData.data)
           );
           this.flatenBoards();
+          this.selectedBoard = this.boards[1];
           break;
         }
         case 'all_teams_fetched': {
           this.myInvolvedTeams = callbackObj.callbackData.data;
           console.log(this.myInvolvedTeams);
+          this.myInvolvedTeams.forEach((teamObj: any) => {
+            TsSdk.getTeamMembers(teamObj.team_id);
+          });
+          break;
+        }
+        case 'fetched_team_members': {
+          callbackObj.callbackData.data.forEach((userObj: any) => {
+            const userAlreadyExists = this.myInvolvedUsers.findIndex(
+              (userObj1: any) => userObj.user_id == userObj1.user_id
+            );
+            if (userAlreadyExists < 0) this.myInvolvedUsers.push(userObj);
+          });
           break;
         }
       }
@@ -98,6 +116,16 @@ export class DataService {
   getConfig(): ApplicationConfiguration | any {
     try {
       return this.appConfig;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  getTeamInfo(teamId: string): any {
+    try {
+      return this.myInvolvedTeams.find(
+        (teamObj: any) => teamObj.team_id == teamId
+      );
     } catch (error) {
       console.error(error);
     }

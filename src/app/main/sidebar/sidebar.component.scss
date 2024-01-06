@@ -244,7 +244,7 @@
         width: 100%;
         height: 5rem;
         border-radius: 1.5rem;
-        background: var(--theme-var-1);
+        background: var(--theme-var-1-dimmed);
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -269,6 +269,10 @@
           right: 2rem;
           font-size: 1.2rem;
         }
+      }
+
+      .active-team {
+        background: var(--theme-var-1);
       }
     }
 

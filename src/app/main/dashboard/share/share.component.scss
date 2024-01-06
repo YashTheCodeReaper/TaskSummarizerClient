@@ -77,20 +77,84 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    position: relative;
+
+    .dropdown {
+      position: absolute;
+      top: 4rem;
+      left: 0;
+      width: 33.5rem;
+      background: var(--bg-3);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      max-height: 10rem;
+      overflow-y: scroll;
+      z-index: 10;
+
+      .option {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        background: transparent;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 300ms ease;
+        cursor: pointer;
+
+        p {
+          font-size: 1.2rem;
+          font-weight: 400;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 0.5rem;
+
+          img{
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+          }
+        }
+
+        &:hover {
+          background: var(--theme-var-1-dimmed);
+        }
+      }
+
+      &::-webkit-scrollbar {
+        width: 2px;
+        height: 2px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 50px;
+        background: var(--theme-var-1);
+      }
+
+      &::-webkit-scrollbar-corner {
+        background: transparent;
+      }
+    }
 
     .invite-box {
       width: 75%;
       padding: 0.5rem;
-      height: 4rem;
+      height: 4rem.1;
       border-radius: 0.5rem;
       border: 1px solid var(--border-1);
       background: var(--bg-1);
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
-      // flex-wrap: wrap;
-      overflow-x: scroll;
-      overflow-y: hidden;
+      flex-wrap: wrap;
+      overflow: scroll;
+      gap: 0.5rem;
 
       input {
         border: none;
@@ -328,6 +392,7 @@
               background: var(--theme-var-1-dimmed);
               color: var(--theme-var-1);
               font-size: 1.2rem;
+              margin-top: -0.2rem;
             }
 
             .name {

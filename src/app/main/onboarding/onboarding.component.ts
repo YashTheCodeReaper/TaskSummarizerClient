@@ -49,7 +49,7 @@ export class OnboardingComponent {
     )
       this.showJif = true;
 
-    // if (this.router.url == '/' && !this.showIntroOnboarding && !this.showJif)
+    if (this.router.url == '/' && !this.showIntroOnboarding && !this.showJif)
       this.appControlService.showOnboarding = false;
   }
 

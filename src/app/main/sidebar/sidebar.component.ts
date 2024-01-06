@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppControlService } from 'src/app/services/app-control.service';
 import { DataService } from 'src/app/services/data.service';
 
@@ -12,7 +13,8 @@ export class SidebarComponent {
 
   constructor(
     public appControlService: AppControlService,
-    public dataService: DataService
+    public dataService: DataService,
+    private router: Router
   ) {
     this.userObj = this.dataService.userObj;
   }
@@ -27,11 +29,10 @@ export class SidebarComponent {
     }
   }
 
-  getTeamInfo(teamId: string): any {
+  onSelectBoard(boardObject: any): void {
     try {
-      return this.dataService.myInvolvedTeams.find(
-        (teamObj: any) => teamObj.team_id == teamId
-      );
+      this.dataService.selectedBoard = boardObject;
+      this.router.navigate(['/']);
     } catch (error) {
       console.error(error);
     }

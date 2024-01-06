@@ -1,104 +1,223 @@
-<section class="share_component" appOutsideClick (outsideClick)="this.appControlService.showAppShare = false;" [clickExceptions]="['link-option']">
+<section
+  class="share_component"
+  appOutsideClick
+  (outsideClick)="this.appControlService.showAppShare = false"
+  [clickExceptions]="['link-option', 'remove-member-icon']"
+>
   <div class="link-type-switcher">
-    <div [ngClass]="{'active-lt': !inviteMembers}" class="type-flex" role="button"
-      (click)="this.inviteMembers = false;">
+    <div
+      [ngClass]="{ 'active-lt': !inviteMembers }"
+      class="type-flex"
+      role="button"
+      (click)="this.inviteMembers = false"
+    >
       <p>Share link</p>
     </div>
-    <div [ngClass]="{'active-lt': inviteMembers}" class="type-flex" role="button" (click)="this.inviteMembers = true;">
+    <div
+      [ngClass]="{ 'active-lt': inviteMembers }"
+      class="type-flex"
+      role="button"
+      (click)="this.inviteMembers = true"
+    >
       <p>Invite users</p>
     </div>
   </div>
-  <h2>Compilers Clan</h2>
+  <h2>
+    {{ dataService.getTeamInfo(dataService.selectedBoard?.linked_team)?.name }}
+  </h2>
   <ng-container *ngIf="inviteMembers">
     <p>Invite members that you need to be involved in your team!</p>
     <div class="invited-search-flex">
       <div class="invite-box">
-        <div class="member-to-invite">
-          <img src="https://i.pravatar.cc/50?img=30">
-          <p>Kavana K</p>
-          <i class="fi fi-rr-cross-small"></i>
+        <div
+          class="member-to-invite"
+          *ngFor="let member of membersToBeInvited; let i = index"
+        >
+          <img
+            src="{{
+              dataService.getConfig().baseApiUrl + member.profile_picture_path
+            }}"
+          />
+          <p>{{ member.name }}</p>
+          <i
+            role="button"
+            (click)="onRemoveMember(i, $event)"
+            class="remove-member-icon fi fi-rr-cross-small"
+          ></i>
         </div>
-        <input type="text" placeholder="Search here">
+        <input
+          (input)="filterUnjoinedMembers()"
+          (focus)="onSearchFieldFocus()"
+          [(ngModel)]="searchQuote"
+          type="text"
+          placeholder="Search here"
+          class="search-members-input"
+        />
       </div>
-      <button class="primary-button">
+      <div
+        class="dropdown search-flex-dropdown"
+        appOutsideClick
+        (outsideClick)="this.showSearchFlex = false"
+        [clickExceptions]="['invited-search-flex', 'search-flex-dropdown']"
+        *ngIf="showSearchFlex && searchQuote"
+      >
+        <div
+          class="option"
+          (click)="addMemberToInvite(member)"
+          role="option"
+          *ngFor="let member of unjoinedMembers"
+        >
+          <p>
+            <img
+              src="{{
+                dataService.getConfig().baseApiUrl + member.profile_picture_path
+              }}"
+              alt=""
+            />
+            {{ member.name }}
+          </p>
+        </div>
+        <div class="option" *ngIf="!unjoinedMembers.length">
+          <p>Not found</p>
+        </div>
+      </div>
+      <button
+        (click)="sendNotification()"
+        [ngClass]="{ 'blocked-button': !membersToBeInvited.length }"
+        class="primary-button"
+      >
         <p class="pb-text">Invite</p>
       </button>
     </div>
     <h5>Already on this team</h5>
     <div class="team-members-flex">
-      <div class="member-flex">
+      <div class="member-flex" *ngFor="let member of teamMembers">
         <div class="member-info-flex">
-          <img src="https://i.pravatar.cc/50?img=31">
+          <img
+            src="{{
+              dataService.getConfig().baseApiUrl + member.profile_picture_path
+            }}"
+          />
           <div class="member-title-flex">
-            <h5><span class="name">Suraj Kumar</span><span class="role">Manager</span></h5>
-            <p class="mailid">suraj.kumar&#x40;tetherfi.com</p>
+            <h5>
+              <span class="name">{{ member.name }}</span
+              ><span class="role">{{ member.designation }}</span>
+            </h5>
+            <p class="mailid">{{ member.email }}</p>
           </div>
         </div>
-        <p>TL</p>
-      </div>
-      <div class="member-flex">
-        <div class="member-info-flex">
-          <img src="https://i.pravatar.cc/50?img=33">
-          <div class="member-title-flex">
-            <h5><span class="name">Yashwanthkumar Arivazhagan</span><span class="role">Member</span></h5>
-            <p class="mailid">yashwanthkumar.arivazhagan&#x40;tetherfi.com</p>
-          </div>
-        </div>
-        <p>JSE</p>
-      </div>
-      <div class="member-flex">
-        <div class="member-info-flex">
-          <img src="https://i.pravatar.cc/50?img=34">
-          <div class="member-title-flex">
-            <h5><span class="name">Poornachandra M</span><span class="role">Member</span></h5>
-            <p class="mailid">poornachandra.m&#x40;tetherfi.com</p>
-          </div>
-        </div>
-        <p>SE</p>
-      </div>
-      <div class="member-flex">
-        <div class="member-info-flex">
-          <img src="https://i.pravatar.cc/50?img=35">
-          <div class="member-title-flex">
-            <h5><span class="name">Bharish Alva</span><span class="role">Member</span></h5>
-            <p class="mailid">bharish.alva&#x40;tetherfi.com</p>
-          </div>
-        </div>
-        <p>JSE</p>
+        <p>{{ member.role == "member" ? "TM" : "TL" }}</p>
       </div>
     </div>
   </ng-container>
   <ng-container *ngIf="!inviteMembers">
-    <p>Create a sharable link to get people join your team</p>
-    <h5 style="cursor: pointer;"><i class="fi fi-sr-lock"></i>Anyone with the link and password</h5>
-    <div class="password-input-flex">
-      <div class="pwl">
-        <input maxlength="1" type="password">
-        <input maxlength="1" type="password">
-        <input maxlength="1" type="password">
+    <p>
+      {{
+        isLinkGenerated
+          ? "A link has already been generated and shown below. Please delete that to create another!"
+          : "Create a sharable link to get people join your team"
+      }}
+    </p>
+    <h5
+      style="cursor: pointer"
+      [ngStyle]="{ pointerEvents: isLinkGenerated ? 'none' : 'all' }"
+      role="checkbox"
+      (click)="this.linkWithPassword = !this.linkWithPassword"
+    >
+      <i
+        [ngStyle]="{
+          opacity: linkWithPassword ? 1 : '0.5',
+          color: linkWithPassword ? 'var(--theme-var-1)' : 'inherit'
+        }"
+        class="fi fi-sr-lock"
+      ></i
+      >Anyone with the link{{ linkWithPassword ? " and password" : "" }}
+    </h5>
+    <ng-container *ngIf="!isLinkGenerated">
+      <div class="password-input-flex" *ngIf="linkWithPassword">
+        <div class="pwl">
+          <input
+            (input)="onFocusNext(1)"
+            [(ngModel)]="password[0]"
+            maxlength="1"
+            type="password"
+          />
+          <input
+            (input)="onFocusNext(2)"
+            class="spinp-1"
+            [(ngModel)]="password[1]"
+            maxlength="1"
+            type="password"
+          />
+          <input
+            (input)="onFocusNext(3)"
+            class="spinp-2"
+            [(ngModel)]="password[2]"
+            maxlength="1"
+            type="password"
+          />
+        </div>
+        <i class="fi fi-rr-minus"></i>
+        <div class="pwr">
+          <input
+            (input)="onFocusNext(4)"
+            class="spinp-3"
+            [(ngModel)]="password[3]"
+            maxlength="1"
+            type="password"
+          />
+          <input
+            (input)="onFocusNext(5)"
+            class="spinp-4"
+            [(ngModel)]="password[4]"
+            maxlength="1"
+            type="password"
+          />
+          <input
+            class="spinp-5"
+            [(ngModel)]="password[5]"
+            maxlength="1"
+            type="password"
+          />
+        </div>
       </div>
-      <i class="fi fi-rr-minus"></i>
-      <div class="pwr">
-        <input maxlength="1" type="password">
-        <input maxlength="1" type="password">
-        <input maxlength="1" type="password">
+      <div class="checkbox-group">
+        <div
+          class="custom-checkbox"
+          role="checkbox"
+          [ngClass]="{ 'inactive-checkbox': !expireIn24Hours }"
+          (click)="this.expireIn24Hours = !this.expireIn24Hours"
+        >
+          <div class="checkbox-ball"></div>
+        </div>
+        <p>Make the link expire in 24 hours</p>
       </div>
-    </div>
-    <div class="checkbox-group">
-      <div class="custom-checkbox" role="checkbox">
-        <div class="checkbox-ball"></div>
-      </div>
-      <p>Expire in 24 hours</p>
-    </div>
+      <button
+        style="margin: 0.5rem 0"
+        class="primary-button"
+        [ngClass]="{ 'blocked-button': getButtonValidation() }"
+        (click)="generateInvite()"
+      >
+        <div class="pb-text">Generate link</div>
+      </button>
+    </ng-container>
     <ng-container *ngIf="isLinkGenerated">
       <h5>Here's your team invite link</h5>
       <div class="link-flex">
-        <input disabled type="text" value="??????????????????????????????????????">
-        <i class="fi fi-rr-copy-alt"></i>
+        <input
+          id="linkInput"
+          style="pointer-events: none"
+          type="text"
+          value="{{ inviteLink }}"
+        />
+        <i role="button" (click)="copyInvite()" class="fi fi-rr-copy-alt"></i>
+        <i
+          role="button"
+          (click)="deleteInvite()"
+          style="color: var(--danger-color)"
+          class="fi fi-rr-trash"
+        ></i>
       </div>
     </ng-container>
-    <button style="margin: 0.5rem 0;" class="primary-button">
-      <div class="pb-text">Generate link</div>
-    </button>
   </ng-container>
 </section>

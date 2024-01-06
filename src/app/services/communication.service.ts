@@ -109,6 +109,42 @@ export class CommunicationService {
           callbackData: data,
         });
       });
+      TsSdk.On('INVITE_CREATED', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'invite_created',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('FETCHED_INVITE', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'fetched_invite',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('DELETED_INVITE', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'deleted_invite',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('FETCHED_TEAM_MEMBERS', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'fetched_team_members',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('FETCHED_UNJOINED_TEAM_MEMBERS', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'fetched_unjoined_team_members',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('CREATED_NOTIFICATION', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'created_notification',
+          callbackData: data,
+        });
+      });
     } catch (error) {
       console.error(error);
     }
