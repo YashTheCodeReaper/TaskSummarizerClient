@@ -1,32 +1,128 @@
-<section class="join-team_component" appOutsideClick (outsideClick)="this.appControlService.showJoinTeam = false;"
-  [clickExceptions]="['join-team-flex']">
+<section
+  class="join-team_component"
+  appOutsideClick
+  (outsideClick)="this.appControlService.showJoinTeam = false"
+  [clickExceptions]="['join-team-flex']"
+>
   <div class="icon-circle">
     <i *ngIf="!showPassword" class="fi fi-br-link-alt"></i>
     <i *ngIf="showPassword" class="fi fi-sr-lock"></i>
   </div>
-  <ng-container *ngIf="!showPassword">
+  <ng-container *ngIf="!showPassword && !showBoardSelection">
     <h4>Enter the invitation link or ID</h4>
     <p>Please get the invitation link from the team manager</p>
-    <input type="text" placeholder="https://sampleteam.com/invite?id=12345">
+    <input
+      type="text"
+      placeholder="Please enter the invite id. Ex: 99383"
+      [(ngModel)]="inviteId"
+    />
   </ng-container>
-  <ng-container *ngIf="showPassword">
+  <ng-container *ngIf="showPassword && !showBoardSelection">
     <h4>Verify credentials</h4>
     <p>This team is password protected! Please verify</p>
     <div class="password-input-flex">
       <div class="pwl">
-        <input maxlength="1" type="password">
-        <input maxlength="1" type="password">
-        <input maxlength="1" type="password">
+        <input
+          (input)="onFocusNext(1)"
+          [(ngModel)]="password[0]"
+          maxlength="1"
+          type="password"
+        />
+        <input
+          (input)="onFocusNext(2)"
+          class="spinp-1"
+          [(ngModel)]="password[1]"
+          maxlength="1"
+          type="password"
+        />
+        <input
+          (input)="onFocusNext(3)"
+          class="spinp-2"
+          [(ngModel)]="password[2]"
+          maxlength="1"
+          type="password"
+        />
       </div>
       <i class="fi fi-rr-minus"></i>
       <div class="pwr">
-        <input maxlength="1" type="password">
-        <input maxlength="1" type="password">
-        <input maxlength="1" type="password">
+        <input
+          (input)="onFocusNext(4)"
+          class="spinp-3"
+          [(ngModel)]="password[3]"
+          maxlength="1"
+          type="password"
+        />
+        <input
+          (input)="onFocusNext(5)"
+          class="spinp-4"
+          [(ngModel)]="password[4]"
+          maxlength="1"
+          type="password"
+        />
+        <input
+          class="spinp-5"
+          [(ngModel)]="password[5]"
+          maxlength="1"
+          type="password"
+        />
       </div>
     </div>
   </ng-container>
-  <button class="primary-button">
+  <ng-container *ngIf="showBoardSelection">
+    <h4>Link board</h4>
+    <p>Please select the board to link to this team</p>
+    <form [formGroup]="linkBoardFormGroup">
+      <div
+        class="input-group input-group-jot1"
+        [ngClass]="{
+          'input-group-focus-forced':
+            linkBoardFormGroup.controls['boardToLink'].value?.length,
+          'input-group-focus': showBoardsFlex
+        }"
+      >
+        <label for="boardToLink">Choose a board</label>
+        <input
+          formControlName="boardToLink"
+          type="text"
+          (focus)="onFieldFocus()"
+          (blur)="onFieldFocus()"
+        />
+        <div
+          style="top: 7.5rem"
+          class="dropdown"
+          appOutsideClick
+          (outsideClick)="onBoardsFlexOutsideClick()"
+          [clickExceptions]="['input-group-jot1']"
+          *ngIf="showBoardsFlex"
+        >
+          <div
+            class="option"
+            (click)="onChooseBoard(board, $event)"
+            role="option"
+            *ngFor="let board of filterObject(availableBoards)"
+          >
+            <p>{{ board.name }}</p>
+          </div>
+          <div class="option" *ngIf="!filterObject(availableBoards).length">
+            <p>Not found</p>
+          </div>
+        </div>
+        <i
+          *ngIf="validateField(linkBoardFormGroup, 'boardToLink')"
+          class="warn-icon fi fi-sr-info"
+        ></i>
+      </div>
+      <span
+        class="error-message"
+        *ngIf="validateField(linkBoardFormGroup, 'boardToLink')"
+        >Please link your board to proceed!</span
+      >
+      <span class="error-message info-message">
+        Choose on of your public boards to link to this team.
+      </span>
+    </form>
+  </ng-container>
+  <button class="primary-button" (click)="onJoinInvite()">
     <div class="pb-text">Join!</div>
   </button>
 </section>

@@ -1,0 +1,21 @@
+.notifications_component {
+  width: 50rem;
+  padding: 1rem;
+  height: auto;
+  background: var(--bg-2);
+  color: var(--light-text-1);
+  border-radius: 1.5rem;
+  position: absolute;
+  top: 10rem;
+  right: 32.5rem;
+  border: 1px solid var(--border-1);
+  box-shadow: -10px 10px 10px rgba($color: #000000, $alpha: 0.25);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+  transition: all 300ms ease;
+  animation: slideUp 200ms ease-out forwards;
+}

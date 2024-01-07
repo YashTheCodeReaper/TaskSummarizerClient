@@ -17,7 +17,7 @@ import { MainComponent } from './main/main.component';
 import { DashboardComponent } from './main/dashboard/dashboard.component';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ShareComponent } from './main/dashboard/share/share.component';
+import { ShareComponent } from './shared/share/share.component';
 import { OutsideClickDirective } from './directives/outside-click.directive';
 import { JoinTeamComponent } from './main/sidebar/join-team/join-team.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,10 +25,10 @@ import { OnboardingComponent } from './main/onboarding/onboarding.component';
 import { IntroComponent } from './main/onboarding/intro/intro.component';
 import { NewBoardComponent } from './main/sidebar/new-board/new-board.component';
 import { MemberSwitchComponent } from './main/dashboard/member-switch/member-switch.component';
-import { ExportTaskComponent } from './main/dashboard/export-task/export-task.component';
+import { ExportTaskComponent } from './shared/export-task/export-task.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NotificationsComponent } from './main/dashboard/notifications/notifications.component';
+import { NotificationsComponent } from './shared/notifications/notifications.component';
 import { AddTaskComponent } from './main/dashboard/add-task/add-task.component';
 import { NotilandComponent } from './shared/notiland/notiland.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -47,6 +47,7 @@ import { DataService } from './services/data.service';
 import { SevereErrorComponent } from './shared/severe-error/severe-error.component';
 import { JiraInitFetcherComponent } from './main/onboarding/jira-init-fetcher/jira-init-fetcher.component';
 import { NewTeamComponent } from './main/team/new-team/new-team.component';
+import { NInviteComponent } from './shared/notifications/n-invite/n-invite.component';
 
 export function playerFactory() {
   return player;
@@ -85,6 +86,7 @@ export function checkQueryParamsChange(dataService: DataService) {
     SevereErrorComponent,
     JiraInitFetcherComponent,
     NewTeamComponent,
+    NInviteComponent,
   ],
   imports: [
     BrowserModule,

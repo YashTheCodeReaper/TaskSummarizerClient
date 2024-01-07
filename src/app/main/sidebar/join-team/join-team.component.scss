@@ -40,6 +40,26 @@
     font-weight: 500;
   }
 
+  form {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 1rem 0;
+
+    .input-group-focus input {
+      height: 6rem;
+      padding: 0 1.75rem;
+    }
+
+    .input-group-focus-forced input {
+      height: 6rem;
+      padding: 0 1.75rem;
+    }
+  }
+
   p{
     font-size: 1.4rem;
     font-weight: 400;

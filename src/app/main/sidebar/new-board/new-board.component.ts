@@ -91,7 +91,7 @@ export class NewBoardComponent {
             verticalPosition: 'top',
             duration: 5000,
           });
-          this.appControlService.showNewBoard = false;
+          location.reload();
           break;
         }
       }

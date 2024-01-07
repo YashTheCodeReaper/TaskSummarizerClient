@@ -50,6 +50,7 @@ export class AuthGuardService implements CanActivate {
                 ? this.dataService.userObj.teams
                 : [],
             });
+            TsSdk.getAllNotifications();
             resolve(true);
           } else {
             this.actionOnUnauthorization();

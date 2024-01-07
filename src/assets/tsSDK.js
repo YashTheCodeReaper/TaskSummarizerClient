@@ -55,17 +55,24 @@ window.console.log = this.console.log || function () {};
     updateOnboarding: "general/updateOnboarding",
     createBoard: "boards/createBoard",
     getAllBoards: "boards/getAllBoards",
-    updateLinkedTeams: "boards/updateLinkedTeams",
+    addLinkedTeam: "boards/addLinkedTeam",
     createTeam: "teams/createTeam",
     getMyTeam: "teams/getMyTeam",
+    getTeam: "teams/getTeam",
     getAllInvolvedTeams: "teams/getAllInvolvedTeams",
-    updateMyTeams: "users/updateMyTeams",
+    joinTeam: "users/joinTeam",
     createInvite: "teams/createInvite",
     getInvite: "teams/getInvite",
     deleteInvite: "teams/deleteInvite",
     getTeamMembers: "teams/getTeamMembers",
     getUnjoinedMembers: "teams/getUnjoinedMembers",
     createNotification: "notifications/createNotification",
+    getAllNotifications: "notifications/getAllNotifications",
+    clearActiveNotificationStatus:
+      "notifications/clearActiveNotificationStatus",
+    joinTeam: "users/joinTeam",
+    deleteNotification: "notifications/deleteNotification",
+    validateInvite: "teams/validateInvite",
   };
 
   var ErrorCodes = {
@@ -84,9 +91,9 @@ window.console.log = this.console.log || function () {};
     BOARD_CREATED: 3006,
     BOARDS_FETCHED: 3007,
     TEAM_CREATED: 3008,
-    TEAM_FETCHED: 3009,
-    LINKED_TEAMS_UPDATED: 3010,
-    MY_TEAMS_UPDATED: 3011,
+    YOUR_TEAM_FETCHED: 3009,
+    TEAM_LINKED_TO_BOARD: 3010,
+    JOINED_TEAM: 3011,
     ALL_TEAMS_FETCHED: 3012,
     INVITE_CREATED: 3013,
     FETCHED_INVITE: 3014,
@@ -94,6 +101,11 @@ window.console.log = this.console.log || function () {};
     FETCHED_TEAM_MEMBERS: 3016,
     FETCHED_UNJOINED_TEAM_MEMBERS: 3017,
     CREATED_NOTIFICATION: 3018,
+    FETCHED_NOTIFICATIONS: 3019,
+    CHANGED_ACTIVE_NOTIFICATION_STATUSES: 3020,
+    DELETED_NOTIFICATION: 3021,
+    TEAM_FETCHED: 3022,
+    INVITE_VALIDATED: 3023,
   };
 
   var ReturnCodes = {
@@ -106,9 +118,9 @@ window.console.log = this.console.log || function () {};
     ERROR_CREATING_BOARD: 2007,
     ERROR_FETCHING_BOARDS: 2008,
     ERROR_CREATING_TEAM: 2009,
-    ERROR_FETCHING_TEAM: 2010,
-    ERROR_UPDATING_LINKED_TEAMS: 2011,
-    ERROR_UPDATING_MY_TEAMS: 2012,
+    ERROR_FETCHING_MY_TEAM: 2010,
+    ERROR_LINKING_TEAM_TO_BOARD: 2011,
+    ERROR_JOINING_TEAM: 2012,
     ERROR_FETCHING_ALL_MY_TEAMS: 2013,
     ERROR_CREATING_AN_INVITE: 2014,
     ERROR_FETCHING_INVITES: 2015,
@@ -116,6 +128,11 @@ window.console.log = this.console.log || function () {};
     ERROR_FETCHING_TEAM_MEMBERS: 2017,
     ERROR_FETCHING_UNJOINED_TEAM_MEMBERS: 2018,
     ERROR_CREATING_NOTIFICATION: 2019,
+    ERROR_FETCHING_NOTIFICATIONS: 2020,
+    ERROR_CHANGING_NOTIFICATION_STATUSES: 2021,
+    ERROR_DELETING_NOTIFICATION: 2022,
+    ERROR_FETCHING_TEAM: 2023,
+    ERROR_VALIDATING_INVITE: 2024,
   };
 
   /**
@@ -213,14 +230,14 @@ window.console.log = this.console.log || function () {};
         case SuccessCodes.TEAM_CREATED:
           ret = "TEAM_CREATED";
           break;
-        case SuccessCodes.TEAM_FETCHED:
-          ret = "TEAM_FETCHED";
+        case SuccessCodes.YOUR_TEAM_FETCHED:
+          ret = "YOUR_TEAM_FETCHED";
           break;
-        case SuccessCodes.LINKED_TEAMS_UPDATED:
-          ret = "LINKED_TEAMS_UPDATED";
+        case SuccessCodes.TEAM_LINKED_TO_BOARD:
+          ret = "TEAM_LINKED_TO_BOARD";
           break;
-        case SuccessCodes.MY_TEAMS_UPDATED:
-          ret = "MY_TEAMS_UPDATED";
+        case SuccessCodes.JOINED_TEAM:
+          ret = "JOINED_TEAM";
           break;
         case SuccessCodes.ALL_TEAMS_FETCHED:
           ret = "ALL_TEAMS_FETCHED";
@@ -242,6 +259,21 @@ window.console.log = this.console.log || function () {};
           break;
         case SuccessCodes.CREATED_NOTIFICATION:
           ret = "CREATED_NOTIFICATION";
+          break;
+        case SuccessCodes.FETCHED_NOTIFICATIONS:
+          ret = "FETCHED_NOTIFICATIONS";
+          break;
+        case SuccessCodes.CHANGED_ACTIVE_NOTIFICATION_STATUSES:
+          ret = "CHANGED_ACTIVE_NOTIFICATION_STATUSES";
+          break;
+        case SuccessCodes.DELETED_NOTIFICATION:
+          ret = "DELETED_NOTIFICATION";
+          break;
+        case SuccessCodes.TEAM_FETCHED:
+          ret = "TEAM_FETCHED";
+          break;
+        case SuccessCodes.INVITE_VALIDATED:
+          ret = "INVITE_VALIDATED";
           break;
         default:
           ret = defaultCode ?? "ACTION_SUCCESS";
@@ -288,14 +320,14 @@ window.console.log = this.console.log || function () {};
         case ReturnCodes.ERROR_CREATING_TEAM:
           ret = "Error occured while creating a team";
           break;
-        case ReturnCodes.ERROR_FETCHING_TEAM:
-          ret = "Error occured while fetching a team";
+        case ReturnCodes.ERROR_FETCHING_MY_TEAM:
+          ret = "Error occured while fetching your team";
           break;
-        case ReturnCodes.ERROR_UPDATING_LINKED_TEAMS:
-          ret = "Error occured while updating linked teams in a board";
+        case ReturnCodes.ERROR_LINKING_TEAM_TO_BOARD:
+          ret = "Error occured while linking team in a board";
           break;
-        case ReturnCodes.ERROR_UPDATING_MY_TEAMS:
-          ret = "Error occured while updating my involved teams";
+        case ReturnCodes.ERROR_JOINING_TEAM:
+          ret = "Error occured while adding user to a team";
           break;
         case ReturnCodes.ERROR_FETCHING_ALL_MY_TEAMS:
           ret = "Error occured while getting all my teams details";
@@ -318,6 +350,21 @@ window.console.log = this.console.log || function () {};
           break;
         case ReturnCodes.ERROR_CREATING_NOTIFICATION:
           ret = "Error occured while creating a notification";
+          break;
+        case ReturnCodes.ERROR_FETCHING_NOTIFICATIONS:
+          ret = "Error occured while fetching notifications";
+          break;
+        case ReturnCodes.ERROR_CHANGING_NOTIFICATION_STATUSES:
+          ret = "Error occured while changing notification statuses";
+          break;
+        case ReturnCodes.ERROR_DELETING_NOTIFICATION:
+          ret = "Error occured while deleting a notification";
+          break;
+        case ReturnCodes.ERROR_FETCHING_TEAM:
+          ret = "Error occured while fetching a team";
+          break;
+        case ReturnCodes.ERROR_VALIDATING_INVITE:
+          ret = "Error occured while validating the invitation";
           break;
         default:
           ret =
@@ -830,7 +877,9 @@ window.console.log = this.console.log || function () {};
         .then((response) => {
           if (!response.ok) {
             TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
-              callbackData: _GetReturnCodeName(ReturnCodes.ERROR_FETCHING_TEAM),
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_FETCHING_MY_TEAM
+              ),
             });
             throw TsSdk.HandleError(
               _GetErrorCodeName(ErrorCodes.API_ERROR),
@@ -840,12 +889,14 @@ window.console.log = this.console.log || function () {};
           return response.json();
         })
         .then((data) => {
-          TsSdk.Emit(_GetSuccessCodeName(SuccessCodes.TEAM_FETCHED), data);
+          TsSdk.Emit(_GetSuccessCodeName(SuccessCodes.YOUR_TEAM_FETCHED), data);
           return data;
         })
         .catch((error) => {
           TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
-            callbackData: _GetReturnCodeName(ReturnCodes.ERROR_FETCHING_TEAM),
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_FETCHING_MY_TEAM
+            ),
           });
           throw TsSdk.HandleError(
             _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
@@ -858,15 +909,15 @@ window.console.log = this.console.log || function () {};
   };
 
   /**
-   * Function to update linked teams in a board
-   * @param {Object: {boardId: String, linkedTeams: Array} updateLinkedTeamsObj
+   * Function to add linked teams in a board
+   * @param {Object: {boardId: String, teamToLink: String}} linkTeamObj
    */
-  TsSdk.updateLinkedTeams = function (updateLinkedTeamsObj) {
+  TsSdk.addLinkedTeam = function (linkTeamObj) {
     try {
       checkConfig();
 
       return fetch(
-        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.updateLinkedTeams}`,
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.addLinkedTeam}`,
         {
           credentials: "include",
           method: "PATCH",
@@ -875,7 +926,7 @@ window.console.log = this.console.log || function () {};
             Accept: "application.json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(updateLinkedTeamsObj),
+          body: JSON.stringify(linkTeamObj),
           cache: "default",
         }
       )
@@ -883,7 +934,7 @@ window.console.log = this.console.log || function () {};
           if (!response.ok) {
             TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
               callbackData: _GetReturnCodeName(
-                ReturnCodes.ERROR_UPDATING_LINKED_TEAMS
+                ReturnCodes.ERROR_LINKING_TEAM_TO_BOARD
               ),
             });
             throw TsSdk.HandleError(
@@ -895,7 +946,7 @@ window.console.log = this.console.log || function () {};
         })
         .then((data) => {
           TsSdk.Emit(
-            _GetSuccessCodeName(SuccessCodes.LINKED_TEAMS_UPDATED),
+            _GetSuccessCodeName(SuccessCodes.TEAM_LINKED_TO_BOARD),
             data
           );
           return data;
@@ -903,7 +954,7 @@ window.console.log = this.console.log || function () {};
         .catch((error) => {
           TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
             callbackData: _GetReturnCodeName(
-              ReturnCodes.ERROR_UPDATING_LINKED_TEAMS
+              ReturnCodes.ERROR_LINKING_TEAM_TO_BOARD
             ),
           });
           throw TsSdk.HandleError(
@@ -917,33 +968,28 @@ window.console.log = this.console.log || function () {};
   };
 
   /**
-   * Function to update the user involved teams
-   * @param {Object: {modifiedTeams: Array} modifiedTeamsObject
+   * Function to join the user to a team
+   * @param teamId: String
    */
-  TsSdk.updateMyTeams = function (modifiedTeamsObject) {
+  TsSdk.joinTeam = function (teamId) {
     try {
       checkConfig();
 
-      return fetch(
-        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.updateMyTeams}`,
-        {
-          credentials: "include",
-          method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${TsSdk.config.apiToken}`,
-            Accept: "application.json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(modifiedTeamsObject),
-          cache: "default",
-        }
-      )
+      return fetch(`${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.joinTeam}`, {
+        credentials: "include",
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${TsSdk.config.apiToken}`,
+          Accept: "application.json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ teamId }),
+        cache: "default",
+      })
         .then((response) => {
           if (!response.ok) {
             TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
-              callbackData: _GetReturnCodeName(
-                ReturnCodes.ERROR_UPDATING_MY_TEAMS
-              ),
+              callbackData: _GetReturnCodeName(ReturnCodes.ERROR_JOINING_TEAM),
             });
             throw TsSdk.HandleError(
               _GetErrorCodeName(ErrorCodes.API_ERROR),
@@ -953,14 +999,12 @@ window.console.log = this.console.log || function () {};
           return response.json();
         })
         .then((data) => {
-          TsSdk.Emit(_GetSuccessCodeName(SuccessCodes.MY_TEAMS_UPDATED), data);
+          TsSdk.Emit(_GetSuccessCodeName(SuccessCodes.JOINED_TEAM), data);
           return data;
         })
         .catch((error) => {
           TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
-            callbackData: _GetReturnCodeName(
-              ReturnCodes.ERROR_UPDATING_MY_TEAMS
-            ),
+            callbackData: _GetReturnCodeName(ReturnCodes.ERROR_JOINING_TEAM),
           });
           throw TsSdk.HandleError(
             _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
@@ -1088,7 +1132,7 @@ window.console.log = this.console.log || function () {};
    * Function to get an invites for a team by a user
    * @param teamId: String
    */
-  TsSdk.getInvite = function (teamId) {
+  TsSdk.getInvite = function (teamId, inviteId) {
     try {
       checkConfig();
 
@@ -1102,7 +1146,7 @@ window.console.log = this.console.log || function () {};
             Accept: "application.json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ teamId }),
+          body: JSON.stringify({ teamId, inviteId }),
           cache: "default",
         }
       )
@@ -1255,7 +1299,7 @@ window.console.log = this.console.log || function () {};
 
   /**
    * Function to fetch all the members who are not part of the team
-   * @param {Object: {teamId: String, searchQuote: String} searchObj
+   * @param {Object: {teamId: String, searchQuote: String}} searchObj
    */
   TsSdk.getUnjoinedMembers = function (searchObj) {
     try {
@@ -1359,6 +1403,286 @@ window.console.log = this.console.log || function () {};
           TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
             callbackData: _GetReturnCodeName(
               ReturnCodes.ERROR_CREATING_NOTIFICATION
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to fetch all notifications for the user
+   */
+  TsSdk.getAllNotifications = function () {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.getAllNotifications}`,
+        {
+          credentials: "include",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_FETCHING_NOTIFICATIONS
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(
+            _GetSuccessCodeName(SuccessCodes.FETCHED_NOTIFICATIONS),
+            data
+          );
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_FETCHING_NOTIFICATIONS
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to clear all active notification statuses
+   */
+  TsSdk.clearActiveNotificationStatus = function () {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.clearActiveNotificationStatus}`,
+        {
+          credentials: "include",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_CHANGING_NOTIFICATION_STATUSES
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(
+            _GetSuccessCodeName(
+              SuccessCodes.CHANGED_ACTIVE_NOTIFICATION_STATUSES
+            ),
+            data
+          );
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_CHANGING_NOTIFICATION_STATUSES
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to clear all active notification statuses
+   * @param notificationId: String
+   */
+  TsSdk.deleteNotification = function (notificationId) {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.deleteNotification}`,
+        {
+          credentials: "include",
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ notificationId }),
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_DELETING_NOTIFICATION
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(
+            _GetSuccessCodeName(SuccessCodes.DELETED_NOTIFICATION),
+            data
+          );
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_DELETING_NOTIFICATION
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to get the data of the team
+   * @param teamId: String
+   */
+  TsSdk.getTeam = function (teamId) {
+    try {
+      checkConfig();
+
+      return fetch(`${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.getTeam}`, {
+        credentials: "include",
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${TsSdk.config.apiToken}`,
+          Accept: "application.json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ teamId }),
+        cache: "default",
+      })
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(ReturnCodes.ERROR_FETCHING_TEAM),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(_GetSuccessCodeName(SuccessCodes.TEAM_FETCHED), data);
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(ReturnCodes.ERROR_FETCHING_TEAM),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to validate the invitation
+   * @param {Object: {password: String, hashedPassword: String}}: passwordObj
+   */
+  TsSdk.validateInvite = function (passwordObj) {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.validateInvite}`,
+        {
+          credentials: "include",
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(passwordObj),
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_VALIDATING_INVITE
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(_GetSuccessCodeName(SuccessCodes.INVITE_VALIDATED), data);
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_VALIDATING_INVITE
             ),
           });
           throw TsSdk.HandleError(

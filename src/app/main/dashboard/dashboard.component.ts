@@ -4,6 +4,8 @@ import { AnimationOptions } from 'ngx-lottie';
 import { AppControlService } from 'src/app/services/app-control.service';
 import { DataService } from 'src/app/services/data.service';
 
+declare var TsSdk: any;
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,6 +23,7 @@ export class DashboardComponent implements OnInit {
     loop: true,
     autoplay: true,
   };
+  isPendingNotifications: boolean = false;
 
   constructor(
     public appControlService: AppControlService,
@@ -63,6 +66,16 @@ export class DashboardComponent implements OnInit {
           formattedDate.substring(0, 2) + formattedDate.substring(3),
         originalDate: currentDate,
       });
+    }
+  }
+
+  onToggleNotifications(): void {
+    try {
+      if (this.dataService.checkPendingNotifications())
+        TsSdk.clearActiveNotificationStatus();
+      this.appControlService.showNotifications = true;
+    } catch (error) {
+      console.error(error);
     }
   }
 }

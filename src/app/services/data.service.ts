@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { ApplicationConfiguration } from '../interfaces/app.config.interface';
 import { Observable, ReplaySubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -23,6 +23,7 @@ export class DataService {
   selectedBoard: any;
   teamMembers: any = {};
   myInvolvedUsers: any[] = [];
+  notifications: any[] = [];
 
   constructor(
     private http: HttpClient,
@@ -32,11 +33,13 @@ export class DataService {
       switch (callbackObj.callbackEvent) {
         case 'boards_fetched': {
           this.boards = callbackObj.callbackData.data;
+          console.log(this.boards);
+          if (!this.boards.length) return;
           this.orgBoards = JSON.parse(
             JSON.stringify(callbackObj.callbackData.data)
           );
           this.flatenBoards();
-          this.selectedBoard = this.boards[1];
+          this.selectedBoard = this.boards[0];
           break;
         }
         case 'all_teams_fetched': {
@@ -56,31 +59,40 @@ export class DataService {
           });
           break;
         }
+        case 'fetched_notifications': {
+          this.notifications = callbackObj.callbackData.data;
+          break;
+        }
+        case 'changed_active_notification_statuses': {
+          TsSdk.getAllNotifications();
+          break;
+        }
       }
     });
   }
 
   flatenBoards(): void {
     try {
-      this.boards.forEach((boardObj: any, index: number) => {
-        if (boardObj?.linked_team || boardObj?.linked_team == '') return;
-        if (boardObj.linked_teams.length == 0) {
-          boardObj.linked_team = '';
-        } else {
-          let modifiedBoardObj: any = [];
+      let modifiedBoardObj: any[] = [];
+      this.boards.forEach((boardObj: any) => {
+        if (boardObj.linked_teams && boardObj.linked_teams.length) {
           boardObj.linked_teams.forEach((teamId: string) => {
-            modifiedBoardObj.push({ ...boardObj, linked_team: teamId });
+            modifiedBoardObj.push({
+              ...boardObj,
+              isActive: false,
+              linked_team: teamId,
+            });
           });
-          modifiedBoardObj.forEach((mBoardObj: any) => {
-            delete mBoardObj.linked_teams;
+        } else
+          modifiedBoardObj.push({
+            ...boardObj,
+            isActive: false,
+            linked_team: '',
           });
-          this.boards.splice(index, 1);
-          this.boards.push(...modifiedBoardObj);
-        }
         delete boardObj.linked_teams;
       });
+      this.boards = modifiedBoardObj;
       console.log(this.boards);
-      this.boards.map((boardObj: any) => (boardObj.isActive = false));
       this.boards[0].isActive = true;
     } catch (error) {
       console.error(error);
@@ -125,6 +137,16 @@ export class DataService {
     try {
       return this.myInvolvedTeams.find(
         (teamObj: any) => teamObj.team_id == teamId
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  checkPendingNotifications(): boolean | any {
+    try {
+      return this.notifications.some(
+        (notificationObject: any) => notificationObject.is_active == '1'
       );
     } catch (error) {
       console.error(error);

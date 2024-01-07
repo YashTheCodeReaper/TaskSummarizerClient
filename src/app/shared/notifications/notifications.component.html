@@ -1,0 +1,10 @@
+<section
+  class="notifications_component"
+  appOutsideClick
+  (outsideClick)="this.appControlService.showNotifications = false"
+  [clickExceptions]="['notifications-button']"
+>
+  <ng-container *ngFor="let notification of dataService.notifications">
+    <app-n-invite [notification]="notification" *ngIf="notification.type == 'invite'"></app-n-invite>
+  </ng-container>
+</section>

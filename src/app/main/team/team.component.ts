@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
 import { AppControlService } from 'src/app/services/app-control.service';
 import { DataService } from 'src/app/services/data.service';
@@ -116,7 +117,8 @@ export class TeamComponent {
 
   constructor(
     public appControlService: AppControlService,
-    public dataService: DataService
+    public dataService: DataService,
+    private router: Router
   ) {
     this.prepareHeatMap();
   }
@@ -167,6 +169,21 @@ export class TeamComponent {
 
   onCreateNewTeam(): void {
     try {
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  onPromptNewTeam(): void {
+    try {
+      if (!this.dataService.boards.length) {
+        this.appControlService.confirmDialog(
+          'Please create a board to continue',
+          (result: any) => {
+            this.router.navigate(['/']);
+          }
+        );
+      } else this.appControlService.showNewTeam = true;
     } catch (error) {
       console.error(error);
     }

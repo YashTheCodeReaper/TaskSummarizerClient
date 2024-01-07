@@ -32,13 +32,12 @@ export class ShareComponent {
     private commService: CommunicationService,
     private _snackBar: MatSnackBar
   ) {
-    TsSdk.getInvite(this.dataService.selectedBoard.linked_team);
+    TsSdk.getInvite(this.dataService.selectedBoard.linked_team, undefined);
     this.teamMembers = this.dataService.myInvolvedUsers.filter((userObj: any) =>
       JSON.stringify(userObj.teams).includes(
         this.dataService.selectedBoard.linked_team
       )
     );
-    console.log(this.teamMembers);
 
     this.commService.callbacksObservable.subscribe((callbackObj: any) => {
       switch (callbackObj.callbackEvent) {
@@ -48,7 +47,10 @@ export class ShareComponent {
             verticalPosition: 'top',
             duration: 5000,
           });
-          TsSdk.getInvite(this.dataService.selectedBoard.linked_team);
+          TsSdk.getInvite(
+            this.dataService.selectedBoard.linked_team,
+            undefined
+          );
           break;
         }
         case 'fetched_invite': {
@@ -82,6 +84,7 @@ export class ShareComponent {
               duration: 5000,
             });
             this.appControlService.showAppShare = false;
+            TsSdk.getAllNotifications();
           }
           break;
         }

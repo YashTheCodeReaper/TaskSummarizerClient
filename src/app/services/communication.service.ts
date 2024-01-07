@@ -91,15 +91,15 @@ export class CommunicationService {
           callbackData: data,
         });
       });
-      TsSdk.On('TEAM_FETCHED', (data: any) => {
+      TsSdk.On('YOUR_TEAM_FETCHED', (data: any) => {
         this.callbacks.next({
-          callbackEvent: 'team_fetched',
+          callbackEvent: 'your_team_fetched',
           callbackData: data,
         });
       });
-      TsSdk.On('LINKED_TEAMS_UPDATED', (data: any) => {
+      TsSdk.On('TEAM_LINKED_TO_BOARD', (data: any) => {
         this.callbacks.next({
-          callbackEvent: 'linked_teams_updated',
+          callbackEvent: 'team_linked_to_board',
           callbackData: data,
         });
       });
@@ -142,6 +142,30 @@ export class CommunicationService {
       TsSdk.On('CREATED_NOTIFICATION', (data: any) => {
         this.callbacks.next({
           callbackEvent: 'created_notification',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('FETCHED_NOTIFICATIONS', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'fetched_notifications',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('CHANGED_ACTIVE_NOTIFICATION_STATUSES', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'changed_active_notification_statuses',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('JOINED_TEAM', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'joined_team',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('INVITE_VALIDATED', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'invite_validated',
           callbackData: data,
         });
       });

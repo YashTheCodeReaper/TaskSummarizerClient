@@ -1,0 +1,102 @@
+.join-team-notification {
+  width: 100%;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background: var(--bg-1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+
+  .icon-circle {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(90deg, var(--theme-var-1) 0%, #FC00FF 100%);
+
+    i {
+      font-size: 1.6rem;
+    }
+  }
+
+  h4 {
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0.75;
+    margin-top: -0.5rem;
+  }
+
+  .board-button-flex {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+
+    .board-chooser {
+      background: var(--bg-3);
+      border-radius: 5rem;
+      height: 3rem;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+
+      .other-boards-flex {
+        position: absolute;
+        top: 3.5rem;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0.5rem;
+        background: var(--bg-3);
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        width: 100%;
+
+        .board-chooser {
+          background: var(--bg-1);
+          border-radius: 0.5rem;
+          height: 3rem;
+          padding: 0 1rem;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          position: relative;
+        }
+      }
+
+      p {
+        font-size: 1.4rem;
+        font-weight: 400;
+        margin-top: 0.15rem;
+        max-width: 10rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: pre;
+      }
+    }
+
+    .button-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+}

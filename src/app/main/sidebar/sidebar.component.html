@@ -79,12 +79,7 @@
       <!-- Personal boards info -->
       <div
         class="boards-info-flex"
-        style="padding-bottom: 1rem"
         *ngIf="!board.linked_team"
-        [ngStyle]="{
-          'margin-top': i == 0 ? '0.75rem' : '',
-          'margin-bottom': i == 0 ? '-1rem' : '0'
-        }"
       >
         <div class="board-flex" role="button" (click)="onSelectBoard(board)">
           <i style="color: #24c3a9" class="fi fi-rr-triangle"></i>
@@ -92,7 +87,7 @@
         </div>
       </div>
     </ng-container>
-    <div class="boards-info-flex" *ngIf="dataService.boards.length">
+    <div class="boards-info-flex" style="padding-bottom: 0;" *ngIf="dataService.boards.length">
       <div
         class="board-flex"
         (click)="this.appControlService.showNewBoard = true"

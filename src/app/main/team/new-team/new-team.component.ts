@@ -76,33 +76,17 @@ export class NewTeamComponent implements OnInit {
           TsSdk.getMyTeam();
           break;
         }
-        case 'team_fetched': {
-          let updatedLinkedTeams =
-            this.dataService.orgBoards[
-              this.dataService.orgBoards.findIndex(
-                (boardObj: any) =>
-                  boardObj.board_id == this.chosenBoard.board_id
-              )
-            ].linked_teams;
-
-          let modifiedMyTeams = dataService.userObj.teams;
-
-          if (!updatedLinkedTeams) updatedLinkedTeams = [];
-          updatedLinkedTeams.push(callbackObj.callbackData.data[0].team_id);
-
-          if (!modifiedMyTeams) modifiedMyTeams = [];
-          modifiedMyTeams.push(callbackObj.callbackData.data[0].team_id);
-
-          let updateLinkedTeamsObj = {
+        case 'your_team_fetched': {
+          let linkTeamObj = {
             boardId: this.chosenBoard.board_id,
-            linkedTeams: updatedLinkedTeams,
+            teamToLink: callbackObj.callbackData.data[0].team_id,
           };
 
-          TsSdk.updateLinkedTeams(updateLinkedTeamsObj);
-          TsSdk.updateMyTeams({ modifiedTeams: modifiedMyTeams });
+          TsSdk.addLinkedTeam(linkTeamObj);
+          TsSdk.joinTeam(callbackObj.callbackData.data[0].team_id);
           break;
         }
-        case 'linked_teams_updated': {
+        case 'team_linked_to_board': {
           this._snackBar.open(callbackObj.callbackData.message, 'OK', {
             horizontalPosition: 'center',
             verticalPosition: 'top',
@@ -116,11 +100,9 @@ export class NewTeamComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.availableBoards = this.dataService.boards.filter(
-        (boardObj: any) => boardObj.accessibility_constraints.isPrivate == false
-      );
-    }, 500);
+    this.availableBoards = this.dataService.boards.filter(
+      (boardObj: any) => boardObj.accessibility_constraints.isPrivate == false
+    );
   }
 
   getMiniUserName(name: string): string | any {

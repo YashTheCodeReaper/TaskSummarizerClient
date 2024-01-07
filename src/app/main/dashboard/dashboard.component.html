@@ -40,11 +40,18 @@
         </div>
         <div
           class="medium-button notifications-button"
-          (click)="this.appControlService.showNotifications = true"
+          (click)="onToggleNotifications()"
           role="button"
+          [ngStyle]="{
+            'pointer-events': !dataService.notifications.length ? 'none' : 'all',
+            opacity: !dataService.notifications.length ? '0.3' : '1'
+          }"
         >
           <i class="fi fi-rr-bell"></i>
-          <div class="bell"></div>
+          <div
+            class="bell"
+            *ngIf="dataService.checkPendingNotifications()"
+          ></div>
         </div>
         <div
           class="medium-button export-task-button"

@@ -1,0 +1,43 @@
+<div class="join-team-notification" *ngIf="notification.type == 'invite'">
+  <div class="icon-circle">
+    <i class="fi fi-sr-users"></i>
+  </div>
+  <h4>
+    {{ notification.data.invitedBy }} has requested you to join
+    {{ notification.data.teamObj.name }}
+  </h4>
+  <p>
+    Please be careful on what board you are sharing with your team. You can
+    change the shared board in the settings later anyways.
+  </p>
+  <div class="board-button-flex">
+    <div class="board-chooser">
+      <p role="button" (click)="this.showOtherBoardsFlex = true">
+        {{chosenBoard.name}}
+      </p>
+      <div
+        class="other-boards-flex"
+        *ngIf="showOtherBoardsFlex"
+        appOutsideClick
+        (outsideClick)="this.showOtherBoardsFlex = false"
+        [clickExceptions]="['board-chooser']"
+      >
+        <div
+          class="board-chooser"
+          *ngFor="let board of filterPublicBoards()"
+          (click)="onChooseBoard(board, $event)"
+        >
+          <p>{{ board.name }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="button-flex">
+      <button class="primary-button danger-button" (click)="deleteNotification()">
+        <div class="pb-text">Deny</div>
+      </button>
+      <button class="primary-button" (click)="onJoinTeam()">
+        <div class="pb-text">Accept</div>
+      </button>
+    </div>
+  </div>
+</div>
