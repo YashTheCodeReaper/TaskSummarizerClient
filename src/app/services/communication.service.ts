@@ -169,6 +169,18 @@ export class CommunicationService {
           callbackData: data,
         });
       });
+      TsSdk.On('FETCHED_OVERALL_JIRA_STATS', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'fetched_overall_jira_stats',
+          callbackData: data,
+        });
+      });
+      TsSdk.On('FETCHED_JIRA_PROJECT_KEY_MAPPER', (data: any) => {
+        this.callbacks.next({
+          callbackEvent: 'fetched_jira_project_key_mapper',
+          callbackData: data,
+        });
+      });
     } catch (error) {
       console.error(error);
     }

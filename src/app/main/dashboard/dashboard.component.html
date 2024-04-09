@@ -43,7 +43,9 @@
           (click)="onToggleNotifications()"
           role="button"
           [ngStyle]="{
-            'pointer-events': !dataService.notifications.length ? 'none' : 'all',
+            'pointer-events': !dataService.notifications.length
+              ? 'none'
+              : 'all',
             opacity: !dataService.notifications.length ? '0.3' : '1'
           }"
         >
@@ -269,7 +271,7 @@
         </div>
       </div>
     </div>
-    <div class="ds-bottom">
+    <div class="ds-bottom" *ngIf="dataService?.jiraOverallStats">
       <div class="weekly-insights">
         <div class="title-flex">
           <h4>Weekly Insights</h4>
@@ -424,17 +426,31 @@
       <div class="activity-log">
         <div class="title-flex">
           <h4>Yashwanth's Projects</h4>
-          <h5>4 Active Projects</h5>
+          <h5>
+            {{ dataService.jiraOverallStats?.totalStats?.length }} Active
+            Projects
+          </h5>
         </div>
         <div class="projects-container">
-          <div class="project-comp">
+          <div
+            class="project-comp"
+            *ngFor="
+              let project of dataService.jiraOverallStats.totalStats;
+              let i = index
+            "
+          >
             <div class="project-name">
-              <i style="color: #7da9ff" class="fi fi-ss-bullet"></i>
-              <p>PRODUCT QA</p>
+              <i
+                [ngStyle]="{ color: uniqueColors[i] }"
+                class="fi fi-ss-bullet"
+              ></i>
+              <p>
+                {{ dataService.jiraProjectKeyMap[project.prefix] }}
+              </p>
             </div>
             <div class="total-issues">
               <p>Total issues</p>
-              <h3>356</h3>
+              <h3>{{project.count}}</h3>
             </div>
             <div class="project-stats-flex">
               <p>Active</p>
@@ -453,93 +469,6 @@
                   ></div>
                 </div>
                 <p>65%</p>
-              </div>
-            </div>
-          </div>
-          <div class="project-comp">
-            <div class="project-name">
-              <i style="color: #f48c7d" class="fi fi-ss-bullet"></i>
-              <p>ENGINEERING QA</p>
-            </div>
-            <div class="total-issues">
-              <p>Total issues</p>
-              <h3>128</h3>
-            </div>
-            <div class="project-stats-flex">
-              <p>Active</p>
-              <div class="stat-bar-flex">
-                <div class="stat-bar-overlay">
-                  <div style="width: 18%" class="stat-active"></div>
-                </div>
-                <p>18%</p>
-              </div>
-              <p>Completed</p>
-              <div class="stat-bar-flex">
-                <div class="stat-bar-overlay">
-                  <div
-                    style="width: 56%; left: unset; right: 0"
-                    class="stat-active"
-                  ></div>
-                </div>
-                <p>56%</p>
-              </div>
-            </div>
-          </div>
-          <div class="project-comp">
-            <div class="project-name">
-              <i style="color: #ff7edb" class="fi fi-ss-bullet"></i>
-              <p>PRODUCT BACKLOGS</p>
-            </div>
-            <div class="total-issues">
-              <p>Total issues</p>
-              <h3>24</h3>
-            </div>
-            <div class="project-stats-flex">
-              <p>Active</p>
-              <div class="stat-bar-flex">
-                <div class="stat-bar-overlay">
-                  <div style="width: 90%" class="stat-active"></div>
-                </div>
-                <p>90%</p>
-              </div>
-              <p>Completed</p>
-              <div class="stat-bar-flex">
-                <div class="stat-bar-overlay">
-                  <div
-                    style="width: 10%; left: unset; right: 0"
-                    class="stat-active"
-                  ></div>
-                </div>
-                <p>10%</p>
-              </div>
-            </div>
-          </div>
-          <div class="project-comp">
-            <div class="project-name">
-              <i style="color: #ffe27c" class="fi fi-ss-bullet"></i>
-              <p>PROJECT QA</p>
-            </div>
-            <div class="total-issues">
-              <p>Total issues</p>
-              <h3>880</h3>
-            </div>
-            <div class="project-stats-flex">
-              <p>Active</p>
-              <div class="stat-bar-flex">
-                <div class="stat-bar-overlay">
-                  <div style="width: 46%" class="stat-active"></div>
-                </div>
-                <p>46%</p>
-              </div>
-              <p>Completed</p>
-              <div class="stat-bar-flex">
-                <div class="stat-bar-overlay">
-                  <div
-                    style="width: 54%; left: unset; right: 0"
-                    class="stat-active"
-                  ></div>
-                </div>
-                <p>54%</p>
               </div>
             </div>
           </div>

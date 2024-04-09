@@ -22,7 +22,7 @@ export class TeamComponent {
   };
   members = [
     {
-      name: 'Suraj Kumar',
+      name: 'Sachin Tendulkar',
       designation: 'Technical Lead',
       profilePic: 'https://i.pravatar.cc/100?img=52',
       jiraHeat: [
@@ -45,7 +45,7 @@ export class TeamComponent {
       ],
     },
     {
-      name: 'Chirag Ramdas',
+      name: 'Karen',
       designation: 'Senior Software Engineer',
       profilePic: 'https://i.pravatar.cc/100?img=53',
       jiraHeat: [
@@ -68,7 +68,7 @@ export class TeamComponent {
       ],
     },
     {
-      name: 'Poornachandra M',
+      name: 'John Wick',
       designation: 'Software Engineer',
       profilePic: 'https://i.pravatar.cc/100?img=42',
       jiraHeat: [

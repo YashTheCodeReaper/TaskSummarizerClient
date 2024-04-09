@@ -68,7 +68,11 @@
           <p>{{ dataService.getTeamInfo(board.linked_team).name }}</p>
           <i class="fi dropdown-icon fi-br-angle-down"></i>
         </div>
-        <div class="boards-info-flex" role="button" (click)="onSelectBoard(board)">
+        <div
+          class="boards-info-flex"
+          role="button"
+          (click)="onSelectBoard(board)"
+        >
           <div class="board-flex">
             <i style="color: #f48c7d" class="fi fi-br-circle"></i>
             <p>{{ board.name }}</p>
@@ -77,17 +81,18 @@
       </div>
 
       <!-- Personal boards info -->
-      <div
-        class="boards-info-flex"
-        *ngIf="!board.linked_team"
-      >
+      <div class="boards-info-flex" *ngIf="!board.linked_team">
         <div class="board-flex" role="button" (click)="onSelectBoard(board)">
           <i style="color: #24c3a9" class="fi fi-rr-triangle"></i>
           <p>{{ board.name }}</p>
         </div>
       </div>
     </ng-container>
-    <div class="boards-info-flex" style="padding-bottom: 0;" *ngIf="dataService.boards.length">
+    <div
+      class="boards-info-flex"
+      style="padding-bottom: 0; margin-top: -0.5rem"
+      *ngIf="dataService.boards.length"
+    >
       <div
         class="board-flex"
         (click)="this.appControlService.showNewBoard = true"

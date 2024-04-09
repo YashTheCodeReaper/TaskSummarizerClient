@@ -50,6 +50,8 @@ export class AuthGuardService implements CanActivate {
                 ? this.dataService.userObj.teams
                 : [],
             });
+            TsSdk.getOverallJiraStats(this.dataService.userObj.jira.email);
+            TsSdk.getJiraProjectKeyMapper();
             TsSdk.getAllNotifications();
             resolve(true);
           } else {

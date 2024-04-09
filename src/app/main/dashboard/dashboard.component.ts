@@ -24,6 +24,18 @@ export class DashboardComponent implements OnInit {
     autoplay: true,
   };
   isPendingNotifications: boolean = false;
+  uniqueColors: string[] = [
+    '#7da9ff',
+    '#f48c7d',
+    '#ff7edb',
+    '#ffe27c',
+    '#ffe27c',
+    '#a1ff7c',
+    '#7cfff6',
+    '#ff3434',
+    '#ff349a',
+    '#e434ff',
+  ];
 
   constructor(
     public appControlService: AppControlService,

@@ -100,7 +100,7 @@ export class NewTeamComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.availableBoards = this.dataService.boards.filter(
+    this.availableBoards = this.dataService.orgBoards.filter(
       (boardObj: any) => boardObj.accessibility_constraints.isPrivate == false
     );
   }

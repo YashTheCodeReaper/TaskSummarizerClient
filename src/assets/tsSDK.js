@@ -73,6 +73,9 @@ window.console.log = this.console.log || function () {};
     joinTeam: "users/joinTeam",
     deleteNotification: "notifications/deleteNotification",
     validateInvite: "teams/validateInvite",
+    getOverallJiraStats: "jira/getOverallStats",
+    updateJiraProjectKeyMapping: "admin/updateJiraProjectKeyMapping",
+    getJiraProjectKeyMapper: "jira/getJiraProjectKeyMapper",
   };
 
   var ErrorCodes = {
@@ -106,6 +109,9 @@ window.console.log = this.console.log || function () {};
     DELETED_NOTIFICATION: 3021,
     TEAM_FETCHED: 3022,
     INVITE_VALIDATED: 3023,
+    FETCHED_OVERALL_JIRA_STATS: 3024,
+    UPDATED_JIRA_PROJECT_KEY_MAPPING: 3025,
+    FETCHED_JIRA_PROJECT_KEY_MAPPER: 3026,
   };
 
   var ReturnCodes = {
@@ -133,6 +139,9 @@ window.console.log = this.console.log || function () {};
     ERROR_DELETING_NOTIFICATION: 2022,
     ERROR_FETCHING_TEAM: 2023,
     ERROR_VALIDATING_INVITE: 2024,
+    ERROR_FETCHING_OVERALL_JIRA_STATS: 2025,
+    ERROR_UPDATING_JIRA_PROJECT_KEY_MAPPING: 2026,
+    ERROR_FETCHING_JIRA_PROJECT_KEY_MAPPER: 2027,
   };
 
   /**
@@ -275,6 +284,12 @@ window.console.log = this.console.log || function () {};
         case SuccessCodes.INVITE_VALIDATED:
           ret = "INVITE_VALIDATED";
           break;
+        case SuccessCodes.FETCHED_OVERALL_JIRA_STATS:
+          ret = "FETCHED_OVERALL_JIRA_STATS";
+          break;
+        case SuccessCodes.FETCHED_JIRA_PROJECT_KEY_MAPPER:
+          ret = "FETCHED_JIRA_PROJECT_KEY_MAPPER";
+          break;
         default:
           ret = defaultCode ?? "ACTION_SUCCESS";
       }
@@ -365,6 +380,12 @@ window.console.log = this.console.log || function () {};
           break;
         case ReturnCodes.ERROR_VALIDATING_INVITE:
           ret = "Error occured while validating the invitation";
+          break;
+        case ReturnCodes.ERROR_FETCHING_OVERALL_JIRA_STATS:
+          ret = "Error occured while fetching overall jira stats";
+          break;
+        case ReturnCodes.ERROR_FETCHING_JIRA_PROJECT_KEY_MAPPER:
+          ret = "Error occured while fetching jira project key mapper";
           break;
         default:
           ret =
@@ -1683,6 +1704,181 @@ window.console.log = this.console.log || function () {};
           TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
             callbackData: _GetReturnCodeName(
               ReturnCodes.ERROR_VALIDATING_INVITE
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to get overall jira statistics
+   * @param jiraEmail: String
+   */
+  TsSdk.getOverallJiraStats = function (jiraEmail) {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.getOverallJiraStats}`,
+        {
+          credentials: "include",
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ jiraEmail }),
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_FETCHING_OVERALL_JIRA_STATS
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(
+            _GetSuccessCodeName(SuccessCodes.FETCHED_OVERALL_JIRA_STATS),
+            data
+          );
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_FETCHING_OVERALL_JIRA_STATS
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to validate the invitation
+   * @param {Object: {jiraEmail: String, apiToken: String}} jiraCredsObj
+   */
+  TsSdk.updateJiraProjectKeyMapping = function (jiraCredsObj) {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.updateJiraProjectKeyMapping}`,
+        {
+          credentials: "include",
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(jiraCredsObj),
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_UPDATING_JIRA_PROJECT_KEY_MAPPING
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(
+            _GetSuccessCodeName(SuccessCodes.UPDATED_JIRA_PROJECT_KEY_MAPPING),
+            data
+          );
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_UPDATING_JIRA_PROJECT_KEY_MAPPING
+            ),
+          });
+          throw TsSdk.HandleError(
+            _GetErrorCodeName(ErrorCodes.CATCH_ERROR),
+            error
+          );
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Function to fetch jira project key mapping
+   */
+  TsSdk.getJiraProjectKeyMapper = function () {
+    try {
+      checkConfig();
+
+      return fetch(
+        `${TsSdk.config.serverUrl1}${TsSdk.targetSubUrl.getJiraProjectKeyMapper}`,
+        {
+          credentials: "include",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${TsSdk.config.apiToken}`,
+            Accept: "application.json",
+            "Content-Type": "application/json",
+          },
+          cache: "default",
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+              callbackData: _GetReturnCodeName(
+                ReturnCodes.ERROR_FETCHING_JIRA_PROJECT_KEY_MAPPER
+              ),
+            });
+            throw TsSdk.HandleError(
+              _GetErrorCodeName(ErrorCodes.API_ERROR),
+              `HTTP Error: ${response.status}`
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          TsSdk.Emit(
+            _GetSuccessCodeName(SuccessCodes.FETCHED_JIRA_PROJECT_KEY_MAPPER),
+            data
+          );
+          return data;
+        })
+        .catch((error) => {
+          TsSdk.Emit(_GetErrorCodeName(ErrorCodes.ERROR), {
+            callbackData: _GetReturnCodeName(
+              ReturnCodes.ERROR_FETCHING_JIRA_PROJECT_KEY_MAPPER
             ),
           });
           throw TsSdk.HandleError(

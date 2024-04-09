@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AppControlService } from './services/app-control.service';
 import { CommunicationService } from './services/communication.service';
 
+declare var TsSdk: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

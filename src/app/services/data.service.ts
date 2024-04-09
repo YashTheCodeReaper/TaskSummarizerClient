@@ -24,6 +24,8 @@ export class DataService {
   teamMembers: any = {};
   myInvolvedUsers: any[] = [];
   notifications: any[] = [];
+  jiraOverallStats: any;
+  jiraProjectKeyMap: any;
 
   constructor(
     private http: HttpClient,
@@ -61,6 +63,16 @@ export class DataService {
         }
         case 'fetched_notifications': {
           this.notifications = callbackObj.callbackData.data;
+          break;
+        }
+        case 'fetched_overall_jira_stats': {
+          this.jiraOverallStats = callbackObj.callbackData.data;
+          break;
+        }
+        case 'fetched_jira_project_key_mapper': {
+          this.jiraProjectKeyMap =
+            callbackObj.callbackData.data[0].jira_project_key_map;
+          console.log(this.jiraProjectKeyMap);
           break;
         }
         case 'changed_active_notification_statuses': {
